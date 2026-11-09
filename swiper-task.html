@@ -714,6 +714,10 @@
         .effects button { font-size: 10.5px; padding: 7px 10px; }
         .stage-ctrl { width: 100%; justify-content: space-between; }
     }
+
+    /* 键盘可达性：Tab 走到哪儿出现一条细框，鼠标点击不出现，不干扰版面 */
+    :focus-visible { outline: 1px solid var(--red); outline-offset: 3px; }
+    .stage:focus-visible { outline-color: var(--amber); }
 </style>
 </head>
 <body>
@@ -1060,6 +1064,12 @@
                             把 <code>next.rotate</code> 的第三个值从 6 改成 20（页面上就是上面那个滑块拖到 20），右侧那张立刻歪 14 度。注意 rotate 数组的顺序是 x / y / z，写错位置会变成绕横轴翻转，卡片会像躺倒一样，不是左右倾斜。
                         </div>
                     </details>
+                    <details>
+                        <summary><b>Q3</b>七个按钮轮着点一圈，轮播变高了、照片越来越黑，为什么？</summary>
+                        <div class="ans">
+                            换效果只能 <code>destroy</code> 后重建，但 destroy 只回收实例和行内样式，<b>效果模块自己插进 DOM 的装饰节点它不管</b>。cube 会往 wrapper 里塞一个 <code>.swiper-cube-shadow</code> 占位层，它的 <code>height:100%</code> 把重建后的舞台撑到两倍高（实测 660px → 1171px）；coverflow / flip / cards 给每张 slide 叠的 <code>.swiper-slide-shadow-*</code> 每切一轮多一层，切六七次照片就明显压暗了。所以重建前要先把这两类节点删掉——这就是 <code>build()</code> 开头那段清理代码的由来。
+                        </div>
+                    </details>
                 </div>
             </div>
         </section>
@@ -1257,6 +1267,13 @@
             sw.destroy(true, true);
             sw = null;
         }
+        // destroy 只清实例和样式，不会移除效果模块自己插进 DOM 的装饰节点：
+        // ① .swiper-cube-shadow 是 cube 往 wrapper 里塞的占位层，它的 height:100%
+        //    会让重建后的舞台被撑到两倍高（实测 660 → 1171），画面下方留一大片空白；
+        // ② .swiper-slide-shadow-* 是各效果给每张 slide 叠的阴影层，每切一轮就多一层，
+        //    切六七次后照片会越压越黑。重建前先一起擦干净。
+        el.querySelectorAll('.swiper-cube-shadow, [class*="swiper-slide-shadow"]')
+            .forEach(function (node) { node.remove(); });
         el.classList.toggle('is-creative', effect === 'creative');
         var base = {
             effect: effect,
@@ -1279,6 +1296,9 @@
         var extra = effectParams(effect);
         var cfg = Object.assign(base, extra);
         sw = new Swiper(el, cfg);
+        // 重建会重新拉起自动播放；若之前用空格暂停过，新实例也要停住，
+        // 不然状态栏写着"关"、轮播却在自己翻，两边说法不一致
+        if (spacePaused) sw.autoplay.stop();
         currentEffect = effect;
         updateLive(sw);
     }
