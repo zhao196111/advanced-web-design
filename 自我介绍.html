@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>自我介绍 - 赵俊清</title>
+    <style>
+        /* 1.元素选择器 */
+        body {
+            background-color: #F6F3EC;
+            font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 30px;
+        }
+        h1 {
+            color: #1A1915;
+            text-align: center;
+        }
+        p {
+            line-height: 1.7;
+        }
+
+        /* 2.ID选择器 */
+        #box {
+            width: 700px;
+            margin: 0 auto;
+            background: #FCFAF5;
+            padding: 35px;
+            border-radius: 2px;
+            box-shadow: 0 1px 2px rgba(26,25,21,.06);
+        }
+
+        /* 3.类选择器 */
+        .title-line {
+            border-bottom: 1px solid #DCD5C4;
+            padding-bottom: 12px;
+            letter-spacing: .1em;
+        }
+        .info-item {
+            font-size: 16px;
+        }
+
+        /* 4.后代选择器：div里面的span */
+        #box span {
+            color: #A5341F;
+            font-weight: bold;
+        }
+
+        /* 5.子代选择器：直接子元素 */
+        .content > p {
+            font-size: 17px;
+        }
+
+        /* 6.相邻兄弟选择器：h1后面紧跟的p */
+        h1 + p {
+            text-align: center;
+            color: #6E6859;
+        }
+
+        /* 7.通用兄弟选择器：h2之后所有p */
+        h2 ~ p {
+            color: #3F3C34;
+        }
+
+        /* 8.属性选择器 */
+        [class*="info"] {
+            padding: 8px 0;
+        }
+        [data-type="hobby"] {
+            background-color: #F1E3DC;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        /* 9.伪类选择器 */
+        .info-item:hover {
+            background-color: #FBF3EA;
+        }
+        li:first-child {
+            color: #A5341F;
+        }
+        li:last-child {
+            color: #27ae60;
+        }
+        li:nth-child(2) {
+            color: #e67e22;
+        }
+
+        /* 10.伪元素选择器 */
+        h2::before {
+            content: "▌";
+            color: #A5341F;
+            margin-right: 8px;
+        }
+        p::first-letter {
+            font-size: 22px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <h1 class="title-line">自我介绍</h1>
+        <p>欢迎来到我的个人介绍页面</p >
+        <div class="content">
+            <h2>基本信息</h2>
+            <p class="info-item">姓名：<span>赵俊清</span></p >
+            <p class="info-item">性别：<span>男</span></p >
+            <p class="info-item">年龄：<span>20岁</span></p >
+            <p class="info-item">专业方向：计算机相关专业，正在学习前端开发，熟悉HTML与CSS，正在深入学习各类选择器用法。</p >
+
+            <h2>个人爱好</h2>  
+            <p data-type="hobby">平时喜欢敲代码、研究网页样式，闲暇会看技术文档，也喜欢运动和听音乐。</p >
+            <ul>
+                <li>前端网页制作</li>
+                <li>阅读技术文章</li>
+                <li>跑步健身</li>
+            </ul>
+
+            <h2>个人简介</h2>
+            <p>我叫赵俊清，今年20岁。我对网页开发抱有浓厚兴趣，目前正在学习HTML和CSS。我希望熟练掌握各种CSS选择器，能够独立搭建美观简洁的网页。</p >
+            <p>学习中我注重动手实践，喜欢写代码做小页面，不断调试样式解决问题。未来打算继续学习JavaScript，完善前端知识体系。</p >
+        </div>
+    </div>
+</body>
+</html>

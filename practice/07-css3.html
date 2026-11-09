@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3 选择器 + 动画 | 赵俊清</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/07-css3.css">
+</head>
+
+<body>
+
+    <div class="px-top">
+        <div class="in">
+            <a class="px-brand" href="../index.html">
+                <span class="mk">赵</span>
+                <span class="tx">赵俊清的<i>课堂实践</i></span>
+            </a>
+            <a class="px-back" href="index.html">← 返回课堂目录</a>
+        </div>
+    </div>
+
+    <header class="px-hero">
+        <div class="in">
+            <p class="px-eyebrow">CLASS PRACTICE · 07 · CSS3 + 动画</p>
+            <h1>CSS3 选择器与动画</h1>
+            <p class="px-lead">
+                十二个方块，十二种写法：<code>:nth-child</code>、<code>:nth-of-type</code>、<code>:nth-last-child</code> 挑元素，
+                <code>::first-letter</code>、<code>::before</code> 加装饰，<code>transform</code> 与 <code>@keyframes</code> 负责动起来。
+            </p>
+        </div>
+    </header>
+
+    <main class="px-main">
+        <div class="px-sheet">
+
+            <h2 class="grid-title">把鼠标放到每一个方块上看看</h2>
+            <div class="parent">
+                <div class="box">1</div>
+                <div class="box">2</div>
+                <div class="box">3</div>
+                <div class="box">4</div>
+                <div class="box">5</div>
+                <div class="box">6</div>
+                <div class="box">7</div>
+                <div class="box">8</div>
+                <div class="box">9</div>
+                <div class="box">10</div>
+                <div class="box">11</div>
+                <div class="box">12</div>
+            </div>
+
+            <h2>每一格对应哪个知识点</h2>
+            <ul class="effect-list">
+                <li><b>:nth-child(2)</b> 第 2 个孩子 → 换色、字号变大</li>
+                <li><b>:nth-child(3):hover</b> 悬停 → 圆角 50% 变圆</li>
+                <li><b>:nth-child(4):hover</b> 悬停 → box-shadow 阴影</li>
+                <li><b>:nth-of-type(4):hover</b> → text-shadow 文字投影</li>
+                <li><b>:nth-of-type(5):hover</b> → 线性渐变背景</li>
+                <li><b>:nth-of-type(6)</b> → 径向渐变背景</li>
+                <li><b>:nth-of-type(7):hover</b> → rotateY(180deg) 翻转</li>
+                <li><b>:nth-of-type(8):hover</b> → translate 平移</li>
+                <li><b>:nth-of-type(9):hover</b> → skew 倾斜</li>
+                <li><b>:nth-last-child(3):hover</b> → scale(.55) 缩小</li>
+                <li><b>:nth-last-child(2):hover</b> → rotate + scale 组合</li>
+                <li><b>:last-child:hover::before</b> → 伪元素加一个 #</li>
+            </ul>
+
+            <h2>入场动画</h2>
+            <p>打开这一页时看到的"依次落下"，是 <code>@keyframes</code> + <code>animation-delay</code> 做的：</p>
+            <pre class="px-code">@keyframes boxIn {
+    from { transform: translateY(-60px); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+}
+
+.box               { animation: boxIn .6s ease both; }   /* both：保留首尾状态 */
+.box:nth-child(2)  { animation-delay: .06s; }            /* 依次延后 */
+.box:nth-child(3)  { animation-delay: .12s; }</pre>
+
+            <div class="px-note">
+                <b>踩过的坑：</b>原来写的是 <code>animation: box 1s ease forwards;</code>，
+                但关键帧定义的名字叫 <code>boxIn</code> —— 名字对不上，动画根本不跑。
+                动画没反应时，先检查 <code>@keyframes</code> 的名字和 <code>animation</code> 里写的是不是同一个。
+            </div>
+
+            <h2>:nth-child 和 :nth-of-type 有什么区别</h2>
+            <p>
+                <code>:nth-child(n)</code> 在<b>所有兄弟元素</b>里数第 n 个，如果那个位置不是同类标签就不生效；
+                <code>:nth-of-type(n)</code> 只在<b>同一种标签</b>里数。
+                这一页的 12 个方块都是 <code>div.box</code>，两种写法结果一样，但换成"标题 + 段落混排"就会差很多。
+            </p>
+
+        </div>
+    </main>
+
+    <footer class="px-foot">
+        赵俊清 · 《高级网页设计》课堂实践 · CSS3 选择器 + 动画 · 2026
+    </footer>
+
+    <button class="px-top-btn" id="pxTop" title="返回顶部">↑</button>
+
+    <script>
+        var pxTop = document.getElementById("pxTop");
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 360) { pxTop.classList.add("show"); }
+            else { pxTop.classList.remove("show"); }
+        });
+        pxTop.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
+
+</body>
+
+</html>

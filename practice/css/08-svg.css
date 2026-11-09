@@ -1,0 +1,140 @@
+/* ==========================================================
+   08 · SVG 图标 + 底部标签栏 专属样式
+   图标走 <symbol> + <use>，颜色靠 currentColor 跟着文字走。
+   ========================================================== */
+
+/* 图标统一占 1em，跟着父元素 font-size 缩放；
+   fill: none + stroke: currentColor → 图标颜色 = 文字颜色 */
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    overflow: hidden;
+}
+
+/* 符号表本身不显示，只用来存放四个图标的定义 */
+.sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+/* 内容底部留白：标签栏是固定定位，不占文档流，会盖住最后一段 */
+.px-main {
+    padding-bottom: 118px;
+}
+
+/* 页脚也要给标签栏让位，否则文字被悬浮胶囊压住 */
+.px-foot {
+    padding-bottom: 96px;
+}
+
+/* ---------- 底部标签栏：做成一条悬浮胶囊 ---------- */
+.tab-nav {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    z-index: 75;
+    display: flex;
+    width: min(460px, calc(100% - 32px));
+    padding: 6px;
+    gap: 4px;
+    background: rgba(255, 255, 255, .94);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+box-shadow: none;
+}
+
+.tab-item {
+    flex: 1;                       /* 四个标签平分整条宽度 */
+    display: flex;
+    flex-direction: column;        /* 图标在上、文字在下：改主轴方向 */
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    padding: 9px 4px 8px;
+    border-radius: 2px;
+    color: var(--text-muted);
+    font-size: 12.5px;
+    cursor: pointer;
+    transition: color .22s ease, background-color .22s ease;
+}
+
+.tab-item svg {
+    font-size: 22px;
+    transition: transform .22s ease;
+}
+
+.tab-item:hover {
+    color: var(--primary);
+    background: #F7F2E9;
+}
+
+/* 选中的那一个：只改文字颜色，图标用 currentColor 自动跟随 */
+.tab-item.active {
+    color: #fff;
+    background: linear-gradient(135deg, #A5341F, #C0452C);
+box-shadow: none;
+}
+
+.tab-item.active svg {
+    transform: translateY(-1px);
+}
+
+/* ---------- 图标展示区 ---------- */
+.icon-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 18px 0 8px;
+}
+
+.icon-cell {
+    flex: 1 1 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 10px;
+    background: #FBF8F1;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    transition: border-color .2s, background .2s, transform .2s;
+}
+
+.icon-cell:hover {
+    border-color: #E3D3C9;
+    background: #F7F2E9;
+    transform: translateY(-3px);
+}
+
+.icon-cell svg {
+    font-size: 34px;
+    color: var(--primary);
+}
+
+.icon-cell b {
+    font-size: 13px;
+    color: var(--text);
+}
+
+@media (max-width: 560px) {
+    .tab-item {
+        font-size: 11.5px;
+        padding: 8px 2px 7px;
+    }
+
+    .tab-item svg {
+        font-size: 20px;
+    }
+}

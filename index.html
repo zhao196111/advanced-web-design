@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高级网页设计 · 课堂实践档案 | 赵俊清</title>
+<meta name="description" content="赵俊清《高级网页设计》课堂实践作品档案：HTML 基础、CSS 选择器、盒模型、Flex、Grid、动画、SVG 与 JavaScript，全部原生手写。">
+<style>
+    :root {
+        --paper: #F6F3EC;
+        --raise: #FCFAF5;
+        --ink: #1A1915;
+        --ink2: #4B4840;
+        --ink3: #8B8477;
+        --line: #D8D1C0;
+        --line-soft: #E7E1D2;
+        --red: #A5341F;
+        --red-soft: #F1E3DC;
+        --serif: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
+        --sans: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Segoe UI", system-ui, sans-serif;
+        --mono: "Cascadia Mono", Consolas, "Courier New", monospace;
+        --rail: 296px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: var(--sans);
+        background-color: var(--paper);
+        background-image: radial-gradient(900px 460px at 84% -8%, rgba(165, 52, 31, 0.07), transparent 62%);
+        background-repeat: no-repeat;
+        color: var(--ink);
+        line-height: 1.75;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ul, ol { list-style: none; }
+
+    /* ================= 左侧档案栏 ================= */
+    .layout {
+        display: grid;
+        grid-template-columns: var(--rail) minmax(0, 1fr);
+        min-height: 100vh;
+    }
+
+    .rail {
+        position: sticky;
+        top: 0;
+        align-self: start;
+        height: 100vh;
+        padding: 40px 30px 26px;
+        border-right: 1px solid var(--line);
+        display: flex;
+        flex-direction: column;
+        background: rgba(246, 243, 236, 0.72);
+        backdrop-filter: blur(6px);
+    }
+
+    .rail-mark {
+        width: 46px;
+        height: 46px;
+        border: 1px solid var(--ink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0;
+        margin-bottom: 18px;
+    }
+
+    .rail-name {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+    }
+
+    .rail-sid {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        color: var(--ink3);
+        letter-spacing: 0.1em;
+        margin-top: 4px;
+    }
+
+    .rail nav { margin-top: 40px; border-top: 1px solid var(--line); }
+
+    .rail nav a {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding: 12px 0 12px 12px;
+        border-bottom: 1px solid var(--line-soft);
+        border-left: 2px solid transparent;
+        margin-left: -12px;
+        padding-right: 2px;
+        font-size: 14px;
+        color: var(--ink2);
+        transition: color .25s, border-left-color .25s, padding-left .25s;
+    }
+
+    .rail nav a em {
+        font-family: var(--mono);
+        font-style: normal;
+        font-size: 10.5px;
+        color: var(--ink3);
+        letter-spacing: 0.12em;
+    }
+
+    .rail nav a:hover { color: var(--ink); padding-left: 16px; }
+
+    .rail nav a.on {
+        color: var(--red);
+        border-left-color: var(--red);
+        font-weight: 700;
+    }
+
+    .rail nav a.on em { color: var(--red); }
+
+    .rail-meta {
+        margin-top: auto;
+        padding-top: 26px;
+        border-top: 1px solid var(--line);
+        display: grid;
+        gap: 9px;
+        font-size: 12.5px;
+        color: var(--ink2);
+    }
+
+    .rail-meta div { display: flex; justify-content: space-between; gap: 10px; }
+
+    .rail-meta span {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.14em;
+        color: var(--ink3);
+        padding-top: 2px;
+    }
+
+    .rail-foot {
+        margin-top: 22px;
+        font-size: 10.5px;
+        line-height: 1.9;
+        color: var(--ink3);
+        letter-spacing: 0.04em;
+    }
+
+    /* ================= 主体 ================= */
+    .main { min-width: 0; }
+
+    .wrap {
+        max-width: 1020px;
+        margin: 0 auto;
+        padding: 0 clamp(22px, 4.4vw, 64px);
+    }
+
+    /* ---------- 首屏 ---------- */
+    .hero { padding: clamp(48px, 7vw, 96px) 0 0; }
+
+    .eyebrow {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.3em;
+        color: var(--red);
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .eyebrow::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+        max-width: 160px;
+    }
+
+    .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 268px;
+        gap: clamp(28px, 4vw, 56px);
+        align-items: end;
+        margin-top: 26px;
+    }
+
+    h1 {
+        font-size: clamp(38px, 5.2vw, 72px);
+        line-height: 1.08;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+    }
+
+    h1 small {
+        display: block;
+        margin-top: 16px;
+        font-size: clamp(13px, 1.5vw, 17px);
+        font-weight: 500;
+        letter-spacing: 0.42em;
+        color: var(--ink3);
+    }
+
+    .lead {
+        margin-top: 26px;
+        font-size: 15.5px;
+        line-height: 2.05;
+        color: var(--ink2);
+        max-width: 44em;
+    }
+
+    .lead b { color: var(--ink); font-weight: 700; }
+
+    .hero-actions {
+        margin-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 24px;
+        font-size: 13.5px;
+        letter-spacing: 0.08em;
+        border: 1px solid var(--ink);
+        transition: background .25s, color .25s, transform .25s;
+    }
+
+    .btn-solid { background: var(--ink); color: var(--paper); }
+    .btn-solid:hover { background: var(--red); border-color: var(--red); transform: translateY(-2px); }
+
+    .btn-ghost { color: var(--ink); border-color: var(--line); }
+    .btn-ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+    .btn span { font-family: var(--mono); font-size: 12px; }
+
+    /* 学生档案卡 */
+    .idcard {
+        border: 1px solid var(--line);
+        background: var(--raise);
+        padding: 20px 22px 8px;
+        position: relative;
+    }
+
+    .idcard::before {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        width: 34px;
+        height: 3px;
+        background: var(--red);
+    }
+
+    .idcard h2 {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.26em;
+        color: var(--ink3);
+        font-weight: 600;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed var(--line);
+    }
+
+    .idcard dl { margin-top: 6px; }
+
+    .idcard dl div {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 9px 0;
+        border-bottom: 1px solid var(--line-soft);
+        font-size: 13px;
+    }
+
+    .idcard dl div:last-child { border-bottom: none; }
+    .idcard dt { color: var(--ink3); font-size: 12px; letter-spacing: 0.1em; }
+    .idcard dd { font-weight: 700; letter-spacing: 0.04em; }
+
+    /* 技能条 */
+    .strip {
+        margin-top: clamp(36px, 5vw, 60px);
+        border-top: 1px solid var(--ink);
+        border-left: 1px solid var(--line-soft);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .strip li {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: 0.08em;
+        color: var(--ink2);
+        padding: 13px 16px;
+        border-right: 1px solid var(--line-soft);
+        border-bottom: 1px solid var(--line-soft);
+    }
+
+    .strip li b { color: var(--red); font-weight: 600; margin-right: 8px; }
+
+    /* ---------- 区块标题 ---------- */
+    section { padding-top: clamp(56px, 7vw, 88px); }
+
+    .s-head {
+        display: flex;
+        align-items: baseline;
+        gap: 18px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--ink);
+        margin-bottom: 6px;
+    }
+
+    .s-no {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        color: var(--red);
+    }
+
+    .s-head h2 {
+        font-size: 22px;
+        letter-spacing: 0.12em;
+        font-weight: 700;
+    }
+
+    .s-en {
+        margin-left: auto;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.2em;
+        color: var(--ink3);
+    }
+
+    .s-intro {
+        padding: 16px 0 4px;
+        font-size: 13.5px;
+        color: var(--ink3);
+        max-width: 62em;
+    }
+
+    /* ---------- 目录条目 ---------- */
+    .entry {
+        display: grid;
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 22px;
+        padding: 28px 0 28px 0;
+        border-bottom: 1px solid var(--line-soft);
+        position: relative;
+        transition: padding-left .4s cubic-bezier(.2,.7,.2,1), background .4s;
+    }
+
+    .entry::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 24px;
+        bottom: 24px;
+        width: 2px;
+        background: var(--red);
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform .4s cubic-bezier(.2,.7,.2,1);
+    }
+
+    .entry:hover { padding-left: 18px; }
+
+    .entry:hover::before { transform: scaleY(1); }
+
+    .entry-no {
+        font-family: var(--serif);
+        font-size: 36px;
+        line-height: 1;
+        color: #C9C1AE;
+        transition: color .35s;
+        padding-top: 2px;
+    }
+
+    .entry:hover .entry-no { color: var(--red); }
+
+    .entry-head { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+
+    .entry-head h3 {
+        font-size: 21px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+    }
+
+    .badge {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        color: var(--ink3);
+        border: 1px solid var(--line);
+        padding: 2px 8px;
+        line-height: 1.6;
+    }
+
+    .entry-desc {
+        margin-top: 9px;
+        font-size: 14px;
+        line-height: 1.95;
+        color: var(--ink2);
+        max-width: 62em;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 13px; }
+
+    .tags span {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.06em;
+        color: #6F6959;
+        background: #EDE8DA;
+        padding: 3px 9px;
+    }
+
+    .plinks { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 17px; }
+
+    .plink {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 10px;
+        border: 1px solid var(--line);
+        background: var(--raise);
+        padding: 8px 14px;
+        transition: border-color .25s, transform .25s, box-shadow .25s;
+    }
+
+    .plink:hover {
+        border-color: var(--ink);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(26, 25, 21, 0.07);
+    }
+
+    .plink .fn {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        color: var(--red);
+        letter-spacing: 0.02em;
+    }
+
+    .plink .fl { font-size: 12.5px; color: var(--ink2); }
+    .plink .ar { font-size: 11px; color: var(--ink3); }
+
+    .entry.planned { opacity: 0.62; }
+    .entry.planned .entry-no { color: #DDD6C6; }
+    .entry.planned:hover { padding-left: 0; }
+    .entry.planned:hover::before { transform: scaleY(0); }
+
+    /* ---------- 技术地图 ---------- */
+    .map { border-top: 1px solid var(--line-soft); }
+
+    .map-row {
+        display: grid;
+        grid-template-columns: 48px 190px minmax(0, 1fr) 132px;
+        gap: 18px;
+        align-items: baseline;
+        padding: 17px 0;
+        border-bottom: 1px solid var(--line-soft);
+        transition: background .3s;
+    }
+
+    .map-row:hover { background: rgba(255, 255, 255, 0.5); }
+
+    .map-row .m-no {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--ink3);
+        letter-spacing: 0.1em;
+    }
+
+    .map-row .m-name { font-size: 15.5px; font-weight: 700; letter-spacing: 0.06em; }
+    .map-row .m-desc { font-size: 13px; color: var(--ink2); line-height: 1.8; }
+
+    .map-row .m-link {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        color: var(--ink3);
+        text-align: right;
+        letter-spacing: 0.08em;
+        transition: color .25s;
+    }
+
+    .map-row:hover .m-link { color: var(--red); }
+
+    /* ---------- 文件表 ---------- */
+    .table-wrap { overflow-x: auto; }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+        min-width: 460px;
+    }
+
+    thead th {
+        text-align: left;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        font-weight: 600;
+        color: var(--ink3);
+        padding: 12px 12px 10px 0;
+        border-bottom: 1px solid var(--ink);
+        white-space: nowrap;
+    }
+
+    tbody td {
+        padding: 13px 12px 13px 0;
+        border-bottom: 1px solid var(--line-soft);
+        vertical-align: baseline;
+    }
+
+    tbody tr { transition: background .25s; }
+    tbody tr:hover { background: rgba(255, 255, 255, 0.6); }
+
+    td.f a {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--red);
+        border-bottom: 1px solid transparent;
+        transition: border-color .25s;
+    }
+
+    td.f a:hover { border-bottom-color: var(--red); }
+
+    td.d { color: var(--ink2); }
+    td.t { font-family: var(--mono); font-size: 11px; color: var(--ink3); white-space: nowrap; }
+
+    .cur {
+        font-family: var(--mono);
+        font-size: 9.5px;
+        color: var(--paper);
+        background: var(--ink);
+        padding: 1px 5px;
+        margin-left: 8px;
+        letter-spacing: 0.1em;
+    }
+
+    /* ---------- 说明 ---------- */
+    .note {
+        display: grid;
+        grid-template-columns: 0.9fr 1.4fr;
+        gap: clamp(26px, 5vw, 64px);
+        padding-top: 8px;
+    }
+
+    .note-quote {
+        font-size: clamp(18px, 2vw, 23px);
+        line-height: 1.9;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        border-left: 3px solid var(--red);
+        padding-left: 22px;
+    }
+
+    .note-quote em {
+        font-style: normal;
+        color: var(--red);
+    }
+
+    .note-body p {
+        font-size: 14px;
+        line-height: 2.1;
+        color: var(--ink2);
+        margin-bottom: 18px;
+    }
+
+    .note-body p:last-child { margin-bottom: 0; }
+
+    .note-list { margin-top: 26px; border-top: 1px solid var(--line-soft); }
+
+    .note-list li {
+        display: flex;
+        gap: 14px;
+        padding: 11px 0;
+        border-bottom: 1px solid var(--line-soft);
+        font-size: 13px;
+        color: var(--ink2);
+    }
+
+    .note-list li b {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        color: var(--ink3);
+        letter-spacing: 0.1em;
+        padding-top: 3px;
+        min-width: 58px;
+    }
+
+    /* ---------- 页脚 ---------- */
+    footer {
+        margin-top: clamp(64px, 8vw, 104px);
+        border-top: 1px solid var(--ink);
+        padding: 26px 0 54px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px 30px;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 12px;
+        color: var(--ink3);
+        letter-spacing: 0.04em;
+    }
+
+    footer b { color: var(--ink); font-weight: 700; letter-spacing: 0.1em; }
+    footer .mono { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; }
+
+    /* ---------- 返回顶部 ---------- */
+    #toTop {
+        position: fixed;
+        right: 24px;
+        bottom: 26px;
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--ink);
+        background: var(--paper);
+        color: var(--ink);
+        font-size: 15px;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all .3s;
+        z-index: 90;
+    }
+
+    #toTop.show { opacity: 1; visibility: visible; transform: none; }
+    #toTop:hover { background: var(--ink); color: var(--paper); }
+
+    /* ---------- 入场 ---------- */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+        html { scroll-behavior: auto; }
+    }
+
+    /* ---------- 响应式 ---------- */
+    @media (max-width: 980px) {
+        .layout { grid-template-columns: 1fr; }
+        .rail {
+            position: relative;
+            height: auto;
+            border-right: none;
+            border-bottom: 1px solid var(--line);
+            padding: 18px 22px;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px 22px;
+        }
+        .rail-mark { width: 36px; height: 36px; font-size: 16px; margin-bottom: 0; }
+        .rail-name { font-size: 16px; }
+        .rail-sid { margin-top: 0; }
+        .rail nav {
+            margin-top: 0;
+            border-top: none;
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            width: 100%;
+            order: 3;
+            padding-top: 4px;
+        }
+        .rail nav a { border: none; margin-left: 0; padding: 4px 0; font-size: 12.5px; white-space: nowrap; }
+        .rail nav a em { display: none; }
+        .rail nav a.on { border: none; }
+        .rail-meta, .rail-foot { display: none; }
+        .hero-grid { grid-template-columns: 1fr; }
+        .idcard { max-width: 340px; }
+        .note { grid-template-columns: 1fr; }
+        .map-row { grid-template-columns: 34px 1fr; }
+        .map-row .m-desc { grid-column: 2; }
+        .map-row .m-link { grid-column: 2; text-align: left; }
+        .entry { grid-template-columns: 44px minmax(0, 1fr); gap: 14px; }
+        .entry-no { font-size: 26px; }
+        .entry-head h3 { font-size: 18px; }
+    }
+
+    @media (max-width: 560px) {
+        h1 small { letter-spacing: 0.3em; }
+        .strip { grid-template-columns: repeat(2, 1fr); }
+        .strip li { padding: 10px 12px; font-size: 10.5px; }
+        .plink { width: 100%; justify-content: space-between; }
+        footer { font-size: 11px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- ================= 左侧档案栏 ================= -->
+    <aside class="rail">
+        <div class="rail-mark">赵</div>
+        <div class="rail-name">赵俊清</div>
+        <div class="rail-sid">24006270205</div>
+
+        <nav>
+            <a href="#top" class="on">首页 <em>00</em></a>
+            <a href="#catalog">课堂目录 <em>01</em></a>
+            <a href="#map">技术地图 <em>02</em></a>
+            <a href="#files">全部页面 <em>03</em></a>
+            <a href="#note">写在最后 <em>04</em></a>
+        </nav>
+
+        <div class="rail-meta">
+            <div><span>课程</span>高级网页设计</div>
+            <div><span>学期</span>2026 秋季</div>
+            <div><span>模块</span>7 个</div>
+            <div><span>页面</span>17 页</div>
+        </div>
+
+        <div class="rail-foot">
+            原生 HTML / CSS / JavaScript<br>
+            未使用框架与 CDN
+        </div>
+    </aside>
+
+    <!-- ================= 主体 ================= -->
+    <main class="main">
+        <div class="wrap">
+
+            <!-- 首屏 -->
+            <header class="hero" id="top">
+                <p class="eyebrow">Course Workbook · 2026 Autumn</p>
+
+                <div class="hero-grid">
+                    <div>
+                        <h1>
+                            高级网页设计
+                            <small>课 堂 实 践 档 案</small>
+                        </h1>
+                        <p class="lead">
+                            这一门课从标签写起：先用 <b>HTML</b> 把内容立起来，再用选择器、盒模型把它摆正，
+                            接着用 <b>Flex</b> 与 <b>Grid</b> 排成版式，最后用过渡动画、<b>SVG</b> 和
+                            <b>JavaScript</b> 让它动起来。下面按模块归档了 17 个练习页面，每一页都可以直接打开。
+                        </p>
+                        <div class="hero-actions">
+                            <a class="btn btn-solid" href="#catalog">浏览课堂目录 <span>↓</span></a>
+                            <a class="btn btn-ghost" href="practice/index.html">课堂实践总目录 <span>→</span></a>
+                        </div>
+                    </div>
+
+                    <div class="idcard">
+                        <h2>STUDENT FILE</h2>
+                        <dl>
+                            <div><dt>姓名</dt><dd>赵俊清</dd></div>
+                            <div><dt>学号</dt><dd>24006270205</dd></div>
+                            <div><dt>课程</dt><dd>高级网页设计</dd></div>
+                            <div><dt>指导教师</dt><dd>王垚</dd></div>
+                            <div><dt>收录</dt><dd>7 模块 · 17 页</dd></div>
+                        </dl>
+                    </div>
+                </div>
+
+                <ul class="strip">
+                    <li><b>01</b>HTML 语义与表单</li>
+                    <li><b>02</b>CSS 选择器</li>
+                    <li><b>03</b>盒模型</li>
+                    <li><b>04</b>Flex 布局</li>
+                    <li><b>05</b>Grid 网格</li>
+                    <li><b>06</b>过渡与动画</li>
+                    <li><b>07</b>SVG 图标</li>
+                    <li><b>08</b>JS 对象</li>
+                </ul>
+            </header>
+
+            <!-- ============ 01 课堂目录 ============ -->
+            <section id="catalog">
+                <div class="s-head">
+                    <span class="s-no">01</span>
+                    <h2>课堂目录</h2>
+                    <span class="s-en">COURSE INDEX</span>
+                </div>
+                <p class="s-intro">按上课顺序排列，每个模块后面挂着当次课写完的页面，点文件名就能进。</p>
+
+                <article class="entry reveal">
+                    <div class="entry-no">01</div>
+                    <div>
+                        <div class="entry-head">
+                            <h3>HTML 基础</h3>
+                            <span class="badge">MODULE 01</span>
+                        </div>
+                        <p class="entry-desc">
+                            第一次动手写页面。从六级标题、段落、强调、列表、表格、图片和超链接一路练到表单控件，
+                            把"网页是怎么由标签搭起来的"这件事弄明白。信息收集表单那一页练了文本框、密码框、
+                            文件上传、单选、复选、下拉列表和文本域。
+                        </p>
+                        <div class="tags">
+                            <span>h1—h6</span><span>table</span><span>img / a</span><span>form</span><span>input</span><span>select</span>
+                        </div>
+                        <div class="plinks">
+                            <a class="plink" href="html_basic004.html">
+                                <span class="fn">html_basic004.html</span>
+                                <span class="fl">我的第一个网页</span>
+                                <span class="ar">→</span>
+                            </a>
+                            <a class="plink" href="html_basic003.html">
+                                <span class="fn">html_basic003.html</span>
+                                <span class="fl">信息收集表单</span>
+                                <span class="ar">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="entry reveal">
+                    <div class="entry-no">02</div>
+                    <div>
+                        <div class="entry-head">
+                            <h3>自我介绍与选择器</h3>
+                            <span class="badge">MODULE 02</span>
+                        </div>
+                        <p class="entry-desc">
+                            把零散的标签拼成一张完整的个人介绍页，同时系统过一遍 CSS 选择器：元素、类、ID、
+                            后代、子代、相邻兄弟、通用兄弟、属性、伪类和伪元素，十种写法都在同一页里用到了，
+                            样式表里也逐条写了注释。
+                        </p>
+                        <div class="tags">
+                            <span>class / id</span><span>后代选择器</span><span>属性选择器</span><span>:hover</span><span>::before</span>
+                        </div>
+                        <div class="plinks">
+                            <a class="plink" href="自我介绍.html">
+                                <span class="fn">自我介绍.html</span>
+                                <span class="fl">十种选择器综合页</span>
+                                <span class="ar">→</span>
+                            </a>
+                            <a class="plink" href="自我介绍2.html">
+                                <span class="fn">自我介绍2.html</span>
+                                <span class="fl">基础表单控件</span>
+                                <span class="ar">→</span>
+                            </a>
+                            <a class="plink" href="practice/02-intro.html">
+                                <span class="fn">practice/02-intro.html</span>
+                                <span class="fl">选择器整理版</span>
+                                <span class="ar">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="entry reveal">
+                    <div class="entry-no">03</div>
+                    <div>
+                        <div class="entry-head">
+                            <h3>盒模型与弹性布局</h3>
+                            <span class="badge">MODULE 03</span>
+                        </div>
+                        <p class="entry-desc">
+                            搞清楚 margin、border、padding、content 四层盒子怎么算尺寸，再进入 Flex：
+                            用 flex-wrap 让一行只放三张图，用 gap 控制间距，用"父相子绝"把文字条压到图片底部。
+                            2.html 里保留了当堂写的 CSS，包括并集选择器和每一条注释。
+                        </p>
+                        <div class="tags">
+                            <span>box-sizing</span><span>display:flex</span><span>flex-wrap</span><span>position</span><span>并集选择器</span>
+                        </div>
+                        <div class="plinks">
+                            <a class="plink" href="2.html">
+                                <span class="fn">2.html</span>
+                                <span class="fl">Flex 图文列表</span>
+                                <span class="ar">→</span>
+                            </a>
+                            <a class="plink" href="practice/03-box-model.html">
+                                <span class="fn">practice/03-box-model.html</span>
+                                <span class="fl">层叠继承与盒模型</span>
+                                <span class="ar">→</span>
+                            </a>
+                            <a class="plink" href="practice/05-flex-cards.html">
+                                <span class="fn">practice/05-flex-cards.html</span>
+                                <span class="fl">Flex 卡片排版</span>
+                                <span class="ar">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="entry reveal">
+                    <div class="entry-no">04</div>
+                    <div>
+                        <div class="entry-head">
+                            <h3>图文排版</h3>
+                            <span class="badge">MODULE 04</span>
+                        </div>
+                        <p class="entry-desc">
+                            同一个"上图下文"的结构做两遍：一遍用 Grid 的三列网格，一遍用 Flex 加固定宽度，
+                            再练一次图片上盖文字条。picture.html 是这一模块新增的整页作品，把六张图排成画廊，
+                            带悬停说明和序号。
+                        </p>
+                        <div class="tags">
+                            <span>grid-template-columns</span><span>object-fit</span><span>aspect-ratio</span><span>hover</span>
+                        </div>
+                        <div class="plinks">
+                            <a class="plink" href="picture.html">
+                                <span class="fn">picture.html</span>
+                                <span class="fl">图文画廊</span>
+                                <span class="ar">→</span>
+                            </a>
+                            <a class="plink" href="practice/04-stack.html">
+                                <span class="fn">practice/04-stack.html</span>
+                                <span class="fl">上图下文 · Grid 版</span>
+                                <span class="ar">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="entry reveal">
+                    <div class="entry-no">05</div>
+                    <div>
+                        <div class="entry-head">
+                            <h3>语义化布局与动画</h3>
+                            <span class="badge">MODULE 05</span>
+                        </div>
+                        <p class="entry-desc">
+                            用 header、nav、main、aside、footer 搭骨架，把 div 堆出来的结构换成读得懂的标签。
+                            动画部分从 transition 入门，过渡到 transform 与 @keyframes，同一个方块可以旋转、
+                            平移、缩放、倾斜。
+                        </p>
+                        <div class="tags">
+                            <span>语义标签</span><span>两栏布局</span><span>transition</span><span>transform</span><span>@keyframes</span>
+                        </div>
+                        <div class="plinks">
+                            <a class="plink" href="practice/06-semantic.html">
+                                <span class="fn">practice/06-semantic.html</span>
+                                <span class="fl">语义布局 + 过渡</span>
+                                <span class="ar">→</span>
+                            </a>
+                            <a class="plink" href="practice/07-css3.html">
+                                <span class="fn">practice/07-css3.html</span>
+                                <span class="fl">CSS3 选择器 + 动画</span>
+                                <span class="ar">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="entry reveal">
+                    <div class="entry-no">06</div>
+                    <div>
+                        <div class="entry-head">
+                            <h3>SVG 图标与 JavaScript</h3>
+                            <span class="badge">MODULE 06</span>
+                        </div>
+                        <p class="entry-desc">
+                            图标不再用图片：symbol 定义一次，use 到处引用，fill 用 currentColor 跟着文字变色，
+                            再配一个固定定位的底部标签栏。最后一节转到 JavaScript，看对象的属性增删、
+                            for...in 遍历、this 指向，以及浅拷贝和深拷贝的区别。
+                        </p>
+                        <div class="tags">
+                            <span>svg / symbol</span><span>use</span><span>currentColor</span><span>for...in</span><span>this</span><span>深拷贝</span>
+                        </div>
+                        <div class="plinks">
+                            <a class="plink" href="practice/08-svg.html">
+                                <span class="fn">practice/08-svg.html</span>
+                                <span class="fl">SVG 图标标签栏</span>
+                                <span class="ar">→</span>
+                            </a>
+                            <a class="plink" href="practice/09-object.html">
+                                <span class="fn">practice/09-object.html</span>
+                                <span class="fl">JavaScript 对象</span>
+                                <span class="ar">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="entry reveal">
+                    <div class="entry-no">07</div>
+                    <div>
+                        <div class="entry-head">
+                            <h3>课堂实践总目录</h3>
+                            <span class="badge">ARCHIVE</span>
+                        </div>
+                        <p class="entry-desc">
+                            把 01—09 编号的十张练习页统一收进 practice/ 子目录，配了统一的主题样式表，
+                            一页看完这学期的练习清单。
+                        </p>
+                        <div class="tags">
+                            <span>目录页</span><span>theme.css</span><span>10 个练习</span>
+                        </div>
+                        <div class="plinks">
+                            <a class="plink" href="practice/index.html">
+                                <span class="fn">practice/index.html</span>
+                                <span class="fl">进入总目录</span>
+                                <span class="ar">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="entry planned">
+                    <div class="entry-no">08</div>
+                    <div>
+                        <div class="entry-head">
+                            <h3>后续课堂练习</h3>
+                            <span class="badge">PLANNED</span>
+                        </div>
+                        <p class="entry-desc">
+                            后面每上完一次课，就在这一页补一个新的模块卡片，编号接着往下排。
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- ============ 02 技术地图 ============ -->
+            <section id="map">
+                <div class="s-head">
+                    <span class="s-no">02</span>
+                    <h2>技术地图</h2>
+                    <span class="s-en">SKILL MAP</span>
+                </div>
+                <p class="s-intro">这门课实际用到的技术点，以及各自落在哪一页。</p>
+
+                <div class="map">
+                    <div class="map-row">
+                        <span class="m-no">A1</span>
+                        <span class="m-name">HTML 结构与语义</span>
+                        <span class="m-desc">六级标题、段落、列表、表格、图片、超链接，以及 header / nav / main / aside / footer 的语义划分。</span>
+                        <a class="m-link" href="html_basic004.html">模块 01 →</a>
+                    </div>
+                    <div class="map-row">
+                        <span class="m-no">A2</span>
+                        <span class="m-name">表单与控件</span>
+                        <span class="m-desc">form、input 的多种 type、label 的 for 关联、select 下拉、textarea 文本域、required 校验。</span>
+                        <a class="m-link" href="html_basic003.html">模块 01 →</a>
+                    </div>
+                    <div class="map-row">
+                        <span class="m-no">B1</span>
+                        <span class="m-name">CSS 选择器</span>
+                        <span class="m-desc">元素、类、ID、后代、子代、兄弟、属性、伪类、伪元素，十种写法的优先级与用法。</span>
+                        <a class="m-link" href="practice/02-intro.html">模块 02 →</a>
+                    </div>
+                    <div class="map-row">
+                        <span class="m-no">B2</span>
+                        <span class="m-name">盒模型与层叠</span>
+                        <span class="m-desc">content / padding / border / margin 的尺寸计算，box-sizing 的影响，以及样式的层叠与继承。</span>
+                        <a class="m-link" href="practice/03-box-model.html">模块 03 →</a>
+                    </div>
+                    <div class="map-row">
+                        <span class="m-no">C1</span>
+                        <span class="m-name">Flex 弹性布局</span>
+                        <span class="m-desc">主轴与交叉轴、justify-content、align-items、flex-wrap 换行、gap 间距、子项定宽。</span>
+                        <a class="m-link" href="practice/05-flex-cards.html">模块 03 →</a>
+                    </div>
+                    <div class="map-row">
+                        <span class="m-no">C2</span>
+                        <span class="m-name">Grid 网格布局</span>
+                        <span class="m-desc">grid-template-columns 的 repeat 与 fr 单位，一行三列的图片卡片排版。</span>
+                        <a class="m-link" href="practice/04-stack.html">模块 04 →</a>
+                    </div>
+                    <div class="map-row">
+                        <span class="m-no">D1</span>
+                        <span class="m-name">过渡与关键帧动画</span>
+                        <span class="m-desc">transition 的四个属性、transform 的位移旋转缩放倾斜、@keyframes 定义循环动画。</span>
+                        <a class="m-link" href="practice/07-css3.html">模块 05 →</a>
+                    </div>
+                    <div class="map-row">
+                        <span class="m-no">E1</span>
+                        <span class="m-name">SVG 图标系统</span>
+                        <span class="m-desc">symbol 定义图形、use 复用引用、currentColor 跟随文字颜色，图标不再依赖图片。</span>
+                        <a class="m-link" href="practice/08-svg.html">模块 06 →</a>
+                    </div>
+                    <div class="map-row">
+                        <span class="m-no">E2</span>
+                        <span class="m-name">JavaScript 对象</span>
+                        <span class="m-desc">键值对读写、delete 与 in、for...in 遍历、this 指向、引用赋值与深浅拷贝的区别。</span>
+                        <a class="m-link" href="practice/09-object.html">模块 06 →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ 03 全部页面 ============ -->
+            <section id="files">
+                <div class="s-head">
+                    <span class="s-no">03</span>
+                    <h2>全部页面</h2>
+                    <span class="s-en">ALL FILES</span>
+                </div>
+                <p class="s-intro">这个目录下所有网页的清单，方便课后对着文件名找。</p>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 40%">文件名</th>
+                                <th>页面说明</th>
+                                <th style="width: 96px">模块</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="f"><a href="index.html">index.html</a><span class="cur">本页</span></td>
+                                <td class="d">作品档案首页</td>
+                                <td class="t">—</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="html_basic004.html">html_basic004.html</a></td>
+                                <td class="d">我的第一个网页</td>
+                                <td class="t">01</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="html_basic003.html">html_basic003.html</a></td>
+                                <td class="d">信息收集表单</td>
+                                <td class="t">01</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="自我介绍.html">自我介绍.html</a></td>
+                                <td class="d">十种选择器综合页</td>
+                                <td class="t">02</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="自我介绍2.html">自我介绍2.html</a></td>
+                                <td class="d">基础表单控件</td>
+                                <td class="t">02</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="practice/02-intro.html">practice/02-intro.html</a></td>
+                                <td class="d">选择器整理版</td>
+                                <td class="t">02</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="2.html">2.html</a></td>
+                                <td class="d">Flex 图文列表</td>
+                                <td class="t">03</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="practice/03-box-model.html">practice/03-box-model.html</a></td>
+                                <td class="d">层叠继承与盒模型</td>
+                                <td class="t">03</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="practice/05-flex-cards.html">practice/05-flex-cards.html</a></td>
+                                <td class="d">Flex 卡片排版</td>
+                                <td class="t">03</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="picture.html">picture.html</a></td>
+                                <td class="d">图文画廊</td>
+                                <td class="t">04</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="practice/04-stack.html">practice/04-stack.html</a></td>
+                                <td class="d">上图下文 · Grid 版</td>
+                                <td class="t">04</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="practice/06-semantic.html">practice/06-semantic.html</a></td>
+                                <td class="d">语义布局 + 过渡动画</td>
+                                <td class="t">05</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="practice/07-css3.html">practice/07-css3.html</a></td>
+                                <td class="d">CSS3 选择器 + 动画</td>
+                                <td class="t">05</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="practice/08-svg.html">practice/08-svg.html</a></td>
+                                <td class="d">SVG 图标标签栏</td>
+                                <td class="t">06</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="practice/09-object.html">practice/09-object.html</a></td>
+                                <td class="d">JavaScript 对象</td>
+                                <td class="t">06</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="practice/index.html">practice/index.html</a></td>
+                                <td class="d">课堂实践总目录</td>
+                                <td class="t">07</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="practice/01-html-basic.html">practice/01-html-basic.html</a></td>
+                                <td class="d">HTML 基础练习</td>
+                                <td class="t">07</td>
+                            </tr>
+                            <tr>
+                                <td class="f"><a href="practice/02-form.html">practice/02-form.html</a></td>
+                                <td class="d">表单控件练习</td>
+                                <td class="t">07</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ============ 04 说明 ============ -->
+            <section id="note">
+                <div class="s-head">
+                    <span class="s-no">04</span>
+                    <h2>写在最后</h2>
+                    <span class="s-en">NOTES</span>
+                </div>
+
+                <div class="note">
+                    <p class="note-quote">
+                        页面存在本地，<br>
+                        比只剩几张截图<br>
+                        <em>更能说明手在做什么。</em>
+                    </p>
+
+                    <div class="note-body">
+                        <p>
+                            这个站是我这门课的练习总入口。每上完一次课，我就把当堂写的页面丢进对应的模块里，
+                            顺手在卡片上补一句这一页练的是什么，回头复习的时候不用再一个个点开猜。
+                        </p>
+                        <p>
+                            页面全部是原生手写，没有引入任何框架或者 CDN。样式大多直接写在页面里，
+                            practice 那一套抽了公共的 theme.css 出来，方便十张练习页统一风格。
+                        </p>
+                        <ul class="note-list">
+                            <li><b>结构</b><span>按教学进度分模块，编号与课堂顺序一致，新增练习往后接。</span></li>
+                            <li><b>命名</b><span>练习页用"编号-主题"命名，一眼能看出先后和内容。</span></li>
+                            <li><b>注释</b><span>CSS 里保留了当堂写的说明，比如第 3 节的选择器优先级。</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <div>
+                    <b>赵俊清</b> · 24006270205<br>
+                    高级网页设计 · 课堂实践档案 · 2026 秋季
+                </div>
+                <div class="mono">HANDWRITTEN HTML / CSS / JS · NO CDN</div>
+            </footer>
+
+        </div>
+    </main>
+</div>
+
+<button id="toTop" title="返回顶部" aria-label="返回顶部">↑</button>
+
+<script>
+    // 返回顶部
+    var toTop = document.getElementById("toTop");
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 420) {
+            toTop.classList.add("show");
+        } else {
+            toTop.classList.remove("show");
+        }
+    });
+    toTop.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // 入场动画
+    var items = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                    e.target.classList.add("in");
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+        items.forEach(function (el) { io.observe(el); });
+    } else {
+        items.forEach(function (el) { el.classList.add("in"); });
+    }
+
+    // 侧栏当前区块高亮
+    var links = document.querySelectorAll(".rail nav a");
+    var secs = [];
+    links.forEach(function (a) {
+        var id = a.getAttribute("href").replace("#", "");
+        var el = document.getElementById(id);
+        if (el) secs.push({ link: a, el: el });
+    });
+
+    function syncNav() {
+        var pos = window.scrollY + 140;
+        var current = secs[0];
+        secs.forEach(function (s) {
+            if (s.el.offsetTop <= pos) current = s;
+        });
+        links.forEach(function (a) { a.classList.remove("on"); });
+        if (current) current.link.classList.add("on");
+    }
+
+    window.addEventListener("scroll", syncNav);
+    syncNav();
+</script>
+
+</body>
+</html>

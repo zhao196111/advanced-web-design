@@ -1,0 +1,352 @@
+/* ==========================================================
+   06 · H5 语义布局 + 过渡动画 专属样式
+   这一页的结构本身就是练习内容：header / nav / main / aside / footer
+   所以它不用主题里的"内容纸"，而是自己搭语义骨架，只沿用配色变量。
+   ========================================================== */
+
+/* ---------- 语义头部：直接做成渐变标题带 ---------- */
+.sem-header {
+    position: relative;
+    overflow: hidden;
+    padding: 52px 20px 46px;
+    text-align: center;
+    color: #fff;
+    background: linear-gradient(135deg, #7E2515 0%, #A5341F 58%, #C0452C 100%);
+}
+
+.sem-header::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .08);
+    right: -80px;
+    top: -110px;
+}
+
+.sem-header h1 {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(22px, 3vw, 32px);
+    letter-spacing: 2px;
+}
+
+.sem-header p {
+    position: relative;
+    z-index: 1;
+    margin-top: 10px;
+    font-size: 14px;
+    opacity: .9;
+    letter-spacing: 1px;
+}
+
+/* ---------- 语义导航：粘在主题顶栏下方 ---------- */
+.sem-nav {
+    position: sticky;
+    top: 60px;
+    z-index: 60;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, .94);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, .04);
+}
+
+.sem-nav a {
+    padding: 7px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: 2px;
+    transition: color .2s, background .2s;
+}
+
+.sem-nav a:hover {
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+/* ---------- 两栏骨架 ---------- */
+.wrap {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 26px 20px 20px;
+}
+
+.content-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.content-row > main {
+    flex: 1 1 640px;
+    min-width: 0;
+}
+
+.content-row > aside {
+    flex: 1 1 300px;
+    position: sticky;
+    top: 120px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 20px;
+}
+
+/* ---------- 内容卡片 ---------- */
+.panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 26px 26px 22px;
+    margin-bottom: 20px;
+    scroll-margin-top: 120px;
+}
+
+.panel h2,
+aside h2 {
+    font-size: 19px;
+    letter-spacing: .5px;
+    padding-left: 12px;
+    border-left: 4px solid var(--primary);
+    margin-bottom: 16px;
+}
+
+aside h2 {
+    font-size: 16.5px;
+    border-left-color: var(--accent);
+}
+
+.panel h3 {
+    font-size: 15.5px;
+    color: var(--primary-dark);
+    margin: 22px 0 8px;
+}
+
+.panel p,
+.panel li {
+    font-size: 14.8px;
+    color: #3F3C34;
+}
+
+.panel ol,
+.panel ul,
+aside ul {
+    padding-left: 22px;
+}
+
+.panel li {
+    margin: 8px 0;
+}
+
+.panel li::marker,
+aside li::marker {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* ---------- 行内答案与代码块 ---------- */
+.answer-code {
+    color: var(--primary-dark);
+    font-weight: 700;
+    background: var(--primary-light);
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: .9em;
+}
+
+.code-box {
+    background: #1A1915;
+    color: #EDE7D8;
+    border-radius: 2px;
+    padding: 14px 16px;
+    margin: 10px 0 14px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-x: auto;
+}
+
+.panel table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 14.2px;
+}
+
+.panel th {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 700;
+    text-align: left;
+}
+
+.panel th,
+.panel td {
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+    vertical-align: top;
+}
+
+/* ---------- 卡片动画演示 ---------- */
+.card-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    gap: 10px;
+    padding: 0;
+    margin-top: 18px;
+}
+
+.card-list li {
+    flex: 0 0 calc((100% - 20px) / 3);
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: var(--shadow);
+    margin: 0;
+}
+
+.card-list li a {
+    display: block;
+    color: #fff;
+}
+
+.card-list img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    display: block;
+    /* 过渡写在默认状态，移入移出都有动画 */
+    transition: transform .6s ease;
+}
+
+.card-list li:hover img {
+    transform: scale(1.2);
+}
+
+.card-list p {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    margin: 0;
+    text-align: center;
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 1.4;
+    background: rgba(15, 23, 42, .72);
+    color: #fff;
+    transition: height .5s ease, background .5s ease;
+}
+
+.card-list li:hover p {
+    height: 96px;
+    background: rgba(126, 37, 21, .85);
+}
+
+/* 奇数卡片：文字条直接铺满整张卡片 */
+.card-list li:nth-child(odd):hover p {
+    height: 100%;
+}
+
+/* ---------- 父相子绝示意图 ---------- */
+.draw-box {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: 170px;
+    margin: 16px 0;
+    padding: 14px;
+    border: 1px solid var(--primary);
+    border-radius: 2px;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-size: 13.5px;
+    font-family: var(--mono);
+}
+
+.child-box {
+    position: absolute;
+    right: 22px;
+    bottom: 18px;
+    width: 150px;
+    height: 76px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    line-height: 1.6;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 2px;
+    font-size: 13px;
+box-shadow: none;
+}
+
+/* ---------- 页脚与回到顶部 ---------- */
+.sem-footer {
+    margin-top: auto;
+    padding: 24px 20px;
+    text-align: center;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--line);
+    background: var(--card);
+}
+
+.back-top {
+    position: fixed;
+    left: 22px;
+    bottom: 24px;
+    z-index: 70;
+    width: 66px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #fff;
+    background: var(--primary);
+    border-radius: 2px;
+    box-shadow: var(--shadow-hover);
+    opacity: .7;
+    transition: opacity .3s, transform .3s;
+}
+
+.back-top:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 700px) {
+    .content-row > aside {
+        position: static;
+    }
+
+    .panel {
+        padding: 20px 18px 16px;
+    }
+
+    .card-list li {
+        flex: 0 0 calc((100% - 10px) / 2);
+    }
+}

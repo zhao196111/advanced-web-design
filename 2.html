@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flex 图文列表 · 弹性布局练习 | 赵俊清</title>
+
+<style>
+    /* ==========================================================
+       一、课堂当堂写的样式（保留原样，便于对照复习）
+       ========================================================== */
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    img{
+        display: block;
+        width: 100%;
+        border:none
+    }
+    .container{
+        width: 1200px;
+        margin: 0 auto;
+    }
+    /* 并集选择器 */
+    .list1,.list2{
+        display: flex;
+        /* flex-wrap: wrap换行 */
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        /* li之间的间隔 */
+        gap: 10px;
+        margin-top: 20px;
+
+    }
+    /* 绝对定位的父元素设置相对定位 */
+    .list2 li{
+        position: relative;
+    }
+
+    .list1 li,.list2 li{
+        /* flex参数不缩放，
+        每项占33.33%，基础间距是10px */
+        flex: 0 0 calc(33.33% - 10px);
+    }
+    .list1 li a,.list2 li a{
+        text-decoration: none;
+        color: black;
+        display: block;
+    }
+    /* 补充：六张素材图的原始尺寸不一样，
+       统一裁成 4:3，标题才能对齐在同一水平线上 */
+    .list1 img,.list2 img{
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+    }
+    .list1 li a p{
+        /* 文字水平居中 */
+        text-align: center;
+        /* 当文字的height和line-height一致时
+        文字垂直居中 */
+        height: 36px;
+        line-height: 36px;
+        font-size: 16px;
+        font-weight: bold;
+        /* 文字间距 */
+        letter-spacing: 2px;
+    }
+    .list2 p{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(99, 100, 255, 0.8);
+        color: white;
+        text-align: center;
+        width: 100%;
+        font-size: 16px;
+        font-weight: bold;
+        /* 垂直居中 */
+        line-height: 36px;
+        height: 36px;
+    }
+
+    /* ==========================================================
+       二、这一页的外框（与作品集统一的排版风格）
+       ========================================================== */
+    :root {
+        --paper: #F6F3EC;
+        --raise: #FCFAF5;
+        --ink: #1A1915;
+        --ink2: #4B4840;
+        --ink3: #8B8477;
+        --line: #D8D1C0;
+        --line-soft: #E7E1D2;
+        --red: #A5341F;
+        --sans: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Segoe UI", system-ui, sans-serif;
+        --mono: "Cascadia Mono", Consolas, "Courier New", monospace;
+    }
+
+    body {
+        font-family: var(--sans);
+        background: var(--paper);
+        color: var(--ink);
+        line-height: 1.75;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .pg-top {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: rgba(246, 243, 236, 0.92);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+    }
+
+    .pg-top .in {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .pg-top .who { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; }
+    .pg-top .who span { font-weight: 400; color: var(--ink3); margin-left: 8px; letter-spacing: 0.04em; }
+    .pg-top nav { margin-left: auto; display: flex; gap: 10px; }
+
+    .pg-top nav a {
+        font-family: var(--mono);
+        font-size: 11px;
+        border: 1px solid var(--line);
+        padding: 6px 12px;
+        color: var(--ink2);
+        transition: border-color .25s, background .25s, color .25s;
+    }
+
+    .pg-top nav a:hover { border-color: var(--ink); background: var(--raise); color: var(--ink); }
+
+    .pg-head { max-width: 1160px; margin: 0 auto; padding: clamp(38px, 5vw, 64px) 24px 0; }
+
+    .pg-eyebrow {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.3em;
+        color: var(--red);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .pg-eyebrow::after { content: ""; width: 110px; height: 1px; background: var(--line); }
+
+    .pg-head h1 {
+        margin-top: 16px;
+        font-size: clamp(28px, 4vw, 46px);
+        line-height: 1.18;
+        letter-spacing: 0.04em;
+        font-weight: 800;
+    }
+
+    .pg-head h1 small {
+        display: block;
+        margin-top: 10px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.32em;
+        color: var(--ink3);
+    }
+
+    .pg-lead {
+        margin-top: 18px;
+        max-width: 44em;
+        font-size: 14px;
+        line-height: 2;
+        color: var(--ink2);
+    }
+
+    .pg-meta {
+        max-width: 1160px;
+        margin: 26px auto 0;
+        padding: 0 24px;
+        border-top: 1px solid var(--ink);
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .pg-meta div {
+        padding: 11px 24px 11px 0;
+        margin-right: 24px;
+        border-right: 1px solid var(--line-soft);
+        font-size: 12.5px;
+    }
+
+    .pg-meta div:last-child { border-right: none; }
+
+    .pg-meta span {
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: 0.18em;
+        color: var(--ink3);
+        display: block;
+    }
+
+    .pg-body { padding: 44px 0 0; }
+
+    .block { margin-bottom: 52px; }
+
+    .block-head {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        max-width: 1160px;
+        margin: 0 auto 4px;
+        padding: 0 24px 10px;
+        border-bottom: 1px solid var(--line-soft);
+    }
+
+    .block-head b {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        color: var(--red);
+        font-weight: 600;
+    }
+
+    .block-head h2 { font-size: 17px; letter-spacing: 0.1em; font-weight: 700; }
+
+    .block-head .tip {
+        margin-left: auto;
+        font-size: 11.5px;
+        color: var(--ink3);
+        letter-spacing: 0.04em;
+    }
+
+    .block .container { padding: 0 24px; margin-top: 22px; }
+
+    .pg-foot {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 24px 24px 48px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 26px;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 12px;
+        color: var(--ink3);
+    }
+
+    .pg-foot b { color: var(--ink); letter-spacing: 0.1em; }
+    .pg-foot .mono { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; }
+
+    /* 窄屏时容器改成自适应，图片一列一行 */
+    @media (max-width: 1240px) {
+        .container { width: auto; }
+    }
+
+    @media (max-width: 760px) {
+        .list1 li, .list2 li { flex: 0 0 calc(50% - 10px); }
+        .pg-top .who span { display: none; }
+        .block-head .tip { display: none; }
+    }
+
+    @media (max-width: 480px) {
+        .list1 li, .list2 li { flex: 0 0 100%; }
+    }
+</style>
+</head>
+<body>
+
+<div class="pg-top">
+    <div class="in">
+        <div class="who">Flex 图文列表<span>赵俊清 · 高级网页设计</span></div>
+        <nav>
+            <a href="index.html">← 作品档案</a>
+            <a href="practice/index.html">实践总目录</a>
+        </nav>
+    </div>
+</div>
+
+<header class="pg-head">
+    <p class="pg-eyebrow">Module 03 · Flexbox</p>
+    <h1>
+        Flex 图文列表
+        <small>弹 性 换 行 · 父 相 子 绝</small>
+    </h1>
+    <p class="pg-lead">
+        这一页的样式是当堂写的，注释都留着。两组列表结构完全一样，区别只在文字的位置：
+        第一组把标题放在图片下方，第二组用绝对定位把标题条压在图片底边。
+    </p>
+</header>
+
+<div class="pg-meta">
+    <div><span>模块</span>03 · 盒模型与弹性布局</div>
+    <div><span>核心技术</span>flex-wrap · gap</div>
+    <div><span>定位</span>父相子绝</div>
+    <div><span>一行</span>3 张</div>
+</div>
+
+<div class="pg-body">
+
+    <!-- 列表一：上图下文 -->
+    <section class="block">
+        <div class="block-head">
+            <b>LIST 01</b>
+            <h2>上图下文</h2>
+            <span class="tip">flex: 0 0 calc(33.33% - 10px) · 标题在图片下方</span>
+        </div>
+        <div class="container">
+            <ul class="list1">
+                <li>
+                    <a href="practice/img/1.jpg">
+                        <img src="practice/img/1.jpg" alt="校园影像一">
+                        <p>校徽（蓝色）</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="practice/img/2.jpg">
+                        <img src="practice/img/2.jpg" alt="校园影像二">
+                        <p>停机坪</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="practice/img/3.jpg">
+                        <img src="practice/img/3.jpg" alt="校园影像三">
+                        <p>临水的夜</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="practice/img/4.jpg">
+                        <img src="practice/img/4.jpg" alt="校园影像四">
+                        <p>红色纹理</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="practice/img/5.jpg">
+                        <img src="practice/img/5.jpg" alt="校园影像五">
+                        <p>海湾</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="practice/img/6.jpg">
+                        <img src="practice/img/6.jpg" alt="校园影像六">
+                        <p>礁石</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 列表二：图上文字 -->
+    <section class="block">
+        <div class="block-head">
+            <b>LIST 02</b>
+            <h2>图上文字</h2>
+            <span class="tip">position: relative + absolute · 文字条压在图片底部</span>
+        </div>
+        <div class="container">
+            <ul class="list2">
+                <li>
+                    <a href="practice/img/1.jpg">
+                        <img src="practice/img/1.jpg" alt="校园影像一">
+                        <p>校徽（蓝色）</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="practice/img/2.jpg">
+                        <img src="practice/img/2.jpg" alt="校园影像二">
+                        <p>停机坪</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="practice/img/3.jpg">
+                        <img src="practice/img/3.jpg" alt="校园影像三">
+                        <p>临水的夜</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="practice/img/4.jpg">
+                        <img src="practice/img/4.jpg" alt="校园影像四">
+                        <p>红色纹理</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="practice/img/5.jpg">
+                        <img src="practice/img/5.jpg" alt="校园影像五">
+                        <p>海湾</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="practice/img/6.jpg">
+                        <img src="practice/img/6.jpg" alt="校园影像六">
+                        <p>礁石</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+</div>
+
+<footer class="pg-foot">
+    <div><b>赵俊清</b> · 24006270205 · 高级网页设计课堂实践</div>
+    <div class="mono">MODULE 03 · 2.HTML</div>
+</footer>
+
+</body>
+</html>

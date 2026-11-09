@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H5 语义布局 + CSS 过渡动画 | 赵俊清</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/06-semantic.css">
+</head>
+
+<body id="top">
+
+    <div class="px-top">
+        <div class="in">
+            <a class="px-brand" href="../index.html">
+                <span class="mk">赵</span>
+                <span class="tx">赵俊清的<i>课堂实践</i></span>
+            </a>
+            <a class="px-back" href="index.html">← 返回课堂目录</a>
+        </div>
+    </div>
+
+    <!-- 语义化头部：放标题和作者信息 -->
+    <header class="sem-header">
+        <h1>H5 语义布局 + 溢出 / 隐藏过渡动画</h1>
+        <p>姓名：赵俊清　·　高级网页设计课堂实践 · 06</p>
+    </header>
+
+    <!-- 导航条：跳到页面内的各个部分 -->
+    <nav class="sem-nav">
+        <a href="#part1">第一部分</a>
+        <a href="#part2">第二部分</a>
+        <a href="#demo">卡片演示</a>
+        <a href="#part3">第三部分</a>
+    </nav>
+
+    <div class="wrap">
+        <div class="content-row">
+            <!-- main 是页面唯一的主要内容区 -->
+            <main>
+                <section id="part1" class="panel">
+                    <h2>第一部分：看代码找错</h2>
+                    <ol>
+                        <li>
+                            图片放大跑出卡片：<code>.box li</code> 缺少
+                            <span class="answer-code">overflow: hidden;</span>，修改为：
+                            <div class="code-box">.box li{<br>&nbsp;&nbsp;&nbsp;&nbsp;width: 300px;<br>&nbsp;&nbsp;&nbsp;&nbsp;overflow: hidden;<br>&nbsp;&nbsp;&nbsp;&nbsp;position: relative;<br>}</div>
+                        </li>
+                        <li>
+                            鼠标移出没有过渡：<strong>transition</strong> 不能只写在 hover 上，应写在普通选择器里：
+                            <div class="code-box">.box img{<br>&nbsp;&nbsp;&nbsp;&nbsp;width: 100%;<br>&nbsp;&nbsp;&nbsp;&nbsp;transition: all .6s;<br>}<br>.box li:hover img{<br>&nbsp;&nbsp;&nbsp;&nbsp;transform: scale(1.2);<br>}</div>
+                        </li>
+                        <li>
+                            文字条定位错乱：文字是绝对定位，父级 li 要相对定位：
+                            <div class="code-box">.box li{<br>&nbsp;&nbsp;&nbsp;&nbsp;position: relative;<br>}</div>
+                        </li>
+                    </ol>
+                </section>
+
+                <section id="part2" class="panel">
+                    <h2>第二部分：补全代码</h2>
+
+                    <h3>2.1 语义标签填空</h3>
+                    <table>
+                        <tr>
+                            <th>区域</th>
+                            <th>答案</th>
+                        </tr>
+                        <tr>
+                            <td>页面顶部头部区域</td>
+                            <td><code>&lt;header&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td>导航条</td>
+                            <td><code>&lt;nav&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td>页面唯一主要内容区</td>
+                            <td><code>&lt;main&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td>侧边栏附属内容</td>
+                            <td><code>&lt;aside&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td>页面底部版权页脚</td>
+                            <td><code>&lt;footer&gt;</code></td>
+                        </tr>
+                    </table>
+
+                    <h3>2.2 卡片动画补全</h3>
+                    <table>
+                        <tr>
+                            <th>需要实现效果</th>
+                            <th>关键代码 / 答案</th>
+                        </tr>
+                        <tr>
+                            <td>防止放大图片溢出 li 容器</td>
+                            <td><span class="answer-code">overflow: hidden;</span></td>
+                        </tr>
+                        <tr>
+                            <td>子绝父相，让文字条定位在卡片底部</td>
+                            <td><span class="answer-code">position: relative;</span></td>
+                        </tr>
+                        <tr>
+                            <td>hover 图片从原始大小放大到 scale(1.2)</td>
+                            <td><span class="answer-code">.card-list img</span> 和 <span class="answer-code">.card-list li:hover img</span></td>
+                        </tr>
+                        <tr>
+                            <td>文字高度平滑展开，移入移出都有动画</td>
+                            <td>transition 写在默认的 <span class="answer-code">.card-list p</span> 上。默认状态和 hover 状态都能读到它，所以移入移出都有动画。</td>
+                        </tr>
+                        <tr>
+                            <td>奇数卡片悬浮，文字铺满整张卡片</td>
+                            <td><span class="answer-code">.card-list li:nth-child(odd):hover p</span></td>
+                        </tr>
+                    </table>
+
+                    <h3>2.3 flex 两栏布局填空</h3>
+                    <ul>
+                        <li>父容器开启 flex：<span class="answer-code">display: flex;</span></li>
+                        <li>设置两栏间隙 20px：<span class="answer-code">gap: 20px;</span></li>
+                    </ul>
+                </section>
+
+                <section id="demo" class="panel">
+                    <h2>卡片动画演示</h2>
+                    <p>鼠标一张张移过去：图片放大、文字条展开、奇数卡片铺满整张图。</p>
+                    <ul class="card-list">
+                        <li>
+                            <a href="04-stack.html">
+                                <img src="img/1.jpg" alt="卡片图片1">
+                                <p>移入图片放大</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="04-stack.html">
+                                <img src="img/2.jpg" alt="卡片图片2">
+                                <p>文字条展开</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="04-stack.html">
+                                <img src="img/3.jpg" alt="卡片图片3">
+                                <p>奇数项铺满</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="04-stack.html">
+                                <img src="img/4.jpg" alt="卡片图片4">
+                                <p>文字在底部</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="04-stack.html">
+                                <img src="img/5.jpg" alt="卡片图片5">
+                                <p>overflow 裁切</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="04-stack.html">
+                                <img src="img/6.jpg" alt="卡片图片6">
+                                <p>平滑过渡</p>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="part3" class="panel">
+                    <h2>第三部分：手写原理简答</h2>
+
+                    <h3>1. 父相子绝位置关系图</h3>
+                    <div class="draw-box">
+                        <div class="child-box">子元素<br>absolute</div>
+                        父元素 position: relative
+                    </div>
+                    <p>父元素设置 <span class="answer-code">position: relative;</span> 后，子元素设置 <span class="answer-code">position: absolute;</span>，子元素就以父元素为参照，再用 bottom、left 等属性定位。</p>
+
+                    <h3>2. overflow:hidden 的两个作用</h3>
+                    <ul>
+                        <li>作用 1：图片 <code>transform</code> 放大后，超出 li 的部分被裁掉，不会盖住旁边的卡片。</li>
+                        <li>作用 2：文字条高度较小时，多余内容隐藏；hover 后再展开显示更多文字。</li>
+                    </ul>
+
+                    <h3>3. transform:scale(1.2) 会不会挤压旁边卡片？</h3>
+                    <p>不会。<code>transform</code> 只是视觉变形，盒子原来的宽高和实际占位不变，所以不会把旁边卡片挤开。但父级如果没有 <code>overflow: hidden</code>，放大的图片会从视觉上盖到旁边。</p>
+
+                    <h3>4. transition 写在 hover 和普通选择器的区别</h3>
+                    <p>写在 <code>:hover</code> 上时，鼠标移入有动画，移出时普通状态没有 transition，会直接跳回原样。写在普通选择器上，移入和移出都能用同一个过渡效果。</p>
+
+                    <h3>5. 自己写代码遇到的 bug</h3>
+                    <p>我一开始把 transition 写在 hover 选择器里，鼠标移入时文字条能慢慢展开，但移出时高度马上变回去，没有动画。后来检查写法，发现 transition 应该写在默认的 p 选择器里，改完后移入移出都有平滑过渡。</p>
+                </section>
+            </main>
+
+            <!-- aside 是侧边栏附属内容 -->
+            <aside>
+                <h2>作业要点</h2>
+                <ul>
+                    <li>使用 header、nav、main、aside、footer</li>
+                    <li>两栏布局使用 flex 和 gap</li>
+                    <li>图片放大使用 transform</li>
+                    <li>文字展开使用 transition</li>
+                    <li>禁止使用 float</li>
+                </ul>
+                <div class="px-note" style="margin-top:16px;">
+                    左侧是"内容区"，右侧是"附属说明" —— 用语义标签写，页面结构和视觉位置就对得上了。
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <footer class="sem-footer">
+        2026 · 赵俊清 · H5 语义布局与 CSS 动画作业
+    </footer>
+
+    <!-- 只用 CSS 实现的固定回到顶部按钮 -->
+    <a class="back-top" href="#top">TOP</a>
+
+</body>
+
+</html>

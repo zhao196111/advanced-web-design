@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上图下文 · 图片卡片布局 | 赵俊清</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/04-stack.css">
+</head>
+
+<body>
+
+    <div class="px-top">
+        <div class="in">
+            <a class="px-brand" href="../index.html">
+                <span class="mk">赵</span>
+                <span class="tx">赵俊清的<i>课堂实践</i></span>
+            </a>
+            <a class="px-back" href="index.html">← 返回课堂目录</a>
+        </div>
+    </div>
+
+    <header class="px-hero">
+        <div class="in">
+            <p class="px-eyebrow">CLASS PRACTICE · 04 · 页面布局</p>
+            <h1>上图下文</h1>
+            <p class="px-lead">
+                图片在上、文字在下，用 <code>ul &gt; li &gt; a &gt; img + p</code> 的列表结构做成图片卡片，
+                再用 Grid 网格排成一行三张。鼠标移上去，卡片会抬起来，图片会慢慢放大。
+            </p>
+        </div>
+    </header>
+
+    <main class="px-main">
+        <div class="px-sheet">
+
+            <h2>一行三张的图片卡片</h2>
+            <p>
+                整张卡片都是可点的链接。排版靠 <code>display: grid</code> + <code>grid-template-columns: repeat(3, 1fr)</code>，
+                <code>gap</code> 只管卡片之间的空隙，不用再算 margin。
+            </p>
+
+            <ul class="list1">
+                <li><a href="04-stack.html"><img src="img/人生要有弹性.png" alt="人生要有弹性">
+                        <p>人生要有弹性</p>
+                    </a></li>
+                <li><a href="04-stack.html"><img src="img/提升自适应能力图.png" alt="提升自适应能力">
+                        <p>提升自适应能力</p>
+                    </a></li>
+                <li><a href="04-stack.html"><img src="img/适应国家发展.png" alt="适应国家发展">
+                        <p>适应国家发展</p>
+                    </a></li>
+                <li><a href="04-stack.html"><img src="img/适应岗位需求.png" alt="适应岗位需求">
+                        <p>适应岗位需求</p>
+                    </a></li>
+                <li><a href="04-stack.html"><img src="img/适应环境.png" alt="适应环境">
+                        <p>适应环境</p>
+                    </a></li>
+                <li><a href="04-stack.html"><img src="img/适应科技发展.png" alt="适应科技发展">
+                        <p>适应科技发展</p>
+                    </a></li>
+            </ul>
+
+            <h2>核心 CSS</h2>
+            <pre class="px-code">ul.list1 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  /* 一行三张，改成 2 就是一行两张 */
+    gap: 20px;
+}
+
+ul.list1 li  { border-radius: 14px; overflow: hidden; }      /* 裁掉放大的图片 */
+ul.list1 img { width: 100%; height: 172px; object-fit: cover;
+               transition: transform .6s ease; }             /* transition 写在默认态 */
+ul.list1 li:hover img { transform: scale(1.12); }              /* 移入放大，不溢出 */
+ul.list1 p   { padding: 12px; text-align: center; }            /* 下文：水平居中 */</pre>
+
+            <div class="px-note">
+                <b>两个小陷阱：</b>
+                ① <code>transition</code> 必须写在默认状态里，写在 <code>:hover</code> 上的话，鼠标移出会"啪"地跳回去；
+                ② 图片放大会溢出卡片，靠父级 <code>overflow: hidden</code> 裁掉，否则会盖住旁边的卡片。
+            </div>
+
+            <h2>换成一行两张 / 一行一张</h2>
+            <p>
+                只改 <code>grid-template-columns</code> 一个值就够：<code>repeat(2, 1fr)</code> 是两张，
+                <code>1fr</code> 是一张。真正需要响应式时，用媒体查询按屏幕宽度切换（本页 860px 以下自动变两列，560px 以下变一列）。
+            </p>
+
+        </div>
+    </main>
+
+    <footer class="px-foot">
+        赵俊清 · 《高级网页设计》课堂实践 · 上图下文（Grid） · 2026
+    </footer>
+
+    <button class="px-top-btn" id="pxTop" title="返回顶部">↑</button>
+
+    <script>
+        var pxTop = document.getElementById("pxTop");
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 360) { pxTop.classList.add("show"); }
+            else { pxTop.classList.remove("show"); }
+        });
+        pxTop.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
+
+</body>
+
+</html>

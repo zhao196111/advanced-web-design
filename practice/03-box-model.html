@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>层叠与继承 + 盒模型 | 赵俊清</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/03-box-model.css">
+</head>
+
+<body>
+
+    <div class="px-top">
+        <div class="in">
+            <a class="px-brand" href="../index.html">
+                <span class="mk">赵</span>
+                <span class="tx">赵俊清的<i>课堂实践</i></span>
+            </a>
+            <a class="px-back" href="index.html">← 返回课堂目录</a>
+        </div>
+    </div>
+
+    <header class="px-hero">
+        <div class="in">
+            <p class="px-eyebrow">CLASS PRACTICE · 03 · CSS 基础</p>
+            <h1>层叠与继承 + 盒模型</h1>
+            <p class="px-lead">
+                同一张卡片，被标签选择器、类选择器、ID 选择器、后代选择器轮着命中，
+                到底谁说了算？再加上 padding / border / margin 四层盒子，这一页把两件事拆开看清楚。
+            </p>
+        </div>
+    </header>
+
+    <main class="px-main">
+        <div class="px-sheet">
+
+            <h2 class="plain">一、层叠与权重：谁最后生效</h2>
+            <h2 class="container-title">层叠与继承 + 盒模型</h2>
+            <p>
+                上面两行都是 <code>h2</code>：第一行只被标签选择器命中（权重 1），是灰色的；
+                第二行多了 <code>.container-title</code> 类选择器（权重 10），于是盖掉灰色变成主色调蓝。
+                权重相同时，<b>写在后面的那条生效</b>。
+            </p>
+
+            <div id="card-wrap">
+                <div class="card">
+                    <img src="img/1.jpg" alt="盒模型示例图">
+                    <h3>盒模型</h3>
+                    <p class="card-desc">padding · border · margin（后代选择器让这行变成橙色）</p>
+                </div>
+            </div>
+
+            <h2 class="plain">二、一个盒子的四层结构</h2>
+            <p>鼠标移到卡片上，4px 的边框会变蓝 —— 那一圈就是 border；border 里面的 16px 是 padding；卡片外面的 20px 是 margin。</p>
+
+            <div class="model-demo">
+                <span class="tag-margin">margin 外边距</span>
+                <div class="m-border">
+                    <span class="tag">border 边框 4px</span>
+                    <div class="m-padding">
+                        <span class="tag">padding 内边距 16px</span>
+                        <div class="m-content">content 内容区</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-note">
+                <b>box-sizing: border-box</b> 的意思是：写 <code>width: 300px</code> 时，
+                这 300px 里已经把 padding 和 border 算进去了，内容区会自动让位。
+                用 <code>content-box</code>（默认值）的话，盒子实际宽度 = width + padding × 2 + border × 2，很容易算超。
+            </div>
+
+            <h2 class="plain">三、选择器小游戏：10 关答案</h2>
+            <p>CSS Diner 那 10 关下来，正好把基础选择器的写法串了一遍：</p>
+            <ol class="game-list">
+                <li>plate</li>
+                <li>bento</li>
+                <li>#fancy</li>
+                <li>plate apple</li>
+                <li>#fancy pickle</li>
+                <li>small</li>
+                <li>orange.small</li>
+                <li>bento orange.small</li>
+                <li>plate,bento</li>
+                <li>*</li>
+            </ol>
+
+            <h2 class="plain">四、这一页记住的三句话</h2>
+            <ul>
+                <li><b>能继承的：</b>color、font-*、line-height、text-align、letter-spacing。</li>
+                <li><b>不能继承的：</b>border、padding、margin、width、height、background。</li>
+                <li><b>盒子算不准时：</b>先打开开发者工具的盒模型面板，四层颜色看得一清二楚。</li>
+            </ul>
+
+        </div>
+    </main>
+
+    <footer class="px-foot">
+        赵俊清 · 《高级网页设计》课堂实践 · 层叠与继承 + 盒模型 · 2026
+    </footer>
+
+    <button class="px-top-btn" id="pxTop" title="返回顶部">↑</button>
+
+    <script>
+        var pxTop = document.getElementById("pxTop");
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 360) { pxTop.classList.add("show"); }
+            else { pxTop.classList.remove("show"); }
+        });
+        pxTop.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
+
+</body>
+
+</html>

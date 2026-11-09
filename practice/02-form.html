@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单控件练习 | 赵俊清</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/02-form.css">
+</head>
+
+<body>
+
+    <div class="px-top">
+        <div class="in">
+            <a class="px-brand" href="../index.html">
+                <span class="mk">赵</span>
+                <span class="tx">赵俊清的<i>课堂实践</i></span>
+            </a>
+            <a class="px-back" href="index.html">← 返回课堂目录</a>
+        </div>
+    </div>
+
+    <header class="px-hero">
+        <div class="in">
+            <p class="px-eyebrow">CLASS PRACTICE · 02 · 表单控件</p>
+            <h1>表单控件练习</h1>
+            <p class="px-lead">
+                文本框、密码框、文件上传、文本域、下拉列表 —— 五个最常用的控件各写一遍，
+                重点看 <code>type</code> 一改，浏览器给的默认交互就完全不同。
+            </p>
+        </div>
+    </header>
+
+    <main class="px-main">
+        <div class="px-sheet">
+
+            <h2>五个基础控件</h2>
+
+            <div class="form-card">
+                <div class="field">
+                    <label for="username">用户名</label>
+                    <div class="ctrl">
+                        <input type="text" id="username" placeholder="请输入用户名">
+                        <span class="tip">type="text" · 单行文本输入</span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="password">密码</label>
+                    <div class="ctrl">
+                        <input type="password" id="password" placeholder="请输入密码">
+                        <span class="tip">type="password" · 输入内容显示为圆点</span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="file">上传文件</label>
+                    <div class="ctrl">
+                        <input type="file" id="file">
+                        <span class="tip">type="file" · 由浏览器调起本地文件选择框</span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="intro">个人介绍</label>
+                    <div class="ctrl">
+                        <textarea id="intro" placeholder="多行文本写在这里……"></textarea>
+                        <span class="tip">textarea · 用 cols / rows 控制初始大小，右下角可以拖拽</span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="city">城市</label>
+                    <div class="ctrl">
+                        <select id="city">
+                            <option>大连</option>
+                            <option>北京</option>
+                            <option>上海</option>
+                            <option>广州</option>
+                        </select>
+                        <span class="tip">select &gt; option · 下拉列表</span>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button">提交</button>
+                    <button type="button" class="ghost">重置</button>
+                </div>
+            </div>
+
+            <h2>控件对照表</h2>
+            <table class="mini">
+                <tr>
+                    <th>控件</th>
+                    <th>写法</th>
+                    <th>要点</th>
+                </tr>
+                <tr>
+                    <td>文本框</td>
+                    <td><code>&lt;input type="text"&gt;</code></td>
+                    <td>用 placeholder 写提示文字</td>
+                </tr>
+                <tr>
+                    <td>密码框</td>
+                    <td><code>&lt;input type="password"&gt;</code></td>
+                    <td>只改变显示，值本身不变</td>
+                </tr>
+                <tr>
+                    <td>文件上传</td>
+                    <td><code>&lt;input type="file"&gt;</code></td>
+                    <td>加 multiple 可以多选</td>
+                </tr>
+                <tr>
+                    <td>文本域</td>
+                    <td><code>&lt;textarea&gt;</code></td>
+                    <td>双标签，内容写在标签之间</td>
+                </tr>
+                <tr>
+                    <td>下拉列表</td>
+                    <td><code>&lt;select&gt;&lt;option&gt;</code></td>
+                    <td>value 是提交给服务器的值</td>
+                </tr>
+            </table>
+
+            <div class="px-note">
+                <b>课堂小结：</b>表单三件套 —— <code>form</code> 负责提交去哪儿，
+                <code>input / select / textarea</code> 负责收数据，<code>label</code> 负责让文字也能点。
+                三者配合，键盘操作和读屏软件才都友好。
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="px-foot">
+        赵俊清 · 《高级网页设计》课堂实践 · 表单控件练习 · 2026
+    </footer>
+
+    <button class="px-top-btn" id="pxTop" title="返回顶部">↑</button>
+
+    <script>
+        var pxTop = document.getElementById("pxTop");
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 360) { pxTop.classList.add("show"); }
+            else { pxTop.classList.remove("show"); }
+        });
+        pxTop.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+.workbuddy/
+_dist/
+.DS_Store
+Thumbs.db
+.netlify/

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的第一个网页 · HTML 基础练习 | 赵俊清</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/01-html-basic.css">
+</head>
+
+<body>
+
+    <!-- 顶栏：品牌 + 返回课堂目录 -->
+    <div class="px-top">
+        <div class="in">
+            <a class="px-brand" href="../index.html">
+                <span class="mk">赵</span>
+                <span class="tx">赵俊清的<i>课堂实践</i></span>
+            </a>
+            <a class="px-back" href="index.html">← 返回课堂目录</a>
+        </div>
+    </div>
+
+    <!-- 标题带 -->
+    <header class="px-hero">
+        <div class="in">
+            <p class="px-eyebrow">CLASS PRACTICE · 01 · HTML 基础</p>
+            <h1>我的第一个网页</h1>
+            <p class="px-lead">
+                从标题、段落、图片、列表、表格，一直写到 H5 语义标签与表单控件。
+                这一页不做花哨的排版，重点是<b>把每一个标签都亲手敲一遍</b>，看清楚它默认长什么样。
+            </p>
+        </div>
+    </header>
+
+    <main class="px-main">
+        <div class="px-sheet">
+
+            <h2 class="title-demo">1. 标题</h2>
+            <!-- 一共 6 级标题 h1-h6，数字越大字号越小 -->
+            <div class="raw-box">
+                <h1>一级标题</h1>
+                <h2>二级标题</h2>
+                <h3>三级标题</h3>
+                <h4>四级标题</h4>
+                <h5>五级标题</h5>
+                <h6>六级标题，最小的标题</h6>
+            </div>
+
+            <h2 class="title-demo">2. 段落</h2>
+            <!-- 常用强调方式：斜体 em、加粗 strong、下划线 u、删除线 s -->
+            <p class="text-cont">
+                段落的<em>特点</em>：段落内容<strong>自动换行</strong>，<br>
+                有<u>自带</u>的间距。<s>需要删除的</s>
+            </p>
+
+            <hr>
+
+            <h2 class="title-demo">3. 超链接和图片</h2>
+            <a href="http://baidu.com" target="_blank" style="color:var(--primary);font-weight:700;">百度（新窗口打开）</a>
+            <img src="img/1.jpg" alt="示例图片" style="width:220px;">
+
+            <h2 class="title-demo">4. 列表</h2>
+            <h3>我喜欢做的事情</h3>
+            <ul class="list-demo">
+                <li>打游戏</li>
+                <li>看电影</li>
+                <li>看书</li>
+            </ul>
+            <ol type="A">
+                <li>数学</li>
+                <li>英语</li>
+                <li>语文</li>
+            </ol>
+
+            <h2 class="title-demo">5. 表格</h2>
+            <!-- cellspacing 是单元格之间的距离，cellpadding 是单元格内容与边框之间的距离 -->
+            <table id="user-table" border="0" cellspacing="0" cellpadding="3">
+                <caption>用户信息表</caption>
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>性别</th>
+                    <th>城市</th>
+                </tr>
+                <tr>
+                    <td>张三</td>
+                    <td>18</td>
+                    <td>男</td>
+                    <td>北京</td>
+                </tr>
+                <tr>
+                    <td>李四</td>
+                    <td>20</td>
+                    <td>女</td>
+                    <td>上海</td>
+                </tr>
+            </table>
+
+            <h2 class="title-demo">6. div 块级元素</h2>
+            <div class="text-cont">
+                <p>div 特点 1：独占一整行，自动前后换行，是块级元素。</p>
+                <p>div 特点 2：可以嵌套任意标签（标题、段落、图片、列表都能放）。</p>
+            </div>
+
+            <h2 class="title-demo">H5 语义标签</h2>
+            <!-- header、nav、section、article、footer、aside 本质上都是 div，只是名字带了含义 -->
+            <header>头部 header</header>
+            <nav>导航条 nav</nav>
+            <section>内容区域 section</section>
+            <article>文章区域 article</article>
+            <aside>侧边栏 aside</aside>
+            <footer>页脚 footer</footer>
+
+            <h2 class="title-demo">基础表单 + H5 表单</h2>
+            <form action="http://baidu.com" name="fm" method="post">
+                <p>用户名：
+                    <input type="text" placeholder="请输入用户名" required>
+                </p>
+                <p>
+                    <label for="pwd">密码：</label>
+                    <!-- label 的 for 对应 input 的 id，点文字就能聚焦输入框 -->
+                    <input type="password" name="pwd" id="pwd">
+                </p>
+                <p>邮箱：
+                    <input type="email" name="email" id="email" placeholder="name@example.com">
+                </p>
+                <p>请上传文件：
+                    <input type="file" name="file" id="file" multiple>
+                </p>
+                <p>性别：
+                    <input type="radio" name="gender" value="f">女
+                    <input type="radio" name="gender" value="m">男
+                </p>
+                <p>爱好：
+                    <input type="checkbox" name="hobby" value="c">coding
+                    <input type="checkbox" name="hobby" value="s">playing
+                    <input type="checkbox" name="hobby" value="r">reading
+                </p>
+                <p>自我介绍：
+                    <textarea name="intro" id="intro" cols="30" rows="6"></textarea>
+                </p>
+                <p>籍贯：
+                    <select name="city" id="city">
+                        <option value="beijing">北京</option>
+                        <option value="shanghai">上海</option>
+                        <option value="guangzhou">广州</option>
+                        <option value="dalian">大连</option>
+                    </select>
+                </p>
+                <p>
+                    <input type="submit" value="提交">
+                    <input type="reset" value="重置">
+                    <input type="button" value="取消">
+                </p>
+            </form>
+            <button class="btn">表单外的按钮</button>
+
+        </div>
+    </main>
+
+    <footer class="px-foot">
+        赵俊清 · 《高级网页设计》课堂实践 · HTML 基础练习 · 2026
+    </footer>
+
+    <button class="px-top-btn" id="pxTop" title="返回顶部">↑</button>
+
+    <script>
+        var pxTop = document.getElementById("pxTop");
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 360) { pxTop.classList.add("show"); }
+            else { pxTop.classList.remove("show"); }
+        });
+        pxTop.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
+
+</body>
+
+</html>

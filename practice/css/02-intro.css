@@ -1,0 +1,150 @@
+/* ==========================================================
+   02 · 自我介绍（选择器练习）专属样式
+   这一页的每一块都在演示一种选择器写法，
+   所以：标签本身的样式尽量"保留可观察的差异"，外壳统一成站点风格。
+   ========================================================== */
+
+/* 每块演示：浅底卡片 + 左上角标注选择器写法 */
+.demo-row {
+    border: 1px dashed #D8CFBD;
+    background: #FBF8F1;
+    border-radius: 2px;
+    padding: 14px 18px 16px;
+    margin: 14px 0;
+}
+
+.demo-row .lbl {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .6px;
+    color: var(--primary-dark);
+    background: var(--primary-light);
+    border-radius: 2px;
+    padding: 2px 9px;
+    margin-bottom: 10px;
+}
+
+/* 演示区里的标题统一收一收字号，避免把页面撑得歪歪扭扭 */
+.demo-row h1,
+.demo-row h2,
+.demo-row h3,
+.demo-row h4,
+.demo-row h5,
+.demo-row h6 {
+    margin: 4px 0;
+    line-height: 1.4;
+}
+
+.demo-row h1 { font-size: 26px; }
+.demo-row h2 { font-size: 22px; border: none; padding: 0; }
+.demo-row h3 { font-size: 19px; margin: 4px 0; }
+.demo-row h4 { font-size: 17px; }
+.demo-row h5 { font-size: 15px; }
+.demo-row h6 { font-size: 14px; }
+
+/* ---------- 1. 元素选择器：h4 变色 ---------- */
+h4 {
+    color: var(--primary);
+}
+
+/* ---------- 2. 标签选择器：p 变色变大 ---------- */
+.demo-row p {
+    color: var(--primary);
+    font-size: 18px;
+}
+
+/* ---------- 3. 类选择器 ---------- */
+.d {
+    color: #7c3aed;
+}
+
+.highlight {
+    color: #8A5A1C;
+}
+
+/* ---------- 4. ID 选择器 ---------- */
+#header {
+    font-size: 28px;
+    color: var(--primary-dark);
+}
+
+/* ---------- 5. 后代选择器：table 里的 td / th ---------- */
+table td,
+table th {
+    color: #4f46e5;
+}
+
+/* 演示用的表格不要撑满整行 */
+.demo-row table {
+    width: auto;
+    min-width: 300px;
+    border-collapse: collapse;
+}
+
+.demo-row table th,
+.demo-row table td {
+    border: 1px solid #c7d5f2;
+    padding: 7px 16px;
+    text-align: center;
+}
+
+/* ---------- 6. 群组选择器 ---------- */
+.a,
+.b,
+.c {
+    color: var(--primary-dark);
+}
+
+/* ---------- 7. 页内 style 标签直接写样式 ---------- */
+.box {
+    background: linear-gradient(135deg, #7E2515, #A5341F);
+    color: #fff;
+    border-radius: 2px;
+    padding: 12px 18px;
+    display: inline-block;
+    font-weight: 700;
+    letter-spacing: 1px;
+box-shadow: none;
+}
+
+/* ---------- 混在里面的链接与控件 ---------- */
+.demo-row a {
+    color: var(--primary);
+    font-weight: 600;
+    border-bottom: 1px dashed #9db8f0;
+    margin-right: 10px;
+}
+
+.demo-row a:hover {
+    border-bottom-style: solid;
+}
+
+.demo-row button {
+    border: none;
+    border-radius: 2px;
+    padding: 9px 20px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.demo-row button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px -8px rgba(245, 158, 11, .95);
+}
+
+.demo-row input[type="checkbox"],
+.demo-row input[type="radio"] {
+    accent-color: var(--primary);
+    margin-right: 6px;
+}
+
+.demo-row img {
+    border-radius: 2px;
+    border: 2px solid var(--primary-light);
+}

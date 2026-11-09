@@ -1,0 +1,117 @@
+/* ==========================================================
+   09 · JavaScript 对象 专属样式
+   代码块 + 运行结果块成对出现，方便对照"写了什么 / 跑出什么"。
+   ========================================================== */
+
+.panel {
+    background: #FBF8F1;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px 24px 20px;
+    margin: 20px 0;
+}
+
+.panel h2 {
+    font-size: 19px;
+    border: none;
+    padding: 0;
+    margin: 0 0 12px;
+}
+
+.panel h3 {
+    font-size: 15.5px;
+    margin: 22px 0 8px;
+}
+
+.panel > p {
+    font-size: 14.8px;
+    color: #3F3C34;
+}
+
+/* ---------- 代码块 ---------- */
+.code {
+    background: #1A1915;
+    color: #EDE7D8;
+    border-radius: 2px;
+    padding: 16px 18px;
+    margin: 12px 0 0;
+    font-family: var(--mono);
+    font-size: 13.2px;
+    line-height: 1.85;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+.code .cm {
+    color: #8ba1bf;
+    font-style: italic;
+}
+
+.code .kw {
+    color: #ff9d7a;
+}
+
+.code .st {
+    color: #ffd98a;
+}
+
+/* ---------- 控制台输出块：和代码块成对出现，标清是运行结果 ---------- */
+.console {
+    background: #f1f6ff;
+    border: 1px solid #d7e3fa;
+    border-left: 3px solid var(--primary);
+    border-radius: 2px;
+    padding: 14px 16px;
+    margin: 10px 0 4px;
+    font-family: var(--mono);
+    font-size: 12.8px;
+    line-height: 1.9;
+    color: #1e3a6e;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+
+.console::before {
+    content: "运行结果";
+    display: block;
+    margin-bottom: 6px;
+    font-family: "Microsoft YaHei", sans-serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: var(--text-muted);
+}
+
+.console b {
+    color: var(--primary);
+}
+
+.console .no {
+    color: #b4462f;
+}
+
+/* ---------- 小结卡 ---------- */
+.takeaway {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 2px;
+    padding: 14px 16px;
+    margin-top: 16px;
+    font-size: 14.2px;
+    color: #6E4A17;
+}
+
+.takeaway b {
+    color: #7A4318;
+}
+
+@media (max-width: 640px) {
+    .panel {
+        padding: 18px 16px 14px;
+    }
+
+    .code,
+    .console {
+        font-size: 12.2px;
+    }
+}

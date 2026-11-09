@@ -1,0 +1,184 @@
+/* ==========================================================
+   01 · HTML 基础练习 —— 页面专属样式
+   骨架与配色来自 theme.css，这里只处理这一页出现的标签演示块。
+   ========================================================== */
+
+/* 类选择器演示：原来用红字黄底，换成站点主色的浅蓝胶囊 */
+.px-sheet h2.title-demo {
+    color: var(--primary-dark);
+    background: #EFE9DA;
+    padding: 10px 16px;
+    border-left: 4px solid var(--primary);
+    border-radius: 0;
+    font-size: 17px;
+    letter-spacing: .08em;
+    margin: 32px 0 14px;
+    box-shadow: none;
+}
+
+/* 段落演示：群组选择器给的紫色，改成一条浅蓝底的说明条 */
+.text-cont,
+.px-sheet ul,
+.px-sheet ol {
+    color: #3F3C34;
+}
+
+.text-cont {
+    background: #FBF8F1;
+    border-left: 4px solid var(--primary-light);
+    border-radius: 0;
+    padding: 12px 16px;
+    color: #3F3C34;
+}
+
+/* 标题演示区：单独围一块浅底，抵消主题里 h2 的左侧竖线 */
+.raw-box {
+    background: #FBF8F1;
+    border: 1px dashed #D8CFBD;
+    border-radius: 2px;
+    padding: 16px 20px;
+    margin: 12px 0;
+}
+
+.raw-box h1,
+.raw-box h2,
+.raw-box h3,
+.raw-box h4,
+.raw-box h5,
+.raw-box h6 {
+    margin: 8px 0;
+    padding: 0;
+    border: none;
+    line-height: 1.45;
+}
+
+.raw-box h1 { font-size: 30px; }
+.raw-box h2 { font-size: 24px; }
+.raw-box h3 { font-size: 20px; color: var(--text); margin: 8px 0; }
+
+/* 表格：id 选择器，宽度与居中 */
+#user-table {
+    width: 100%;
+    max-width: 520px;
+    margin: 18px auto;
+    border-collapse: collapse;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+    font-size: 14.5px;
+}
+
+#user-table caption {
+    color: var(--primary-dark);
+    font-size: 15px;
+    font-weight: 700;
+    padding-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+#user-table th {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+#user-table th,
+#user-table td {
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+    text-align: center;
+}
+
+/* H5 语义标签演示：原来是一排光秃秃的文字，改成带标注的小方块 */
+.px-sheet header:not(.px-hero),
+.px-sheet nav,
+.px-sheet section,
+.px-sheet article,
+.px-sheet footer:not(.px-foot),
+.px-sheet aside {
+    border: 1px dashed #b9cdf5;
+    background: #FBF8F1;
+    border-radius: 2px;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: 14.5px;
+    color: var(--primary-dark);
+}
+
+/* 表单：控件统一圆角与聚焦色 */
+form {
+    background: #FBF8F1;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 20px 22px;
+    margin: 16px 0;
+}
+
+form p {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 14.5px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select,
+textarea {
+    border: 1px solid #DCD5C4;
+    border-radius: 2px;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text);
+    background: #fff;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary);
+box-shadow: none;
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+.btn {
+    border: none;
+    border-radius: 2px;
+    padding: 9px 22px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    transition: background .2s, color .2s, transform .2s;
+}
+
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.btn:hover {
+    background: var(--primary);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn {
+    margin-top: 6px;
+    background: var(--accent-light);
+    color: #7A4318;
+}
+
+.px-sheet img {
+    border-radius: 2px;
+    margin: 10px 0;
+}
