@@ -27,18 +27,24 @@
 │   ├── 09-object.html      JavaScript 对象
 │   ├── css/                各练习页样式
 │   └── img/                练习用图
+├── swiper-task.html        Swiper 综合任务 · 光影展（第 4 讲）
+├── swiper/
+│   ├── lib/                Swiper 11.2.10（本地引入）
+│   └── img/                六件展品图 + 验证截图
 └── img/                    公共图片
 ```
 
 ## 技术说明
 
-- 全部使用原生 HTML / CSS / JavaScript 手写，未引入任何框架或 CDN。
+- 首页与 practice 下的练习页全部原生 HTML / CSS / JavaScript 手写，未引入框架。
+- `swiper-task.html` 引入 Swiper 11.2.10，文件随仓库放在 `swiper/lib/` 里，不依赖 CDN，断网也能跑。
 - 首页与各练习页共用一套视觉规范：米色纸底、墨黑正文、朱红强调，栅格以细线分隔。
 - practice 目录下的十张练习页共用 `css/theme.css`，单个页面只负责自己的版式。
 
 ## 在线地址
 
-- Gitee：https://gitee.com/neusoft_wangyao_jsj/webdesign004project
+- 线上：https://junqing-webdesign-2026.netlify.app
+- 仓库：https://github.com/zhao196111/advanced-web-design
 
 ## 指导教师
 

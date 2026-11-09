@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光影展 · Swiper 综合任务 | 赵俊清</title>
+<link rel="stylesheet" href="swiper/lib/swiper-bundle.min.css">
+<style>
+    :root {
+        --paper: #F6F3EC;
+        --raise: #FCFAF5;
+        --ink: #1A1915;
+        --ink2: #4B4840;
+        --ink3: #8B8477;
+        --line: #D8D1C0;
+        --line-soft: #E7E1D2;
+        --red: #A5341F;
+        --red-soft: #F1E3DC;
+        --stage: #121110;
+        --amber: #C99A5B;
+        --serif: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
+        --sans: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Segoe UI", system-ui, sans-serif;
+        --mono: "Cascadia Mono", Consolas, "Courier New", monospace;
+        --wrap: 1180px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: var(--sans);
+        background: var(--paper);
+        color: var(--ink);
+        line-height: 1.75;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .wrap {
+        width: min(100% - 64px, var(--wrap));
+        margin-inline: auto;
+    }
+
+    /* ============ 顶栏 ============ */
+    .topbar {
+        background: var(--stage);
+        color: #EDE7DA;
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: .12em;
+        border-bottom: 1px solid #2A2724;
+    }
+
+    .topbar .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        height: 46px;
+    }
+
+    .topbar b { color: #fff; font-weight: 600; }
+    .topbar .sep { color: #5C564C; margin: 0 10px; }
+
+    .topbar nav { display: flex; gap: 18px; }
+    .topbar nav a { color: #9C9488; transition: color .2s; }
+    .topbar nav a:hover { color: var(--amber); }
+
+    /* ============ 展览舞台 ============ */
+    .stage-wrap {
+        background:
+            radial-gradient(120% 90% at 50% 0%, #242019 0%, #121110 55%, #0C0B0A 100%);
+        color: #EDE7DA;
+        padding: 56px 0 44px;
+        border-bottom: 1px solid #2A2724;
+        position: relative;
+    }
+
+    .stage-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-bottom: 28px;
+    }
+
+    .stage-kicker {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .3em;
+        color: var(--amber);
+        margin-bottom: 12px;
+    }
+
+    .stage-title {
+        font-family: var(--serif);
+        font-size: clamp(30px, 4vw, 46px);
+        font-weight: 400;
+        letter-spacing: .06em;
+        line-height: 1.2;
+    }
+
+    .stage-title em {
+        font-style: normal;
+        color: var(--amber);
+    }
+
+    .stage-sub {
+        font-size: 13px;
+        color: #948C80;
+        max-width: 380px;
+        line-height: 1.8;
+        text-align: right;
+    }
+
+    /* Swiper 主体 */
+    .stage {
+        width: 100%;
+        border: 1px solid #2E2A26;
+        background: #0A0908;
+        position: relative;
+    }
+
+    /* creative 电影墙：卡片等比缩小，左右两侧留出空隙，邻格才露得出来 */
+    .stage.is-creative .frame {
+        transform: scale(.9);
+    }
+
+    /* 非当前卡的题注压淡，避免边缘出现被切断的文字 */
+    .stage.is-creative .swiper-slide:not(.swiper-slide-active) .frame figcaption {
+        opacity: .28;
+    }
+
+    .exhibit {
+        position: relative;
+        aspect-ratio: 16 / 9;
+    }
+
+    .frame {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        background: #0A0908;
+    }
+
+    .exhibit img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .exhibit figcaption {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 70px 34px 26px;
+        background: linear-gradient(to top, rgba(8,7,6,.92), rgba(8,7,6,.55) 45%, transparent);
+        display: flex;
+        align-items: flex-end;
+        gap: 18px;
+    }
+
+    .exhibit .no {
+        font-family: var(--serif);
+        font-size: 40px;
+        line-height: 1;
+        color: var(--amber);
+        opacity: .9;
+    }
+
+    .exhibit h3 {
+        font-size: clamp(19px, 2.2vw, 26px);
+        font-weight: 600;
+        letter-spacing: .06em;
+        color: #fff;
+        margin-bottom: 4px;
+    }
+
+    .exhibit .meta {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .14em;
+        color: #A49C90;
+    }
+
+    /* 控制条 */
+    .stage-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 18px 22px;
+        border: 1px solid #2E2A26;
+        border-top: 0;
+        background: #171513;
+    }
+
+    .effects {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .effects button {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: .06em;
+        color: #A79E92;
+        background: transparent;
+        border: 1px solid #363130;
+        padding: 8px 13px;
+        cursor: pointer;
+        transition: all .2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+    }
+
+    .effects button i {
+        font-style: normal;
+        color: #6B645A;
+        font-size: 10px;
+    }
+
+    .effects button:hover { border-color: #5A5248; color: #DDD4C6; }
+
+    .effects button.on {
+        background: var(--amber);
+        border-color: var(--amber);
+        color: #171412;
+    }
+
+    .effects button.on i { color: #6B4A22; }
+
+    .effects button.extra {
+        border-style: dashed;
+        border-color: #4A3B29;
+        color: var(--amber);
+    }
+
+    .stage-ctrl {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .stage-ctrl button {
+        width: 38px;
+        height: 38px;
+        border: 1px solid #363130;
+        background: transparent;
+        color: #C8BFB2;
+        cursor: pointer;
+        font-size: 15px;
+        transition: all .2s;
+    }
+
+    .stage-ctrl button:hover { background: #2A2523; color: #fff; }
+
+    .stage-dots {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 6px;
+    }
+
+    .stage-dots .swiper-pagination-bullet {
+        width: 7px;
+        height: 7px;
+        background: #4A443C;
+        opacity: 1;
+        border-radius: 0;
+        margin: 0 !important;
+        transition: all .25s;
+        cursor: pointer;
+    }
+
+    .stage-dots .swiper-pagination-bullet-active {
+        background: var(--amber);
+        width: 22px;
+    }
+
+    .stage-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .1em;
+        color: #7D756A;
+    }
+
+    .stage-foot .live b { color: var(--amber); font-weight: 400; }
+
+    .keyhint {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .keyhint kbd {
+        font-family: var(--mono);
+        font-size: 11px;
+        border: 1px solid #3A3532;
+        background: #1D1A18;
+        color: #C8BFB2;
+        padding: 3px 8px;
+        min-width: 24px;
+        text-align: center;
+    }
+
+    .keyhint .hit {
+        color: var(--amber);
+        border-color: var(--amber);
+    }
+
+    /* ============ 正文 ============ */
+    main { padding: 72px 0 90px; }
+
+    section + section { margin-top: 84px; }
+
+    .s-head {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        border-bottom: 1px solid var(--ink);
+        padding-bottom: 12px;
+        margin-bottom: 10px;
+    }
+
+    .s-no {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--red);
+        letter-spacing: .1em;
+    }
+
+    .s-head h2 {
+        font-family: var(--serif);
+        font-size: clamp(22px, 2.6vw, 29px);
+        font-weight: 400;
+        letter-spacing: .05em;
+    }
+
+    .s-en {
+        margin-left: auto;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: .24em;
+        color: var(--ink3);
+    }
+
+    .s-intro {
+        color: var(--ink2);
+        font-size: 14.5px;
+        max-width: 720px;
+        margin-bottom: 30px;
+    }
+
+    .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+    }
+
+    .card {
+        background: var(--raise);
+        border: 1px solid var(--line);
+        padding: 26px 26px 24px;
+    }
+
+    .card h3 {
+        font-size: 15.5px;
+        letter-spacing: .04em;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .card h3 span {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        color: var(--ink3);
+        letter-spacing: .1em;
+    }
+
+    .card p { font-size: 14px; color: var(--ink2); }
+
+    .card p + p { margin-top: 10px; }
+
+    /* 表格 */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+        background: var(--raise);
+    }
+
+    th, td {
+        text-align: left;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line-soft);
+        vertical-align: top;
+    }
+
+    thead th {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .14em;
+        color: var(--ink3);
+        font-weight: 400;
+        border-bottom: 1px solid var(--ink);
+        white-space: nowrap;
+    }
+
+    tbody tr:last-child td { border-bottom: 0; }
+
+    td code, p code, li code {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        background: var(--red-soft);
+        color: #7E2515;
+        padding: 1px 5px;
+    }
+
+    .pass {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: #2F6B3A;
+        white-space: nowrap;
+    }
+
+    /* 代码块 */
+    pre {
+        background: #1B1A17;
+        color: #D8D1C4;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        line-height: 1.85;
+        padding: 20px 22px;
+        overflow-x: auto;
+        border-left: 3px solid var(--amber);
+    }
+
+    pre .c { color: #7E776A; }
+    pre .k { color: #D9A05B; }
+    pre .s { color: #9DBE8A; }
+    pre .n { color: #C98B6B; }
+
+    .code-label {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: .16em;
+        color: var(--ink3);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .code-label b { color: var(--red); font-weight: 400; }
+
+    .stack > * + * { margin-top: 20px; }
+
+    /* 验证截图 */
+    .shots {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 18px;
+    }
+
+    .shot {
+        border: 1px solid var(--line);
+        background: #fff;
+    }
+
+    .shot img { width: 100%; }
+    .shot figcaption {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: .08em;
+        color: var(--ink3);
+        padding: 9px 12px;
+        border-top: 1px solid var(--line-soft);
+    }
+
+    /* 答辩问答 */
+    .qa { border-top: 1px solid var(--ink); }
+
+    .qa details {
+        border-bottom: 1px solid var(--line-soft);
+    }
+
+    .qa summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 16px 4px;
+        font-size: 14.5px;
+        display: flex;
+        gap: 12px;
+        align-items: baseline;
+    }
+
+    .qa summary::-webkit-details-marker { display: none; }
+
+    .qa summary::after {
+        content: "+";
+        margin-left: auto;
+        font-family: var(--mono);
+        color: var(--red);
+        font-size: 15px;
+    }
+
+    .qa details[open] summary::after { content: "−"; }
+
+    .qa summary b {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--red);
+        font-weight: 400;
+        letter-spacing: .1em;
+    }
+
+    .qa .ans {
+        padding: 0 4px 20px 40px;
+        font-size: 13.5px;
+        color: var(--ink2);
+        line-height: 1.9;
+    }
+
+    /* 实验滑块 */
+    .lab {
+        background: var(--raise);
+        border: 1px solid var(--line);
+        padding: 22px 24px;
+    }
+
+    .lab-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .lab-row label {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: .1em;
+        color: var(--ink3);
+    }
+
+    input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        flex: 1;
+        min-width: 180px;
+        height: 2px;
+        background: var(--line);
+        outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 14px;
+        height: 14px;
+        background: var(--red);
+        cursor: pointer;
+        border-radius: 0;
+    }
+
+    .lab-val {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--red);
+        min-width: 58px;
+    }
+
+    .lab-note {
+        font-size: 12.5px;
+        color: var(--ink3);
+        margin-top: 10px;
+    }
+
+    /* 展品卡 */
+    .work {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        border: 1px solid var(--line);
+        background: var(--raise);
+    }
+
+    .work img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16/10; }
+
+    .work-body {
+        padding: 30px 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .work-body .tag {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: .18em;
+        color: var(--red);
+        margin-bottom: 10px;
+    }
+
+    .work-body h3 {
+        font-family: var(--serif);
+        font-size: 26px;
+        font-weight: 400;
+        letter-spacing: .04em;
+        margin-bottom: 4px;
+    }
+
+    .work-body .en {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--ink3);
+        letter-spacing: .12em;
+        margin-bottom: 16px;
+    }
+
+    .work-body p { font-size: 13.5px; color: var(--ink2); }
+
+    .facts {
+        display: flex;
+        gap: 22px;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line-soft);
+        flex-wrap: wrap;
+    }
+
+    .facts div { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); letter-spacing: .06em; }
+    .facts b { display: block; font-family: var(--serif); font-size: 19px; color: var(--ink); font-weight: 400; letter-spacing: 0; }
+
+    /* 对话记录 */
+    .log { border-top: 1px solid var(--ink); }
+
+    .log-item {
+        display: grid;
+        grid-template-columns: 118px 1fr;
+        gap: 24px;
+        padding: 24px 0;
+        border-bottom: 1px solid var(--line-soft);
+    }
+
+    .log-item .who {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: .14em;
+        color: var(--ink3);
+        padding-top: 3px;
+    }
+
+    .log-item .who b { display: block; color: var(--red); font-weight: 400; margin-bottom: 4px; }
+
+    .log-item .say { font-size: 13.5px; color: var(--ink2); }
+    .log-item .say .q { color: var(--ink); }
+    .log-item .say strong { font-weight: 600; color: var(--ink); }
+
+    footer {
+        border-top: 1px solid var(--line);
+        padding: 26px 0 40px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .1em;
+        color: var(--ink3);
+    }
+
+    footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+    /* ============ 响应式 ============ */
+    @media (max-width: 900px) {
+        .wrap { width: calc(100% - 40px); }
+        .grid-2, .shots, .work { grid-template-columns: 1fr; }
+        .work img { aspect-ratio: 16/9; }
+        .stage-sub { text-align: left; }
+        .exhibit figcaption { padding: 50px 20px 18px; }
+        .exhibit .no { font-size: 28px; }
+        .log-item { grid-template-columns: 1fr; gap: 8px; }
+        section + section { margin-top: 60px; }
+        main { padding: 50px 0 60px; }
+    }
+
+    @media (max-width: 560px) {
+        .topbar nav { display: none; }
+        .s-en { display: none; }
+        th, td { padding: 9px 9px; }
+        td code, p code, li code { word-break: break-word; }
+        .stage-title { font-size: 27px; }
+        .stage-sub { font-size: 12px; }
+        .exhibit figcaption { padding: 40px 14px 14px; }
+        .exhibit h3 { font-size: 17px; }
+        .exhibit .no { font-size: 22px; }
+        .work-body { padding: 22px; }
+        pre { font-size: 11.5px; padding: 16px 14px; }
+        .stage.is-creative .frame { transform: scale(.94); }
+        .stage-bar { padding: 14px; }
+        .effects button { font-size: 10.5px; padding: 7px 10px; }
+        .stage-ctrl { width: 100%; justify-content: space-between; }
+    }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+    <div class="wrap">
+        <div>
+            <b>高级网页设计</b><span class="sep">/</span>Swiper 综合任务<span class="sep">/</span>赵俊清 24006270205
+        </div>
+        <nav>
+            <a href="#task1">任务一</a>
+            <a href="#task2">任务二</a>
+            <a href="#task3">任务三</a>
+            <a href="#log">对话记录</a>
+            <a href="index.html">← 返回作品集</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ============ 展览舞台 ============ -->
+<div class="stage-wrap">
+    <div class="wrap">
+        <div class="stage-head">
+            <div>
+                <div class="stage-kicker">EXHIBITION / 光影展 · 六件展品</div>
+                <h1 class="stage-title">在光落下的地方，<em>看见影子</em></h1>
+            </div>
+            <p class="stage-sub">
+                一个 Swiper 轮播同时承担两个任务：任务一的四项配置是它的初始状态，
+                任务二新增的第七个按钮是它的第二种讲法。
+            </p>
+        </div>
+
+        <!-- Swiper -->
+        <div class="swiper stage">
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide exhibit">
+                    <div class="frame">
+                    <img src="swiper/img/01-dome.jpg" alt="穹顶展厅">
+                    <figcaption>
+                        <span class="no">01</span>
+                        <div>
+                            <h3>光之穹顶</h3>
+                            <p class="meta">2026 · 空间装置 / 单频投影</p>
+                        </div>
+                    </figcaption>
+                    </div>
+                </div>
+
+                <div class="swiper-slide exhibit">
+                    <div class="frame">
+                    <img src="swiper/img/02-shadow.jpg" alt="影子剧场">
+                    <figcaption>
+                        <span class="no">02</span>
+                        <div>
+                            <h3>影子剧场</h3>
+                            <p class="meta">2025 · 影像 / 幕布与实体</p>
+                        </div>
+                    </figcaption>
+                    </div>
+                </div>
+
+                <div class="swiper-slide exhibit">
+                    <div class="frame">
+                    <img src="swiper/img/03-mirror.jpg" alt="镜面回廊">
+                    <figcaption>
+                        <span class="no">03</span>
+                        <div>
+                            <h3>镜面回廊</h3>
+                            <p class="meta">2025 · 沉浸空间 / 无限反射</p>
+                        </div>
+                    </figcaption>
+                    </div>
+                </div>
+
+                <div class="swiper-slide exhibit">
+                    <div class="frame">
+                    <img src="swiper/img/04-forest.jpg" alt="逆光森林">
+                    <figcaption>
+                        <span class="no">04</span>
+                        <div>
+                            <h3>逆光森林</h3>
+                            <p class="meta">2024 · 摄影 / 晨雾与丁达尔光</p>
+                        </div>
+                    </figcaption>
+                    </div>
+                </div>
+
+                <div class="swiper-slide exhibit">
+                    <div class="frame">
+                    <img src="swiper/img/05-bluehour.jpg" alt="蓝色时刻">
+                    <figcaption>
+                        <span class="no">05</span>
+                        <div>
+                            <h3>蓝色时刻</h3>
+                            <p class="meta">2024 · 长曝光摄影 / 城市入夜</p>
+                        </div>
+                    </figcaption>
+                    </div>
+                </div>
+
+                <div class="swiper-slide exhibit">
+                    <div class="frame">
+                    <img src="swiper/img/06-ship.jpg" alt="爱达·魔都号">
+                    <figcaption>
+                        <span class="no">06</span>
+                        <div>
+                            <h3>爱达·魔都号</h3>
+                            <p class="meta">2024 · 首艘国产大型邮轮 / 影像记录</p>
+                        </div>
+                    </figcaption>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 控制条 -->
+        <div class="stage-bar">
+            <div class="effects" id="effects">
+                <button data-effect="slide"><i>01</i>滑片</button>
+                <button data-effect="fade"><i>02</i>淡入</button>
+                <button data-effect="cube"><i>03</i>方块</button>
+                <button data-effect="coverflow"><i>04</i>封面流</button>
+                <button data-effect="flip"><i>05</i>翻转</button>
+                <button data-effect="cards"><i>06</i>卡片堆叠</button>
+                <button data-effect="creative" class="extra"><i>07</i>creative 电影墙</button>
+            </div>
+            <div class="stage-ctrl">
+                <button class="stage-prev" aria-label="上一张">←</button>
+                <div class="stage-dots"></div>
+                <button class="stage-next" aria-label="下一张">→</button>
+            </div>
+        </div>
+
+        <div class="stage-foot">
+            <div class="live" id="live">
+                当前效果 <b id="live-effect">cube</b> · 第 <b id="live-idx">1</b> / 6 件 · 自动播放 <b id="live-auto">开</b>
+            </div>
+            <div class="keyhint">
+                <kbd id="k-left">←</kbd><kbd id="k-right">→</kbd> 键盘切换
+                <kbd id="k-space">空格</kbd> 暂停 / 继续
+            </div>
+        </div>
+    </div>
+</div>
+
+<main>
+    <div class="wrap">
+
+        <!-- ============ 01 任务一 ============ -->
+        <section id="task1">
+            <div class="s-head">
+                <span class="s-no">01</span>
+                <h2>任务一 · 提示词工程：让 AI 听懂需求</h2>
+                <span class="s-en">PROMPT ENGINEERING</span>
+            </div>
+            <p class="s-intro">
+                上面那个轮播的初始状态，就是需求里那四条。这一节不写新代码，只记录两轮提示词怎么把需求"翻译"成参数。
+            </p>
+
+            <div class="stack">
+                <div>
+                    <div class="code-label"><b>需求拆解</b> 四条硬性要求 → 四个参数</div>
+                    <table>
+                        <thead>
+                            <tr><th>需求原话</th><th>落到哪个参数</th><th>取值</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>① 无循环</td><td><code>loop</code></td><td><code>false</code>（不写就是 false，但第一版我写了 true）</td></tr>
+                            <tr><td>② 3.2 秒自动翻页，手动操作后不停止</td><td><code>autoplay.delay</code> + <code>autoplay.disableOnInteraction</code></td><td><code>3200</code> + <code>false</code></td></tr>
+                            <tr><td>③ 圆点分页器可点击</td><td><code>pagination.clickable</code></td><td><code>true</code></td></tr>
+                            <tr><td>④ 初始效果为 cube</td><td><code>effect</code> + <code>cubeEffect</code></td><td><code>'cube'</code>，并给定阴影参数</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>第 1 轮提示词 <span>ROUND 01</span></h3>
+                        <p>"帮我做一个 Swiper 轮播，六张图，自动播放，带圆点分页器，用立方体效果，好看一点。"</p>
+                        <p style="margin-top:14px;color:#7E2515">结果：loop 默认为 true、<code>autoplay</code> 只写了 delay、<code>pagination</code> 没写 clickable、手动滑动后自动播放直接停。四条需求里错了三条。</p>
+                    </div>
+                    <div class="card">
+                        <h3>第 2 轮提示词 <span>ROUND 02</span></h3>
+                        <p>把需求逐条编号，并且明确"用参数名对齐、默认值不要替我决定"：</p>
+                        <p style="font-family:var(--mono);font-size:12.5px;line-height:1.9;margin-top:8px">
+                            生成 new Swiper('#hwySw4', {…})，四条必须同时满足：<br>
+                            1. 关掉循环，到第六张后不再回到第一张；<br>
+                            2. autoplay 间隔 3200 毫秒，用户手动拖动之后仍要继续自动翻页；<br>
+                            3. 分页器的圆点要能点击跳转；<br>
+                            4. 初始效果为 cube，并给出 cubeEffect 的阴影设置。
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="code-label"><b>最终配置</b> 页面上实际运行的就是这段</div>
+<pre><span class="k">const</span> swiper = <span class="k">new</span> <span class="n">Swiper</span>(<span class="s">'.stage'</span>, {
+  effect: <span class="s">'cube'</span>,                    <span class="c">// ④ 初始效果</span>
+  loop: <span class="k">false</span>,                      <span class="c">// ① 无循环</span>
+  speed: <span class="n">700</span>,
+  autoplay: {
+    delay: <span class="n">3200</span>,                   <span class="c">// ② 3.2 秒</span>
+    disableOnInteraction: <span class="k">false</span>    <span class="c">// ② 手动后不停止</span>
+  },
+  pagination: {
+    el: <span class="s">'.stage-dots'</span>,
+    clickable: <span class="k">true</span>                 <span class="c">// ③ 圆点可点击</span>
+  },
+  cubeEffect: { shadow: <span class="k">true</span>, slideShadows: <span class="k">true</span>, shadowOffset: <span class="n">22</span>, shadowScale: <span class="n">0.92</span> }
+});</pre>
+                </div>
+
+                <div>
+                    <div class="code-label"><b>逐条验证</b> 亲自在页面上点一遍</div>
+                    <table>
+                        <thead>
+                            <tr><th>需求</th><th>怎么验的</th><th>结论</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>无循环</td><td>连点下一张到第 6 件，再点</td><td><span class="pass">✓ 停在 06，按钮不再前进</span></td></tr>
+                            <tr><td>3.2 秒自动 + 手动后不停</td><td>拖动后松手，掐表看是否继续</td><td><span class="pass">✓ 松手约 3.2 秒后自动翻</span></td></tr>
+                            <tr><td>圆点可点击</td><td>直接点第 4 个圆点</td><td><span class="pass">✓ 跳到 04，圆点变长</span></td></tr>
+                            <tr><td>初始 cube</td><td>刷新页面看第一屏</td><td><span class="pass">✓ 立方体三面可见</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="shots">
+                    <figure class="shot">
+                        <img src="swiper/img/verify-1.jpg" alt="初始 cube 效果截图">
+                        <figcaption>验证 01 · 刷新后默认 cube，第 1 个圆点高亮</figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="swiper/img/verify-2.jpg" alt="第七个效果按钮截图">
+                        <figcaption>验证 02 · 点第 7 个按钮后切到 creative 电影墙</figcaption>
+                    </figure>
+                </div>
+
+                <div class="qa">
+                    <details open>
+                        <summary><b>Q1</b>第一版提示词漏掉了哪个需求？</summary>
+                        <div class="ans">
+                            漏的不是"没提"，而是"提了但被默认值吃掉"。我说了自动播放，却没说不许手动后停止，<code>disableOnInteraction</code> 默认 true，脚本一碰就停；<code>loop</code> 我压根没提，AI 按经验给了 true；分页器我写了"带圆点"，但没写"可点击"。四条里只有 cube 是对的。
+                        </div>
+                    </details>
+                    <details>
+                        <summary><b>Q2</b>你是怎么在第二轮里"说清楚"的？</summary>
+                        <div class="ans">
+                            三件事：一是编号，四条需求单独成行，AI 不会把两条并成一条；二是把自然语言换成 API 里的说法（"手动之后别停"→ <code>disableOnInteraction: false</code>）；三是加一句"默认值不要替我决定"，把 AI 的默认推断权收回来。
+                        </div>
+                    </details>
+                    <details>
+                        <summary><b>Q3</b>AI 第一次给的代码错在哪？</summary>
+                        <div class="ans">
+                            ① <code>loop: true</code>，与"无循环"完全相反；② <code>autoplay</code> 只有 <code>delay</code>，缺 <code>disableOnInteraction: false</code>，手动操作即停；③ <code>pagination</code> 只有 <code>el</code>，缺 <code>clickable: true</code>，圆点成了纯装饰。三处都是"省略参数 → 走默认值"造成的。
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 02 任务二 ============ -->
+        <section id="task2">
+            <div class="s-head">
+                <span class="s-no">02</span>
+                <h2>任务二 · creative 仿写：AI 教你课堂没讲的第 7 种</h2>
+                <span class="s-en">CREATIVE EFFECT</span>
+            </div>
+            <p class="s-intro">
+                课堂上讲了 fade / cube / coverflow / flip / cards 和默认的 slide，第七种 creative 没讲。它是唯一一个可以用一组 transform 把"非当前页"摆到任意位置的模式——所以能被拼成一面电影选片墙。
+            </p>
+
+            <div class="stack">
+                <div>
+                    <div class="code-label"><b>核心写法</b> creativeEffect 只有 prev / next 两个入口</div>
+<pre>creativeEffect: {
+  <span class="c">// 上一张：缩小、往左推出画面，带角度压暗</span>
+  prev: {
+    shadow: <span class="k">true</span>,
+    translate: [<span class="s">'-85%'</span>, <span class="n">0</span>, <span class="n">-320</span>],   <span class="c">// x / y / z</span>
+    origin: <span class="s">'right center'</span>,
+    rotate: [<span class="n">0</span>, <span class="n">12</span>, <span class="n">-6</span>],          <span class="c">// 绕 x / y / z 轴的角度</span>
+    opacity: <span class="n">0.5</span>,
+    scale: <span class="n">0.86</span>
+  },
+  <span class="c">// 下一张：留在画面右侧，只露出一格，像待选的胶片</span>
+  next: {
+    translate: [<span class="s">'85%'</span>, <span class="n">0</span>, <span class="n">-200</span>],
+    origin: <span class="s">'left center'</span>,
+    rotate: [<span class="n">0</span>, <span class="n">-12</span>, <span class="n">6</span>],
+    opacity: <span class="n">0.92</span>,
+    scale: <span class="n">1</span>
+  }}</pre>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr><th>属性</th><th>管的是谁</th><th>说明</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>prev</code></td><td>当前张左边那一张</td><td>它退到左边、缩小、压暗，形成"已经看过的胶片"</td></tr>
+                        <tr><td><code>next</code></td><td>当前张右边那一张</td><td>它从右侧贴着画面边缘，略微放大，形成"待选的下一格"</td></tr>
+                        <tr><td><code>translate</code></td><td>位移，三个值 = x / y / z</td><td>百分比相对 slide 自身的宽高，数字相对父容器</td></tr>
+                        <tr><td><code>rotate</code></td><td>旋转，三个值 = 绕 x / y / z 轴</td><td>单位是 deg，写成 20 就是 20 度</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="lab">
+                    <div class="lab-row">
+                        <label for="rot">现场实验 · 改旋转角度</label>
+                        <input type="range" id="rot" min="0" max="40" value="6" step="1">
+                        <span class="lab-val" id="rot-val">6°</span>
+                    </div>
+                    <p class="lab-note">
+                        拖动滑块，当前轮播会以新的角度重建，<code>next.rotate</code> 的 z 值就是这里显示的数字。
+                        调到 20° 时，右侧那张会明显歪过去——这就是答辩里"改一个数值让卡片转 20 度"的现场操作。
+                    </p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>prev 的 transform 控制什么 <span>PREV</span></h3>
+                        <p>控制"左邻"这张卡片的位置和姿态：往左退多远（translate 的负百分比）、要不要缩小（scale）、要不要压暗（opacity）、带多大角度（rotate）。它只在 creative 模式下生效，切回 slide 就完全不参与。</p>
+                    </div>
+                    <div class="card">
+                        <h3>next 的 transform 控制什么 <span>NEXT</span></h3>
+                        <p>控制"右邻"这张：往右推出多少（正百分比）、放大还是缩小、透明度、旋转角度。想做电影墙那种"下一格从边上探进来"的感觉，关键就是 next 的 translate 不要给到 100%，留一点在画面里。</p>
+                    </div>
+                </div>
+
+                <div class="qa">
+                    <details>
+                        <summary><b>Q1</b>transform 里的百分数是相对谁的？</summary>
+                        <div class="ans">
+                            相对 slide 自身。写 <code>translate: ['-26%', 0, -260]</code>，横向位移量是这张 slide 宽度的 −26%；<code>112%</code> 就是把自己整个推到画面外再多出 12%。而第三个值 <code>-260</code> 不带单位，是像素，属于 3D 的 z 轴，负值往屏幕里退。
+                        </div>
+                    </details>
+                    <details>
+                        <summary><b>Q2</b>改一个数值让卡片转 20 度，怎么验证？</summary>
+                        <div class="ans">
+                            把 <code>next.rotate</code> 的第三个值从 6 改成 20（页面上就是上面那个滑块拖到 20），右侧那张立刻歪 14 度。注意 rotate 数组的顺序是 x / y / z，写错位置会变成绕横轴翻转，卡片会像躺倒一样，不是左右倾斜。
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 03 任务三 ============ -->
+        <section id="task3">
+            <div class="s-head">
+                <span class="s-no">03</span>
+                <h2>任务三 · 综合创作：第六件展品与键盘控制</h2>
+                <span class="s-en">SIXTH WORK &amp; KEYBOARD</span>
+            </div>
+            <p class="s-intro">
+                两件事：把"爱达·魔都号"做成第六件展品补进轮播；再挑一个课上没讲的能力——这里选键盘控制，让 ← → 直接翻页，空格暂停自动播放。
+            </p>
+
+            <div class="stack">
+                <div class="work">
+                    <img src="swiper/img/06-ship.jpg" alt="爱达·魔都号">
+                    <div class="work-body">
+                        <span class="tag">WORK 06 / 新增展品</span>
+                        <h3>爱达·魔都号</h3>
+                        <div class="en">ADORA MAGIC CITY · 2024</div>
+                        <p>
+                            首艘国产大型邮轮，2024 年 1 月 1 日从上海首航。船体侧面的彩绘涂装是它最好认的地方，
+                            夜里靠港时，几百扇舷窗的暖光会一整排在江面上铺开——这也是它被放进"光影展"的原因。
+                        </p>
+                        <div class="facts">
+                            <div>总吨位<b>13.55 万吨</b></div>
+                            <div>全长<b>323.6 米</b></div>
+                            <div>甲板<b>24 层</b></div>
+                            <div>载客<b>5246 人</b></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="code-label"><b>键盘控制</b> Swiper 自带的 keyboard 模块，课堂上没讲</div>
+<pre>keyboard: {
+  enabled: <span class="k">true</span>,
+  onlyInViewport: <span class="k">false</span>,   <span class="c">// 轮播不在视口里也响应</span>
+  pageUpDown: <span class="k">false</span>       <span class="c">// 关掉 PageUp/PageDown，避免和页面滚动打架</span>
+}</pre>
+                </div>
+
+                <div class="card">
+                    <h3>怎么试 <span>TRY IT</span></h3>
+                    <p>直接按键盘 <code>←</code> <code>→</code>，轮播会跟着翻，右下角的按键提示会亮；按 <code>空格</code> 暂停或恢复自动播放，底部状态栏的"自动播放"会在开 / 关之间切。</p>
+                </div>
+
+                <div class="qa">
+                    <details>
+                        <summary><b>Q1</b>这段代码什么意思？</summary>
+                        <div class="ans">
+                            <code>keyboard.enabled</code> 打开键盘监听；<code>onlyInViewport: false</code> 表示不管轮播有没有滚进视口都接管按键，否则页面往下滑到第二节时按方向键就没反应；<code>pageUpDown: false</code> 是为了不和浏览器的翻页键冲突。空格暂停是我在它外面另写的监听。
+                        </div>
+                    </details>
+                    <details>
+                        <summary><b>Q2</b>AI 第一次给的哪里不对，你改了什么？</summary>
+                        <div class="ans">
+                            第一次只给了 <code>keyboard: true</code>，在 Swiper 11 里这个写法不报错但也不生效——它要的是对象。<code>onlyInViewport</code> 默认 true，导致滚到页面下方按键无反应，我改成了 false。另外它把 PageUp/PageDown 也接管了，和页面滚动打架，我关掉了。
+                        </div>
+                    </details>
+                    <details>
+                        <summary><b>Q3</b>新参数的作用？</summary>
+                        <div class="ans">
+                            <code>onlyInViewport: false</code> 决定监听范围（元素级还是全局）；<code>pageUpDown: false</code> 决定是否把翻页键也算作切换键；<code>disableOnInteraction: false</code>（任务一）决定手动操作后自动播放要不要继续。三个都是"开关型"参数，不改数值只改行为。
+                        </div>
+                    </details>
+                    <details>
+                        <summary><b>Q4</b>现场把 delay 改成指定值，会怎么变？</summary>
+                        <div class="ans">
+                            <code>delay</code> 是毫秒，指自动翻页的间隔。改成 1000 就是每 1 秒翻一张，节奏明显变急；改成 8000 就变成慢速展示。它在初始化时读一次，改完要销毁重建（页面上切效果就是这个过程）才生效；如果只想临场改，可以调 <code>swiper.params.autoplay.delay = 1000</code>，下一轮立刻按新值走。
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 04 对话记录 ============ -->
+        <section id="log">
+            <div class="s-head">
+                <span class="s-no">04</span>
+                <h2>与 AI 的关键对话记录</h2>
+                <span class="s-en">PROMPTS &amp; ANSWERS</span>
+            </div>
+            <p class="s-intro">按任务拆分，只留真正改变过代码的那几轮。左边是提问，右边是我采纳或推翻的部分。</p>
+
+            <div class="log">
+                <div class="log-item">
+                    <div class="who"><b>任务一</b>第 1 轮</div>
+                    <div class="say">
+                        <span class="q">"做一个 Swiper 轮播，六张图，自动播放，带圆点分页器，用立方体效果。"</span><br>
+                        AI 给出 <strong>loop: true</strong>、<strong>autoplay: { delay: 3000 }</strong>、<strong>pagination: { el }</strong>。
+                        问题：三条需求被默认值吃掉，只有 cube 是对的。
+                    </div>
+                </div>
+                <div class="log-item">
+                    <div class="who"><b>任务一</b>第 2 轮</div>
+                    <div class="say">
+                        <span class="q">"四条必须同时满足：关掉循环；autoplay 3200 且手动拖动后仍继续；圆点可点击；初始 cube 并给出 cubeEffect 阴影参数。不要替我决定默认值。"</span><br>
+                        这一轮才拿到正确配置，四项实测全部通过（见上面两张验证截图）。
+                    </div>
+                </div>
+                <div class="log-item">
+                    <div class="who"><b>任务二</b>读官方示例</div>
+                    <div class="say">
+                        <span class="q">"解释 swiper 官方 demo 257-effect-creative.html 里 creativeEffect 的 prev 和 next，各自控制什么？百分数相对谁？"</span><br>
+                        要点：prev / next 分别描述当前张左右两侧卡片的位移、旋转、缩放、透明度；百分比相对 slide 自身尺寸，第三个位移值是像素级的 z 轴纵深。
+                    </div>
+                </div>
+                <div class="log-item">
+                    <div class="who"><b>任务三</b>键盘控制</div>
+                    <div class="say">
+                        <span class="q">"Swiper 11 里 keyboard 怎么配？为什么写 keyboard: true 不生效？"</span><br>
+                        要点：必须写成对象；<strong>onlyInViewport 默认 true</strong> 会让轮播离开视口后失灵，改成 false；<strong>pageUpDown</strong> 会和页面滚动冲突，关掉。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<footer>
+    <div class="wrap">
+        <span>高级网页设计 · 第 4 讲综合任务 · 赵俊清 24006270205</span>
+        <span>Swiper 11.2.10 · 本地引入 · 六件展品</span>
+    </div>
+</footer>
+
+<script src="swiper/lib/swiper-bundle.min.js"></script>
+<script>
+(function () {
+    var el = document.querySelector('.stage');
+    var sw = null;
+    var currentEffect = 'cube';
+    var rotZ = 6;
+
+    var EFFECT_CN = {
+        slide: 'slide 滑片',
+        fade: 'fade 淡入',
+        cube: 'cube 方块',
+        coverflow: 'coverflow 封面流',
+        flip: 'flip 翻转',
+        cards: 'cards 卡片堆叠',
+        creative: 'creative 电影墙'
+    };
+
+    function effectParams(effect) {
+        if (effect === 'cube') {
+            return { cubeEffect: { shadow: true, slideShadows: true, shadowOffset: 22, shadowScale: 0.92 } };
+        }
+        if (effect === 'fade') {
+            return { fadeEffect: { crossFade: true } };
+        }
+        if (effect === 'coverflow') {
+            return {
+                coverflowEffect: { rotate: 38, stretch: 0, depth: 160, modifier: 1, slideShadows: false }
+            };
+        }
+        if (effect === 'flip') {
+            return { flipEffect: { slideShadows: true, limitRotation: true } };
+        }
+        if (effect === 'cards') {
+            return { cardsEffect: { perSlideOffset: 9, perSlideRotate: 3, rotate: true, slideShadows: true } };
+        }
+        if (effect === 'creative') {
+            return {
+                creativeEffect: {
+                    prev: {
+                        shadow: true,
+                        translate: ['-85%', 0, -320],
+                        origin: 'right center',
+                        rotate: [0, 12, -rotZ],
+                        opacity: 0.5,
+                        scale: 0.86
+                    },
+                    next: {
+                        translate: ['85%', 0, -200],
+                        origin: 'left center',
+                        rotate: [0, -12, rotZ],
+                        opacity: 0.92,
+                        scale: 1
+                    }
+                }
+            };
+        }
+        return {};
+    }
+
+    var initialIdx = 0;
+
+    function build(effect) {
+        if (sw) {
+            sw.destroy(true, true);
+            sw = null;
+        }
+        el.classList.toggle('is-creative', effect === 'creative');
+        var base = {
+            effect: effect,
+            initialSlide: initialIdx,
+            centeredSlides: effect === 'creative',
+            slidesPerView: 1,
+            loop: false,
+            speed: 700,
+            grabCursor: true,
+            autoplay: { delay: 3200, disableOnInteraction: false, pauseOnMouseEnter: false },
+            pagination: { el: '.stage-dots', clickable: true },
+            navigation: { nextEl: '.stage-next', prevEl: '.stage-prev' },
+            keyboard: { enabled: true, onlyInViewport: false, pageUpDown: false },
+            on: {
+                slideChange: function (s) { updateLive(s); },
+                autoplayStop: function () { setAuto('关'); },
+                autoplayStart: function () { setAuto('开'); }
+            }
+        };
+        var extra = effectParams(effect);
+        var cfg = Object.assign(base, extra);
+        sw = new Swiper(el, cfg);
+        currentEffect = effect;
+        updateLive(sw);
+    }
+
+    function setAuto(text) {
+        var node = document.getElementById('live-auto');
+        if (node) node.textContent = text;
+    }
+
+    function updateLive(s) {
+        var idx = document.getElementById('live-idx');
+        var eff = document.getElementById('live-effect');
+        if (idx) idx.textContent = (s.realIndex + 1);
+        if (eff) eff.textContent = EFFECT_CN[currentEffect] || currentEffect;
+    }
+
+    // 效果按钮
+    var btns = document.querySelectorAll('#effects button');
+    function markActive(effect) {
+        btns.forEach(function (b) {
+            b.classList.toggle('on', b.dataset.effect === effect);
+        });
+    }
+    btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            if (btn.dataset.effect === currentEffect) return;
+            build(btn.dataset.effect);
+            markActive(btn.dataset.effect);
+        });
+    });
+
+    // 旋转角度实验
+    var rot = document.getElementById('rot');
+    var rotVal = document.getElementById('rot-val');
+    if (rot) {
+        rot.addEventListener('input', function () {
+            rotZ = Number(rot.value);
+            rotVal.textContent = rotZ + '°';
+            if (currentEffect === 'creative') {
+                build('creative');
+                markActive('creative');
+            }
+        });
+    }
+
+    // 键盘提示：只做视觉反馈，翻页交给 Swiper 的 keyboard 模块
+    var kLeft = document.getElementById('k-left');
+    var kRight = document.getElementById('k-right');
+    var kSpace = document.getElementById('k-space');
+    var spacePaused = false;
+
+    function flash(node) {
+        if (!node) return;
+        node.classList.add('hit');
+        setTimeout(function () { node.classList.remove('hit'); }, 160);
+    }
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') flash(kLeft);
+        if (e.key === 'ArrowRight') flash(kRight);
+        if (e.code === 'Space') {
+            flash(kSpace);
+            if (!sw) return;
+            e.preventDefault();
+            if (spacePaused) {
+                sw.autoplay.start();
+                setAuto('开');
+            } else {
+                sw.autoplay.stop();
+                setAuto('关');
+            }
+            spacePaused = !spacePaused;
+        }
+    });
+
+    // 支持 ?effect=creative 直接以某个效果打开，方便截图与演示
+    var qs = new URLSearchParams(location.search);
+    var startEffect = qs.get('effect');
+    var startIdx = parseInt(qs.get('i') || '0', 10);
+    if (!isNaN(startIdx) && startIdx > 0) startIdx = Math.min(startIdx, 5); else startIdx = 0;
+    initialIdx = startIdx;
+    if (startEffect && EFFECT_CN[startEffect]) {
+        build(startEffect);
+        markActive(startEffect);
+    } else {
+        build('cube');
+        markActive('cube');
+    }
+})();
+</script>
+</body>
+</html>
