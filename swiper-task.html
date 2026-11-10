@@ -592,6 +592,104 @@
         margin-top: 10px;
     }
 
+    /* 键盘控制台：滚到任务三时，这里同步显示当前展品，按键有没有生效一眼可见 */
+    .kb-console {
+        display: grid;
+        grid-template-columns: 210px 1fr;
+        align-items: center;
+        gap: 18px 22px;
+        background: var(--raise);
+        border: 1px solid var(--line);
+        padding: 16px;
+        transition: border-color .2s, background .2s;
+    }
+
+    .kb-console.hit {
+        border-color: var(--red);
+        background: var(--red-soft);
+    }
+
+    .kb-console > img {
+        width: 100%;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        display: block;
+    }
+
+    .kb-side {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .kb-label {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: .12em;
+        color: var(--ink3);
+    }
+
+    .kb-meta b {
+        display: block;
+        font-family: var(--serif);
+        font-size: 21px;
+        font-weight: 400;
+        margin-top: 3px;
+        line-height: 1.2;
+    }
+
+    .kb-idx {
+        display: block;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .08em;
+        color: var(--red);
+        margin-top: 6px;
+    }
+
+    .kb-keys { display: flex; align-items: center; gap: 8px; }
+
+    .kb-keys button {
+        width: 36px;
+        height: 36px;
+        border: 1px solid var(--ink);
+        background: transparent;
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 14px;
+        cursor: pointer;
+        transition: background .18s, color .18s;
+    }
+
+    .kb-keys button:hover { background: var(--ink); color: var(--paper); }
+    .kb-keys button:active { transform: translateY(1px); }
+
+    .kb-state {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: .06em;
+        color: var(--ink3);
+    }
+
+    .kb-note {
+        grid-column: 1 / -1;
+        border-top: 1px solid var(--line-soft);
+        padding-top: 12px;
+        font-size: 12.5px;
+        color: var(--ink3);
+        line-height: 1.85;
+    }
+
+    .kb-note kbd {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        border: 1px solid var(--line);
+        padding: 1px 5px;
+        color: var(--ink2);
+    }
+
     /* 展品卡 */
     .work {
         display: grid;
@@ -710,6 +808,8 @@
         .work-body { padding: 22px; }
         pre { font-size: 11.5px; padding: 16px 14px; }
         .stage.is-creative .frame { transform: scale(.94); }
+        .kb-console { grid-template-columns: 1fr; gap: 14px; }
+        .kb-side { align-items: center; }
         .stage-bar { padding: 14px; }
         .effects button { font-size: 10.5px; padding: 7px 10px; }
         .stage-ctrl { width: 100%; justify-content: space-between; }
@@ -1114,9 +1214,30 @@
 }</pre>
                 </div>
 
+                <div class="kb-console" id="kb-console">
+                    <img id="kb-thumb" src="swiper/img/01-dome.jpg" alt="当前展品">
+                    <div class="kb-side">
+                        <div class="kb-meta">
+                            <span class="kb-label">NOW SHOWING / 当前展品</span>
+                            <b id="kb-name">光影穹顶</b>
+                            <span class="kb-idx" id="kb-idx">01 / 06</span>
+                        </div>
+                        <div class="kb-keys">
+                            <button type="button" id="kb-prev" aria-label="上一件展品">←</button>
+                            <button type="button" id="kb-next" aria-label="下一件展品">→</button>
+                            <span class="kb-state" id="kb-auto">自动播放 开</span>
+                        </div>
+                    </div>
+                    <p class="kb-note">
+                        这一块和页面顶部的轮播是同一个实例。滚到这里按 <kbd>←</kbd> <kbd>→</kbd>，
+                        缩略图、展品名和编号会立刻换——不用滚回页面顶端，也能确认按键真的接管了轮播。
+                        控制台里的两个箭头按钮等价于按方向键，按 <kbd>空格</kbd> 则是暂停 / 恢复自动播放。
+                    </p>
+                </div>
+
                 <div class="card">
                     <h3>怎么试 <span>TRY IT</span></h3>
-                    <p>直接按键盘 <code>←</code> <code>→</code>，轮播会跟着翻，右下角的按键提示会亮；按 <code>空格</code> 暂停或恢复自动播放，底部状态栏的"自动播放"会在开 / 关之间切。</p>
+                    <p>按键盘 <code>←</code> <code>→</code>，页面顶部的轮播跟着翻，同时下面这块控制台立刻换图换名；点控制台里的两个按钮效果一样。按 <code>空格</code> 暂停或恢复自动播放，"自动播放"的状态会在开 / 关之间切。</p>
                 </div>
 
                 <div class="qa">
@@ -1142,6 +1263,14 @@
                         <summary><b>Q4</b>现场把 delay 改成指定值，会怎么变？</summary>
                         <div class="ans">
                             <code>delay</code> 是毫秒，指自动翻页的间隔。改成 1000 就是每 1 秒翻一张，节奏明显变急；改成 8000 就变成慢速展示。它在初始化时读一次，改完要销毁重建（页面上切效果就是这个过程）才生效；如果只想临场改，可以调 <code>swiper.params.autoplay.delay = 1000</code>，下一轮立刻按新值走。
+                        </div>
+                    </details>
+                    <details>
+                        <summary><b>Q5</b>之前按方向键感觉"没反应"，问题出在哪？</summary>
+                        <div class="ans">
+                            两处都会造成这个错觉，都改掉了：<br>
+                            ① <b>焦点被输入框抢走</b>。Swiper 的键盘处理里有这么一句判断：只要 <code>document.activeElement</code> 是 <code>input</code> / <code>textarea</code>，整段键盘逻辑直接 <code>return</code>。任务二那个角度滑块就是 <code>input</code>，拖过它一次，焦点就留在滑块上，之后按方向键改的是滑块的值，轮播一动不动。现在滑块松手就 <code>blur()</code>，把焦点还回去。<br>
+                            ② <b>翻了但看不见</b>。轮播在页面顶端，人在任务三这一节按键，轮播确实翻了，可屏幕上是任务三，等于白翻。所以加了上面这块控制台，同一个实例、同步显示，按键有没有生效一眼就能确认。
                         </div>
                     </details>
                 </div>
@@ -1263,7 +1392,11 @@
     var initialIdx = 0;
 
     function build(effect) {
+        // 换效果时保留当前看到的位置：先记下索引再销毁，重建时用它当 initialSlide，
+        // 否则每点一次按钮都被弹回第一件
+        var keep = initialIdx;
         if (sw) {
+            keep = sw.realIndex;
             sw.destroy(true, true);
             sw = null;
         }
@@ -1277,7 +1410,7 @@
         el.classList.toggle('is-creative', effect === 'creative');
         var base = {
             effect: effect,
-            initialSlide: initialIdx,
+            initialSlide: keep,
             centeredSlides: effect === 'creative',
             slidesPerView: 1,
             loop: false,
@@ -1306,6 +1439,26 @@
     function setAuto(text) {
         var node = document.getElementById('live-auto');
         if (node) node.textContent = text;
+        var kbNode = document.getElementById('kb-auto');
+        if (kbNode) kbNode.textContent = '自动播放 ' + text;
+    }
+
+    // 任务三的控制台：和主轮播是同一个实例，翻到哪件这里就跟到哪件
+    function syncConsole(s) {
+        var thumb = document.getElementById('kb-thumb');
+        var name = document.getElementById('kb-name');
+        var idx = document.getElementById('kb-idx');
+        if (!thumb || !s.slides) return;
+        var slide = s.slides[s.activeIndex];
+        if (!slide) return;
+        var img = slide.querySelector('img');
+        var title = slide.querySelector('h3');
+        if (img) {
+            thumb.src = img.getAttribute('src');
+            thumb.alt = img.alt || '当前展品';
+        }
+        if (title && name) name.textContent = title.textContent.trim();
+        if (idx) idx.textContent = ('0' + (s.realIndex + 1)).slice(-2) + ' / 0' + s.slides.length;
     }
 
     function updateLive(s) {
@@ -1313,6 +1466,7 @@
         var eff = document.getElementById('live-effect');
         if (idx) idx.textContent = (s.realIndex + 1);
         if (eff) eff.textContent = EFFECT_CN[currentEffect] || currentEffect;
+        syncConsole(s);
     }
 
     // 效果按钮
@@ -1342,7 +1496,17 @@
                 markActive('creative');
             }
         });
+        // Swiper 的键盘逻辑里有这么一条守卫：activeElement 是 input / textarea 就整段放弃。
+        // 滑块的焦点不还回来，之后按方向键改的是滑块数值，轮播一动不动。
+        // 只在指针松手（鼠标 / 触摸）时 blur，键盘调节滑块本身仍然可用。
+        rot.addEventListener('pointerup', function () { rot.blur(); });
     }
+
+    // 任务三控制台的两个箭头：和方向键等价，点击也能翻
+    var kbPrev = document.getElementById('kb-prev');
+    var kbNext = document.getElementById('kb-next');
+    if (kbPrev) kbPrev.addEventListener('click', function () { if (sw) sw.slidePrev(); });
+    if (kbNext) kbNext.addEventListener('click', function () { if (sw) sw.slideNext(); });
 
     // 键盘提示：只做视觉反馈，翻页交给 Swiper 的 keyboard 模块
     var kLeft = document.getElementById('k-left');
@@ -1356,9 +1520,19 @@
         setTimeout(function () { node.classList.remove('hit'); }, 160);
     }
 
+    // 按键被接收时让任务三的控制台闪一下边框，人在页面下方也知道"这次按键生效了"
+    function pulseConsole() {
+        var box = document.getElementById('kb-console');
+        if (!box) return;
+        box.classList.add('hit');
+        setTimeout(function () { box.classList.remove('hit'); }, 220);
+    }
+
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowLeft') flash(kLeft);
-        if (e.key === 'ArrowRight') flash(kRight);
+        var ae = document.activeElement;
+        var inField = ae && /^(input|textarea)$/i.test(ae.nodeName);
+        if (e.key === 'ArrowLeft') { flash(kLeft); if (!inField) pulseConsole(); }
+        if (e.key === 'ArrowRight') { flash(kRight); if (!inField) pulseConsole(); }
         if (e.code === 'Space') {
             flash(kSpace);
             if (!sw) return;
