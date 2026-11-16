@@ -130,7 +130,7 @@
 
     .shot-grid figure { border: 1px solid var(--line); background: var(--raise); }
 
-    .shot-grid img { width: 100%; display: block; aspect-ratio: 10/16; object-fit: cover; object-position: top; }
+    .shot-grid img { width: 100%; display: block; height: auto; }
 
     .shot-grid figcaption {
         font-family: var(--mono);
@@ -235,7 +235,35 @@
     </section>
 
     <section class="sec">
-        <div class="s-head"><span class="no">02</span><h2>参数速查</h2><span class="en">NUMBERS</span></div>
+        <div class="s-head"><span class="no">02</span><h2>运行截图</h2><span class="en">SCREENSHOTS</span></div>
+        <p>设备模式下逐关操作后的实际画面，四张都是操作完成的状态，点开可看原图。</p>
+
+        <div class="shot-grid">
+            <figure>
+                <a href="img/shots/task1.png"><img src="img/shots/task1.png" alt="任务一：事件日志与轨迹"></a>
+                <figcaption>01 · 拖动 9 次 move、位移 228px，click 排在 touchend 之后</figcaption>
+            </figure>
+            <figure>
+                <a href="img/shots/task2.png"><img src="img/shots/task2.png" alt="任务二：滑到第三张"></a>
+                <figcaption>02 · 左滑两次到第 3 张，LAST DX 与判定同步显示</figcaption>
+            </figure>
+            <figure>
+                <a href="img/shots/task3.png"><img src="img/shots/task3.png" alt="任务三：双击放大到 2 倍"></a>
+                <figcaption>03 · 双击放大到 2.00×，位移 36,0 已夹在边界内</figcaption>
+            </figure>
+            <figure>
+                <a href="img/shots/task4.png"><img src="img/shots/task4.png" alt="任务四：摇出菜谱"></a>
+                <figcaption>04 · 合成加速度 27.5 触发，摇动次数 +1，出菜</figcaption>
+            </figure>
+        </div>
+
+        <div class="warn">
+            这四张是浏览器设备模式（500px 宽）下截的，交互状态真实可复现；真机录屏专门放在任务三、任务四两页。
+        </div>
+    </section>
+
+    <section class="sec">
+        <div class="s-head"><span class="no">03</span><h2>参数速查</h2><span class="en">NUMBERS</span></div>
         <p>答辩时被问到数字，直接报这一页就够。</p>
 
         <div class="nums">
@@ -251,7 +279,7 @@
     </section>
 
     <section class="sec">
-        <div class="s-head"><span class="no">03</span><h2>提交材料</h2><span class="en">SUBMIT</span></div>
+        <div class="s-head"><span class="no">04</span><h2>提交材料</h2><span class="en">SUBMIT</span></div>
 
         <div class="vstate">
             <div><b>任务一</b>三个思考问题与答案<span>页内 →</span></div>
@@ -295,7 +323,7 @@
     </section>
 
     <section class="sec">
-        <div class="s-head"><span class="no">04</span><h2>答辩速记</h2><span class="en">QUICK ANSWERS</span></div>
+        <div class="s-head"><span class="no">05</span><h2>答辩速记</h2><span class="en">QUICK ANSWERS</span></div>
 
         <details open>
             <summary><b>Q1</b>为什么 touchend 里要用 changedTouches[0]？</summary>

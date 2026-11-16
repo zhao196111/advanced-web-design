@@ -585,10 +585,11 @@ wy_ty = wy_mid.y - wy_cy - wy_k * (wy_startMid.y - wy_cy - wy_startTy);</pre>
 
     // 转屏：重算边界并夹紧，倍数与位置保留
     function wy_onResize() {
+        // 只重算边界、重新夹紧，不改倍数；状态文字也不动，
+        // 否则加载时的 resize 会把"双击放大"之类的操作反馈冲掉
         if (wy_scale > 1.001) {
             wy_clamp(false);
         }
-        wy_status.textContent = '屏幕尺寸变化 · 状态保留';
     }
 
     window.addEventListener('resize', wy_onResize);

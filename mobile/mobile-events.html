@@ -366,7 +366,7 @@
         <div class="card">
             <h3>加分项 · 轨迹草图 <span>TRACE</span></h3>
             <p>
-                探针区里那条浅色折线是手指的实际路径，由每个 touchmove 的坐标连成，抬手清空。
+                探针区里那条浅色折线是手指的实际路径，由每个 touchmove 的坐标连成，下一次触摸时重新开始。
                 横向偏得多还是纵向偏得多、快滑的步长有多大，看线条疏密就知道了。
             </p>
         </div>
@@ -589,11 +589,9 @@
         wy_fingers.textContent = 'FINGERS ' + Math.max(wy_e.touches.length, 0);
         wy_refreshCounts();
 
-        // 轨迹保留 600ms 后淡出，方便截图
-        setTimeout(function () {
-            wy_path = [];
-            wy_drawPath();
-        }, 600);
+        // 轨迹不主动清空：留到下一次 touchstart 再重画，
+        // 这样抬手后还能对着那条线看路径、也方便截图
+
     }
 
     wy_probe.addEventListener('touchend', function (wy_e) {
