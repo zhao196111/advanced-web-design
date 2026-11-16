@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<!--
+  移动端课堂实践 · 任务二《手势卡片：左右滑动切换内容》
+  作者：赵俊清    学号：24006270205    指导教师：王垚
+  实现：touchstart / touchend 横向滑动识别，阈值 40px，冷却 300ms，
+        切换 0.3s 过渡动画，边界提示，容器 touch-action: pan-y 保留纵向滚动。
+  所有变量、函数、类名以 wy_ 开头。
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>任务二 · 手势卡片 | 移动端课堂实践 · 赵俊清</title>
+<link rel="stylesheet" href="css/m.css">
+<style>
+    /* 卡片舞台：只接管横向手势，纵向仍然交给浏览器滚动 */
+    .wy_stage {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: var(--raise);
+        touch-action: pan-y;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    .wy_track {
+        display: flex;
+        transition: transform .3s cubic-bezier(.22, .61, .36, 1);
+        will-change: transform;
+    }
+
+    .wy_card {
+        flex: 0 0 100%;
+        height: 330px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 22px 20px 24px;
+        color: #FFF9EE;
+        overflow: hidden;
+    }
+
+    /* 四道菜各自的渐变底色（要求里写的"渐变背景"） */
+    .wy_card[data-dish="0"] { background: linear-gradient(145deg, #B33A21 0%, #7E2015 55%, #3A120C 100%); }
+    .wy_card[data-dish="1"] { background: linear-gradient(145deg, #C99A5B 0%, #8E6A31 55%, #3E2C13 100%); }
+    .wy_card[data-dish="2"] { background: linear-gradient(145deg, #D8C79F 0%, #9A8A63 55%, #43402F 100%); }
+    .wy_card[data-dish="3"] { background: linear-gradient(145deg, #8E3B33 0%, #5C211C 55%, #2A0F0C 100%); }
+
+    /* 纹理：细网格 + 光斑，避免纯色看起来像没做完 */
+    .wy_card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+            radial-gradient(circle at 78% 18%, rgba(255, 245, 220, .18), transparent 46%),
+            repeating-linear-gradient(0deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 22px),
+            repeating-linear-gradient(90deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 22px);
+        pointer-events: none;
+    }
+
+    .wy_card .wy_no {
+        position: absolute;
+        top: 16px;
+        left: 20px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .16em;
+        opacity: .72;
+    }
+
+    .wy_card .wy_en {
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: .18em;
+        opacity: .5;
+        writing-mode: horizontal-tb;
+    }
+
+    .wy_card h3 {
+        position: relative;
+        font-family: var(--serif);
+        font-size: 32px;
+        font-weight: 400;
+        letter-spacing: .04em;
+        line-height: 1.2;
+    }
+
+    .wy_card .wy_flavor {
+        position: relative;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: .22em;
+        opacity: .7;
+        margin-bottom: 6px;
+    }
+
+    .wy_card p {
+        position: relative;
+        font-size: 12.5px;
+        line-height: 1.85;
+        opacity: .86;
+        margin: 10px 0 0;
+        max-width: 88%;
+    }
+
+    /* 底部计数与圆点 */
+    .wy_bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid var(--line);
+        border-top: 0;
+        padding: 10px 14px;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: .08em;
+        color: var(--ink3);
+    }
+
+    .wy_bar b { color: var(--ink); font-weight: 400; }
+
+    .wy_dots { display: flex; gap: 6px; }
+
+    .wy_dots i {
+        width: 14px;
+        height: 2px;
+        background: var(--line);
+        transition: background .2s, width .2s;
+    }
+
+    .wy_dots i.on { background: var(--red); width: 24px; }
+
+    /* 边界 / 冷却提示 */
+    .wy_toast {
+        position: absolute;
+        left: 50%;
+        bottom: 14px;
+        transform: translate(-50%, 10px);
+        background: rgba(18, 17, 16, .9);
+        color: #F6F3EC;
+        font-size: 12px;
+        font-family: var(--mono);
+        letter-spacing: .06em;
+        padding: 8px 14px;
+        border-radius: 2px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .2s, transform .2s;
+        white-space: nowrap;
+        z-index: 4;
+    }
+
+    .wy_toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+    /* 自查面板 */
+    .wy_panel {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        border: 1px solid var(--line);
+        margin: 12px 0 16px;
+    }
+
+    .wy_panel div {
+        padding: 10px 12px;
+        border-right: 1px solid var(--line-soft);
+        border-bottom: 1px solid var(--line-soft);
+    }
+
+    .wy_panel div:nth-child(2n) { border-right: 0; }
+    .wy_panel div:nth-last-child(-n+2) { border-bottom: 0; }
+
+    .wy_panel i {
+        display: block;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: .1em;
+        color: var(--ink3);
+        font-style: normal;
+    }
+
+    .wy_panel b {
+        font-family: var(--mono);
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--ink);
+    }
+
+    .wy_panel b.ok { color: #2E6B4F; }
+    .wy_panel b.no { color: var(--red); }
+
+    /* 演示区下方故意留一段长文本，用来验证纵向还能滚 */
+    .wy_scrolltest {
+        border: 1px dashed var(--line);
+        padding: 14px;
+        font-size: 12.5px;
+        color: var(--ink3);
+        line-height: 2;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-in">
+        <a href="index.html"><b>移动端实践</b></a>
+        <nav>
+            <a href="mobile-events.html">01</a>
+            <a href="mobile-gesture.html" class="on">02</a>
+            <a href="mobile-zoom.html">03</a>
+            <a href="mobile-sensor.html">04</a>
+        </nav>
+    </div>
+</div>
+
+<div class="wrap">
+
+    <header class="phead">
+        <div class="kicker">TASK 02 · 手势识别 · DOM 操作</div>
+        <h1>手势卡片：<em>左右一滑</em>换一道菜</h1>
+        <p class="lead">
+            四道中华美食，左滑看下一道、右滑回上一道。位移不足 40px 不算滑动，快速连滑有 300ms 冷却，
+            第一张和最后一张再往外滑会给提示。卡片区域只接管横向手势，页面纵向照常滚动。
+        </p>
+        <div class="meta">
+            <span>赵俊清</span><span>24006270205</span><span>指导教师 王垚</span><span>阈值 40px · 冷却 300ms</span>
+        </div>
+    </header>
+
+    <section class="sec">
+        <div class="s-head"><span class="no">01</span><h2>滑动切换</h2><span class="en">SWIPE</span></div>
+
+        <div class="wy_stage" id="wy_stage">
+            <div class="wy_track" id="wy_track">
+                <div class="wy_card" data-dish="0">
+                    <span class="wy_no">01 / SICHUAN</span>
+                    <span class="wy_en">MAPO TOFU</span>
+                    <div class="wy_flavor">麻 · 辣 · 烫 · 香 · 酥 · 嫩</div>
+                    <h3>麻婆豆腐</h3>
+                    <p>郫县豆瓣与汉源花椒在热油里撞出红亮的麻辣，豆腐要嫩到筷子一夹就颤。真正的师傅起锅前撒一把青蒜，碗边还要留一圈红油。</p>
+                </div>
+                <div class="wy_card" data-dish="1">
+                    <span class="wy_no">02 / SHANGHAI</span>
+                    <span class="wy_en">SCALLION NOODLES</span>
+                    <div class="wy_flavor">葱香 · 酱油 · 猪油</div>
+                    <h3>葱油拌面</h3>
+                    <p>小葱切段，冷油下锅慢慢熬到焦褐，葱香全部逼进油里。一勺酱油一勺糖，拌开时面条吸饱酱色，最朴素也最难做好。</p>
+                </div>
+                <div class="wy_card" data-dish="2">
+                    <span class="wy_no">03 / CANTON</span>
+                    <span class="wy_en">POACHED CHICKEN</span>
+                    <div class="wy_flavor">皮爽 · 肉滑 · 骨带血</div>
+                    <h3>白切鸡</h3>
+                    <p>清水里只放姜葱，鸡要"三提三放"让鸡腔内外温度均匀。出锅立刻过冰水，皮才爽脆。蘸姜葱蓉，鲜味全靠鸡本身。</p>
+                </div>
+                <div class="wy_card" data-dish="3">
+                    <span class="wy_no">04 / JIANGNAN</span>
+                    <span class="wy_en">SWEET AND SOUR RIBS</span>
+                    <div class="wy_flavor">酸甜 · 挂汁 · 亮油</div>
+                    <h3>糖醋小排</h3>
+                    <p>冰糖炒到枣红色再下排骨，醋分两次放——第一次入底味，第二次起锅前提香。收汁要收到每块排骨都裹一层亮红的糖壳。</p>
+                </div>
+            </div>
+            <div class="wy_toast" id="wy_toast">已经是第一张</div>
+        </div>
+
+        <div class="wy_bar">
+            <span>第 <b id="wy_idx">1</b> / 4 张</span>
+            <div class="wy_dots" id="wy_dots"><i class="on"></i><i></i><i></i><i></i></div>
+            <span id="wy_state">可滑动</span>
+        </div>
+
+        <div class="wy_panel">
+            <div><i>LAST DX</i><b id="wy_dx">—</b></div>
+            <div><i>判定</i><b id="wy_verdict">—</b></div>
+            <div><i>冷却</i><b id="wy_cool">READY</b></div>
+            <div><i>当前</i><b id="wy_cur">麻婆豆腐</b></div>
+        </div>
+
+        <div class="note">
+            <b>三条验收，自己就能验：</b>
+            ① 手指只划一小段（&lt; 40px）松手，卡片不动；
+            ② 快速连划两次，只前进一张，不会跳两张；
+            ③ 在卡片上上下拖，页面跟着滚，不会被卡片"吃掉"。
+        </div>
+
+        <div class="wy_scrolltest">
+            这一段文字是故意留的：手指在卡片区域上下拖动时页面要能正常滚动，说明 <code>touch-action: pan-y</code> 生效；
+            横向滑动时页面不会跟着左右跑，说明横向手势被我们接管了。上下拖一拖，再左右滑一滑，两种手感应该明显不同。
+        </div>
+    </section>
+
+    <section class="sec">
+        <div class="s-head"><span class="no">02</span><h2>参数与写法</h2><span class="en">CODE</span></div>
+
+        <table>
+            <thead><tr><th>参数</th><th>取值</th><th>为什么是这个数</th></tr></thead>
+            <tbody>
+                <tr><td>阈值</td><td><code>40px</code></td><td>手指轻微抖动通常在 10px 内；40px 能滤掉误触，又不至于让人"划半天没反应"</td></tr>
+                <tr><td>冷却</td><td><code>300ms</code></td><td>一次滑动的事件余波约 100～200ms，300ms 刚好挡住"一次手势触发两次切换"</td></tr>
+                <tr><td>过渡</td><td><code>0.3s</code></td><td>短于 0.2s 会觉得生硬，长于 0.5s 会觉得拖沓，0.3s 是移动端切换的常规值</td></tr>
+                <tr><td>触摸行为</td><td><code>touch-action: pan-y</code></td><td>纵向平移交还浏览器（可滚动），横向留给自己识别</td></tr>
+                <tr><td>取坐标</td><td><code>changedTouches[0]</code></td><td>抬手时手指已从 <code>touches</code> 里移除，用 <code>touches[0]</code> 会拿错或 undefined</td></tr>
+            </tbody>
+        </table>
+
+<pre><span class="c">// 判定"这一次算不算滑动"</span>
+<span class="k">var</span> wy_dx = wy_endX - wy_startX;
+<span class="k">var</span> wy_dy = wy_endY - wy_startY;
+
+<span class="k">if</span> (Math.abs(wy_dx) &lt; <span class="n">40</span>) <span class="k">return</span>;          <span class="c">// ① 阈值：不够远，当误触</span>
+<span class="k">if</span> (Math.abs(wy_dx) &lt; Math.abs(wy_dy)) <span class="k">return</span>;   <span class="c">// ② 主方向不是横向，交给页面滚动</span>
+
+<span class="k">if</span> (wy_now - wy_last &lt; <span class="n">300</span>) <span class="k">return</span>;          <span class="c">// ③ 冷却：挡住连滑</span>
+wy_last = wy_now;
+
+wy_dx &lt; <span class="n">0</span> ? wy_next() : wy_prev();              <span class="c">// ④ 左滑下一张，右滑上一张</span></pre>
+
+        <div class="card">
+            <h3>为什么容器要写 touch-action <span>PAN-Y</span></h3>
+            <p>
+                不写这一句，手指一横向拖动，浏览器会先当成"页面要被拖动"，再把事件断断续续地报给 JS，
+                手感发飘、还会带着整页抖。写成 <code>pan-y</code> 等于告诉浏览器：纵向的平移你拿去滚动，
+                横向的别管，交给我。注意只加在卡片容器上，加到 <code>body</code> 上整页就滚不动了。
+            </p>
+        </div>
+    </section>
+
+    <section class="sec">
+        <div class="s-head"><span class="no">03</span><h2>答辩准备</h2><span class="en">Q &amp; A</span></div>
+
+        <details open>
+            <summary><b>Q1</b>阈值设成 5px 会怎样？</summary>
+            <div class="ans">
+                几乎每次点击都会被判成滑动。手指按下去的瞬间会有 3～8px 的位移抖动，5px 的门槛挡不住，
+                于是"想点一下"变成"翻了一页"，而且点击和滑动互相打架。反过来设成 120px，用户得把手指划到屏幕边缘才有反应，
+                会觉得"这页面坏了"。40px 是经验值：大于抖动、小于一次自然的滑动。
+            </div>
+        </details>
+
+        <details>
+            <summary><b>Q2</b>冷却 300ms 是怎么起作用的？</summary>
+            <div class="ans">
+                每次切换成功时记下时间戳 <code>wy_last = Date.now()</code>。下一次 touchend 进来先算差值，
+                小于 300ms 就直接 return，只弹一句"别太快"。这样即使手指连划两下，第二下也被吃掉，
+                不会出现"一次手势跳两张"。
+            </div>
+        </details>
+
+        <details>
+            <summary><b>Q3</b>为什么 touchmove 里没有写 preventDefault？</summary>
+            <div class="ans">
+                因为容器已经用 <code>touch-action: pan-y</code> 声明了横向手势归自己，浏览器不会再拿横向去滚页面，
+                不需要再 <code>preventDefault</code>。真要写的话还得加 <code>{ passive: false }</code>，
+                否则浏览器会警告"passive 监听器里不能阻止默认行为"——这也是移动端最常见的一个坑。
+            </div>
+        </details>
+
+        <details>
+            <summary><b>Q4</b>加了 touchcancel 有什么用？</summary>
+            <div class="ans">
+                来电、下拉通知、系统手势会把触摸"抢走"，这时只有 touchcancel 没有 touchend。
+                如果只在 touchend 里复位状态，被 cancel 后 <code>wy_startX</code> 还是上一轮的旧值，
+                下一次滑动算出来的位移就是错的。本页把收尾工作写在一个函数里，两个事件都调它。
+            </div>
+        </details>
+    </section>
+
+    <div class="pager">
+        <a href="mobile-events.html"><span>PREV 01</span>← 事件侦探</a>
+        <a class="next" href="mobile-zoom.html"><span>NEXT 03</span>图片缩放 →</a>
+    </div>
+
+    <div class="pfoot">
+        <span>赵俊清 · 24006270205</span>
+        <span>移动端课堂实践 · 任务二</span>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    var wy_stage = document.getElementById('wy_stage');
+    var wy_track = document.getElementById('wy_track');
+    var wy_cards = wy_track.querySelectorAll('.wy_card');
+    var wy_dots = document.getElementById('wy_dots').querySelectorAll('i');
+    var wy_toast = document.getElementById('wy_toast');
+    var wy_idxOut = document.getElementById('wy_idx');
+    var wy_stateOut = document.getElementById('wy_state');
+    var wy_dxOut = document.getElementById('wy_dx');
+    var wy_verdict = document.getElementById('wy_verdict');
+    var wy_coolOut = document.getElementById('wy_cool');
+    var wy_curOut = document.getElementById('wy_cur');
+
+    var wy_total = wy_cards.length;
+    var wy_index = 0;
+
+    var wy_startX = 0, wy_startY = 0, wy_startTime = 0;
+    var wy_drag = 0;              // 拖动中的临时位移（px）
+    var wy_dragging = false;
+    var wy_lastSwitch = 0;        // 上次切换的时间戳
+    var wy_toastTimer = null;
+    var wy_coolTimer = null;
+
+    var WY_THRESHOLD = 40;        // 阈值 40px
+    var WY_COOLDOWN = 300;        // 冷却 300ms
+
+    // ---------- 渲染 ----------
+    function wy_render(wy_dragPx) {
+        var wy_offset = -wy_index * 100;
+        wy_track.style.transform = 'translateX(calc(' + wy_offset + '% + ' + (wy_dragPx || 0) + 'px))';
+        wy_idxOut.textContent = wy_index + 1;
+        wy_curOut.textContent = wy_cards[wy_index].querySelector('h3').textContent;
+
+        for (var wy_i = 0; wy_i < wy_dots.length; wy_i++) {
+            wy_dots[wy_i].classList.toggle('on', wy_i === wy_index);
+        }
+    }
+
+    function wy_toastMsg(wy_text) {
+        wy_toast.textContent = wy_text;
+        wy_toast.classList.add('on');
+        clearTimeout(wy_toastTimer);
+        wy_toastTimer = setTimeout(function () {
+            wy_toast.classList.remove('on');
+        }, 1100);
+    }
+
+    function wy_setState(wy_text) {
+        wy_stateOut.textContent = wy_text;
+    }
+
+    // ---------- 切换 ----------
+    function wy_go(wy_dir) {
+        var wy_target = wy_index + wy_dir;
+
+        // 边界：给出提示，不动
+        if (wy_target < 0) {
+            wy_toastMsg('已经是第一张');
+            wy_verdict.textContent = '边界';
+            wy_verdict.className = 'no';
+            return;
+        }
+        if (wy_target > wy_total - 1) {
+            wy_toastMsg('已经是最后一张');
+            wy_verdict.textContent = '边界';
+            wy_verdict.className = 'no';
+            return;
+        }
+
+        wy_index = wy_target;
+        wy_track.style.transition = 'transform .3s cubic-bezier(.22,.61,.36,1)';
+        wy_render(0);
+        wy_verdict.textContent = '切换成功';
+        wy_verdict.className = 'ok';
+
+        // 切换成功就把上一次的边界提示收掉，避免"明明滑动了还挂着已经是最后一张"
+        clearTimeout(wy_toastTimer);
+        wy_toast.classList.remove('on');
+    }
+
+    // 冷却计时展示
+    function wy_showCooldown() {
+        wy_coolOut.textContent = 'COOLING';
+        wy_coolOut.className = 'no';
+        clearTimeout(wy_coolTimer);
+        wy_coolTimer = setTimeout(function () {
+            wy_coolOut.textContent = 'READY';
+            wy_coolOut.className = 'ok';
+        }, WY_COOLDOWN);
+    }
+
+    // ---------- 手势 ----------
+    wy_stage.addEventListener('touchstart', function (wy_e) {
+        var wy_t = wy_e.touches[0];
+        wy_startX = wy_t.clientX;
+        wy_startY = wy_t.clientY;
+        wy_startTime = Date.now();
+        wy_dragging = true;
+        wy_drag = 0;
+
+        // 拖动过程中不要过渡，否则手指还没松就自己回弹
+        wy_track.style.transition = 'none';
+        wy_setState('拖动中');
+    }, { passive: true });
+
+    wy_stage.addEventListener('touchmove', function (wy_e) {
+        if (!wy_dragging) return;
+        var wy_t = wy_e.touches[0];
+        var wy_dx = wy_t.clientX - wy_startX;
+        var wy_dy = wy_t.clientY - wy_startY;
+
+        // 主方向是纵向：交给页面滚动，卡片不动
+        if (Math.abs(wy_dy) > Math.abs(wy_dx) && Math.abs(wy_dy) > 12) {
+            return;
+        }
+
+        // 横向跟手，但只跟 45%，做出"拉橡皮筋"的手感
+        wy_drag = wy_dx * 0.45;
+
+        // 到头了再多拉一点就停住，暗示没有下一张
+        if ((wy_index === 0 && wy_drag > 0) || (wy_index === wy_total - 1 && wy_drag < 0)) {
+            wy_drag *= 0.28;
+        }
+
+        wy_render(wy_drag);
+    }, { passive: true });
+
+    function wy_end(wy_e) {
+        if (!wy_dragging) return;
+        wy_dragging = false;
+
+        var wy_t = wy_e.changedTouches[0];       // 抬手必须用 changedTouches
+        var wy_dx = wy_t.clientX - wy_startX;
+        var wy_dy = wy_t.clientY - wy_startY;
+        var wy_now = Date.now();
+
+        wy_track.style.transition = 'transform .3s cubic-bezier(.22,.61,.36,1)';
+        wy_drag = 0;
+        wy_render(0);
+
+        wy_dxOut.textContent = Math.round(wy_dx) + 'px';
+        wy_setState('可滑动');
+
+        // ① 纵向为主：不算横滑
+        if (Math.abs(wy_dx) < Math.abs(wy_dy)) {
+            wy_verdict.textContent = '纵向 · 忽略';
+            wy_verdict.className = '';
+            return;
+        }
+
+        // ② 阈值：不足 40px 当误触，卡片自己弹回
+        if (Math.abs(wy_dx) < WY_THRESHOLD) {
+            wy_verdict.textContent = '不足 40px';
+            wy_verdict.className = '';
+            return;
+        }
+
+        // ③ 冷却：300ms 内不响应
+        if (wy_now - wy_lastSwitch < WY_COOLDOWN) {
+            wy_toastMsg('别太快，一张一张来');
+            wy_verdict.textContent = '冷却中';
+            wy_verdict.className = 'no';
+            return;
+        }
+
+        wy_lastSwitch = wy_now;
+        wy_showCooldown();
+
+        // ④ 左滑（dx < 0）下一张，右滑上一张
+        wy_go(wy_dx < 0 ? 1 : -1);
+    }
+
+    wy_stage.addEventListener('touchend', wy_end, { passive: true });
+
+    // 系统打断时也要复位，否则状态卡死
+    wy_stage.addEventListener('touchcancel', function () {
+        wy_dragging = false;
+        wy_drag = 0;
+        wy_track.style.transition = 'transform .3s cubic-bezier(.22,.61,.36,1)';
+        wy_render(0);
+        wy_setState('可滑动');
+        wy_verdict.textContent = '被打断';
+        wy_verdict.className = '';
+    }, { passive: true });
+
+    // 桌面端用鼠标也能试（演示用，不算任务要求）
+    var wy_mouseDown = false;
+    wy_stage.addEventListener('mousedown', function (wy_e) {
+        wy_mouseDown = true;
+        wy_startX = wy_e.clientX;
+        wy_startY = wy_e.clientY;
+        wy_track.style.transition = 'none';
+    });
+    wy_stage.addEventListener('mouseup', function (wy_e) {
+        if (!wy_mouseDown) return;
+        wy_mouseDown = false;
+        wy_track.style.transition = 'transform .3s cubic-bezier(.22,.61,.36,1)';
+        var wy_dx = wy_e.clientX - wy_startX;
+        wy_dxOut.textContent = Math.round(wy_dx) + 'px';
+        wy_render(0);
+        if (Math.abs(wy_dx) < WY_THRESHOLD) {
+            wy_verdict.textContent = '不足 40px';
+            wy_verdict.className = '';
+            return;
+        }
+        if (Date.now() - wy_lastSwitch < WY_COOLDOWN) return;
+        wy_lastSwitch = Date.now();
+        wy_showCooldown();
+        wy_go(wy_dx < 0 ? 1 : -1);
+    });
+
+    wy_render(0);
+})();
+</script>
+</body>
+</html>

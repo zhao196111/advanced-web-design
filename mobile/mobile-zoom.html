@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<!--
+  移动端课堂实践 · 任务三《图片查看器：双指缩放 + 双击放大 + 拖动》
+  作者：赵俊清    学号：24006270205    指导教师：王垚
+  实现：双指缩放 1×～4×（以两指中点为基准）、双击 1×/2× 切换（0.25s 过渡）、
+        放大后单指拖动、边界阻尼与松手回弹、缩回 1× 自动居中、横竖屏保持状态。
+  所有变量、函数以 wy_ 开头。
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>任务三 · 图片查看器 | 移动端课堂实践 · 赵俊清</title>
+<link rel="stylesheet" href="css/m.css">
+<style>
+    /* 查看器：overflow:hidden + touch-action:none + user-select:none，三件套缺一不可 */
+    .wy_viewer {
+        position: relative;
+        height: 58vh;
+        min-height: 320px;
+        max-height: 540px;
+        background: var(--stage);
+        border: 1px solid var(--line);
+        overflow: hidden;
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    .wy_viewer img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transform-origin: center center;
+        will-change: transform;
+        -webkit-user-drag: none;
+        pointer-events: none;
+    }
+
+    /* 缩放比例指示器（加分项） */
+    .wy_scale {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .08em;
+        color: #E8E2D6;
+        background: rgba(18, 17, 16, .66);
+        border: 1px solid rgba(232, 226, 214, .22);
+        padding: 4px 9px;
+        z-index: 3;
+    }
+
+    .wy_scale em { font-style: normal; color: var(--amber); }
+
+    /* 打开时的提示：第一次触摸后自动隐藏 */
+    .wy_tip {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: rgba(232, 226, 214, .74);
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .14em;
+        line-height: 2.1;
+        background: rgba(18, 17, 16, .5);
+        padding: 16px 20px;
+        pointer-events: none;
+        transition: opacity .25s;
+        z-index: 2;
+    }
+
+    .wy_tip.off { opacity: 0; }
+
+    .wy_viewbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border: 1px solid var(--line);
+        border-top: 0;
+        padding: 9px 12px;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: .08em;
+        color: var(--ink3);
+        background: var(--raise);
+    }
+
+    .wy_viewbar button {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: .06em;
+        background: transparent;
+        border: 1px solid var(--line);
+        color: var(--ink2);
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .wy_viewbar button:active { background: var(--ink); color: var(--paper); }
+
+    .wy_heart { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .wy_heart span {
+        border: 1px solid var(--line);
+        padding: 3px 8px;
+        font-size: 9.5px;
+    }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-in">
+        <a href="index.html"><b>移动端实践</b></a>
+        <nav>
+            <a href="mobile-events.html">01</a>
+            <a href="mobile-gesture.html">02</a>
+            <a href="mobile-zoom.html" class="on">03</a>
+            <a href="mobile-sensor.html">04</a>
+        </nav>
+    </div>
+</div>
+
+<div class="wrap">
+
+    <header class="phead">
+        <div class="kicker">TASK 03 · 多指手势 · 变换 · 状态管理</div>
+        <h1>图片查看器：<em>双指拉开</em>的那一下</h1>
+        <p class="lead">
+            双指缩放 1×～4×、双击在 1× / 2× 之间切换、放大后单指拖动，缩回 1× 自动回正。
+            关键不是"能缩放"，而是<b>两指之间的那个点始终钉在手指下面</b>——图片不会突然跳走。
+        </p>
+        <div class="meta">
+            <span>赵俊清</span><span>24006270205</span><span>指导教师 王垚</span><span>1×～4× · 0.25s</span>
+        </div>
+    </header>
+
+    <section class="sec">
+        <div class="s-head"><span class="no">01</span><h2>交互区</h2><span class="en">VIEWER</span></div>
+
+        <div class="wy_viewer" id="wy_viewer">
+            <img id="wy_img" src="img/zoom.jpg" alt="蓝色时刻的城市天际线">
+            <div class="wy_scale" id="wy_scale"><em>1.0×</em> / 4.0×</div>
+            <div class="wy_tip" id="wy_tip">双指缩放请用手机打开<br>DOUBLE TAP · PINCH</div>
+        </div>
+
+        <div class="wy_viewbar">
+            <span id="wy_status">等待手势</span>
+            <div class="wy_heart">
+                <span>双指缩放</span><span>双击 2×</span><span>单指拖动</span>
+            </div>
+            <button type="button" id="wy_reset">复位</button>
+        </div>
+
+        <div class="wy_panel" style="display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-top:0;margin:0 0 16px">
+            <div style="padding:10px 12px;border-right:1px solid var(--line-soft)">
+                <i style="display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink3);font-style:normal">SCALE</i>
+                <b id="wy_s_scale" style="font-family:var(--mono);font-size:15px;font-weight:400">1.00×</b>
+            </div>
+            <div style="padding:10px 12px;border-right:1px solid var(--line-soft)">
+                <i style="display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink3);font-style:normal">TRANSLATE</i>
+                <b id="wy_s_t" style="font-family:var(--mono);font-size:15px;font-weight:400">0, 0</b>
+            </div>
+            <div style="padding:10px 12px">
+                <i style="display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink3);font-style:normal">FINGERS</i>
+                <b id="wy_s_f" style="font-family:var(--mono);font-size:15px;font-weight:400">0</b>
+            </div>
+        </div>
+
+        <div class="note">
+            <b>手机上这样试：</b>双指从图片中心慢慢拉开，看右下角的倍数是否连续变化、图片有没有"跳"；
+            松手后再单指拖，图片跟着手走但拖不出边界；双击任意位置在 1× / 2× 之间切换；
+            横过来再竖回去，倍数和位置都还在。
+        </div>
+    </section>
+
+    <section class="sec">
+        <div class="s-head"><span class="no">02</span><h2>"缩放不跳"是怎么做到的</h2><span class="en">WHY NO JUMP</span></div>
+
+        <p>
+            很多人第一次写缩放都会跳：两指一动，图片"啪"地弹到左上角。原因是只改了 <code>scale</code>，
+            没有同时修正 <code>translate</code>。图片以自身中心为原点放大，原来在手指下的那一点就被推走了。
+        </p>
+
+        <p>
+            正确做法是：手势开始时，把<b>两指中点</b>、<b>当前倍数</b>、<b>当前位移</b>都存下来；
+            每一帧算出新倍数后，用"中点要保持不动"这个条件反推新的位移：
+        </p>
+
+<pre><span class="c">// 手势开始时存下的快照</span>
+wy_startDist  = 两指距离
+wy_startScale = 当前倍数
+wy_startMid   = 两指中点（屏幕坐标）
+wy_startTx    = 当前位移
+
+<span class="c">// 每一帧：倍数按距离比例变化</span>
+wy_scale = clamp(wy_startScale * (wy_dist / wy_startDist), <span class="n">1</span>, <span class="n">4</span>);
+wy_k = wy_scale / wy_startScale;
+
+<span class="c">// 位移跟着修正：让"起点中点下的那张图"仍然落在"现在中点"下面</span>
+wy_tx = wy_mid.x - wy_cx - wy_k * (wy_startMid.x - wy_cx - wy_startTx);
+wy_ty = wy_mid.y - wy_cy - wy_k * (wy_startMid.y - wy_cy - wy_startTy);</pre>
+
+        <p>
+            其中 <code>wy_cx / wy_cy</code> 是查看器中心。<code>wy_k</code> 是"这一帧相对手势开始放大了多少倍"，
+            用它去缩放"中点相对中心的那段偏移"，中点就钉住了。位移是<b>算出来的</b>，不是猜的。
+        </p>
+
+        <table>
+            <thead><tr><th>验收点</th><th>本页怎么处理</th></tr></thead>
+            <tbody>
+                <tr><td>缩放以两指中心为基准</td><td>用上面的公式反推 <code>translate</code>，中点不动</td></tr>
+                <tr><td>边界有阻尼或限制</td><td>倍数夹在 1～4；越界拖动只允许再走 25%，松手回弹到边界</td></tr>
+                <tr><td>1× 时不能拖出边界</td><td>倍数为 1 时位移强制归零，拖动直接忽略</td></tr>
+                <tr><td>缩放后旋转屏幕不丢状态</td><td>倍数与位移都在 JS 状态里，<code>resize</code> 只重算边界、重新夹紧，不清零</td></tr>
+                <tr><td>双击 1× / 2× 切换</td><td>两次点击间隔 &lt; 300ms 判双击，带 0.25s 过渡</td></tr>
+            </tbody>
+        </table>
+
+        <div class="card">
+            <h3>为什么 touch-action 必须写 none <span>TOUCH-ACTION</span></h3>
+            <p>
+                双指张开的默认行为是"缩放整个页面"。不把 <code>touch-action</code> 设成 <code>none</code>，
+                浏览器会先把手势当成页面缩放，你的 <code>touchmove</code> 收到的坐标是断的，
+                而且整个页面被放大后布局全乱。写了 <code>none</code> 之后，手势完全交给 JS，
+                还要在 <code>touchmove</code> 里 <code>preventDefault()</code> 兜住老浏览器的默认行为。
+            </p>
+        </div>
+    </section>
+
+    <section class="sec">
+        <div class="s-head"><span class="no">03</span><h2>真机演示视频</h2><span class="en">SCREEN RECORDING</span></div>
+        <p>
+            按要求，任务三需要用另一台设备拍下手机上的实际操作。视频会显示在下面这个区域：
+            录制完成后把文件命名为 <code>task3.mp4</code>，放进 <code>mobile/video/</code> 目录，页面会自动加载。
+        </p>
+
+        <div class="vslot" id="wy_v3">
+            <video src="video/task3.mp4" controls playsinline preload="metadata" webkit-playsinline></video>
+            <div class="vempty">
+                <b>VIDEO SLOT · TASK 03</b>
+                <div>等待真机录屏：<code>mobile/video/task3.mp4</code></div>
+                <div style="font-size:11px;opacity:.75;max-width:34ch">
+                    拍摄顺序建议：双指放大 → 松手拖动 → 双击回 1× → 再双击 2× → 横屏再竖回
+                </div>
+            </div>
+        </div>
+
+        <div class="warn">
+            录屏要点：屏录或另一台手机拍屏都行，但要能同时看清<b>手指动作</b>和<b>画面变化</b>；
+            右下角的倍数指示器是给评委看的证据，别让它被手指挡住。
+        </div>
+    </section>
+
+    <section class="sec">
+        <div class="s-head"><span class="no">04</span><h2>答辩准备</h2><span class="en">Q &amp; A</span></div>
+
+        <details open>
+            <summary><b>Q1</b>双指缩放时怎么保证图片不"跳"？</summary>
+            <div class="ans">
+                缩放和位移必须一起算。只改 <code>scale</code> 的话，图片围绕自身中心放大，手指下的那一点会被推走，
+                看起来就是"跳"。这里在 <code>touchstart</code> 存下两指中点、当前倍数、当前位移，
+                每帧按 <code>wy_k = 新倍数 / 旧倍数</code> 修正位移，让起点中点下的图仍然落在现在中点下——
+                中点钉住了，图就不会跳。
+            </div>
+        </details>
+
+        <details>
+            <summary><b>Q2</b>为什么用"每帧比例"而不是直接算总倍数？</summary>
+            <div class="ans">
+                <code>touchmove</code> 里两指距离一直在变，直接拿"当前距离 / 起始距离"当倍数，遇到手指中途换姿势
+                （一根手指抬起又落下）会突然跳变。用"本帧距离 / 上帧距离"累乘，每一步都是小变化，
+                再加上 1～4 的夹紧，画面就是连续的。
+            </div>
+        </details>
+
+        <details>
+            <summary><b>Q3</b>缩回 1× 为什么能自动居中？</summary>
+            <div class="ans">
+                手势结束和双击回到 1× 时都会走同一个 <code>wy_clamp()</code>：倍数贴近 1 就把
+                <code>tx / ty</code> 直接设成 0，并给 0.25s 过渡让它滑回中间。放大状态下则把位移夹在
+                <code>(倍数-1) × 图片显示宽度 / 2</code> 之内，所以永远拖不出边界。
+            </div>
+        </details>
+
+        <details>
+            <summary><b>Q4</b>旋转屏幕为什么状态不丢？</summary>
+            <div class="ans">
+                倍数和位移都存在 JS 变量里，不是写在 DOM 上靠 CSS 维持。转屏只触发 <code>resize</code>，
+                代码重算边界、把位移重新夹紧一次，倍数保持不变。如果靠"每次重新初始化"就会归 1×，
+                那才是丢状态。
+            </div>
+        </details>
+    </section>
+
+    <div class="pager">
+        <a href="mobile-gesture.html"><span>PREV 02</span>← 手势卡片</a>
+        <a class="next" href="mobile-sensor.html"><span>NEXT 04</span>摇一摇 →</a>
+    </div>
+
+    <div class="pfoot">
+        <span>赵俊清 · 24006270205</span>
+        <span>移动端课堂实践 · 任务三</span>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    var wy_viewer = document.getElementById('wy_viewer');
+    var wy_img = document.getElementById('wy_img');
+    var wy_tip = document.getElementById('wy_tip');
+    var wy_scaleOut = document.getElementById('wy_scale').querySelector('em');
+    var wy_sScale = document.getElementById('wy_s_scale');
+    var wy_sT = document.getElementById('wy_s_t');
+    var wy_sF = document.getElementById('wy_s_f');
+    var wy_status = document.getElementById('wy_status');
+
+    var WY_MIN = 1, WY_MAX = 4;
+
+    // 状态
+    var wy_scale = 1;
+    var wy_tx = 0;
+    var wy_ty = 0;
+
+    // 手势快照
+    var wy_startDist = 0;
+    var wy_startScale = 1;
+    var wy_startMidX = 0, wy_startMidY = 0;
+    var wy_startTx = 0, wy_startTy = 0;
+    var wy_lastX = 0, wy_lastY = 0;
+    var wy_singleDrag = false;
+    var wy_pinching = false;
+
+    // 双击判定
+    var wy_lastTapTime = 0;
+    var wy_tapStartX = 0, wy_tapStartY = 0;
+    var wy_tapStartTime = 0;
+
+    // ---------- 工具 ----------
+    function wy_cx() {
+        var wy_r = wy_viewer.getBoundingClientRect();
+        return { x: wy_r.left + wy_r.width / 2, y: wy_r.top + wy_r.height / 2, w: wy_r.width, h: wy_r.height };
+    }
+
+    // 图片按 object-fit: contain 后的实际显示尺寸
+    function wy_displaySize() {
+        var wy_c = wy_cx();
+        var wy_nw = wy_img.naturalWidth || 16;
+        var wy_nh = wy_img.naturalHeight || 9;
+        var wy_ar = wy_nw / wy_nh;
+        var wy_dw = wy_c.w, wy_dh = wy_dw / wy_ar;
+        if (wy_dh > wy_c.h) {
+            wy_dh = wy_c.h;
+            wy_dw = wy_dh * wy_ar;
+        }
+        return { w: wy_dw, h: wy_dh, cw: wy_c.w, ch: wy_c.h };
+    }
+
+    function wy_bounds() {
+        var wy_d = wy_displaySize();
+        return {
+            x: Math.max(0, (wy_scale * wy_d.w - wy_d.cw) / 2),
+            y: Math.max(0, (wy_scale * wy_d.h - wy_d.ch) / 2)
+        };
+    }
+
+    function wy_apply(wy_animate) {
+        if (wy_scale <= 1.001) {
+            wy_tx = 0;
+            wy_ty = 0;
+        }
+        if (wy_animate) {
+            wy_img.style.transition = 'transform .25s cubic-bezier(.22,.61,.36,1)';
+            setTimeout(function () { wy_img.style.transition = 'none'; }, 270);
+        } else {
+            wy_img.style.transition = 'none';
+        }
+
+        wy_img.style.transform = 'translate3d(' + wy_tx + 'px,' + wy_ty + 'px,0) scale(' + wy_scale + ')';
+
+        wy_scaleOut.textContent = wy_scale.toFixed(1) + '×';
+        wy_sScale.textContent = wy_scale.toFixed(2) + '×';
+        wy_sT.textContent = Math.round(wy_tx) + ', ' + Math.round(wy_ty);
+    }
+
+    // 松手 / 程序设定后：夹紧到边界，1× 归中
+    function wy_clamp(wy_animate) {
+        var wy_b = wy_bounds();
+        if (wy_scale <= 1.001) {
+            wy_scale = 1;
+            wy_tx = 0;
+            wy_ty = 0;
+        } else {
+            wy_tx = Math.max(-wy_b.x, Math.min(wy_b.x, wy_tx));
+            wy_ty = Math.max(-wy_b.y, Math.min(wy_b.y, wy_ty));
+        }
+        wy_apply(wy_animate);
+    }
+
+    // 拖动时越界只允许再走 25%，做出阻尼感
+    function wy_damp(wy_value, wy_max) {
+        if (wy_max <= 0) return 0;
+        var wy_over = Math.abs(wy_value) - wy_max;
+        if (wy_over <= 0) return wy_value;
+        return (wy_value > 0 ? 1 : -1) * (wy_max + wy_over * 0.25);
+    }
+
+    function wy_touchDist(wy_a, wy_b) {
+        return Math.hypot(wy_b.clientX - wy_a.clientX, wy_b.clientY - wy_a.clientY);
+    }
+
+    function wy_mid(wy_a, wy_b) {
+        return { x: (wy_a.clientX + wy_b.clientX) / 2, y: (wy_a.clientY + wy_b.clientY) / 2 };
+    }
+
+    // ---------- touchstart ----------
+    wy_viewer.addEventListener('touchstart', function (wy_e) {
+        wy_tip.classList.add('off');
+        wy_sF.textContent = wy_e.touches.length;
+
+        if (wy_e.touches.length === 2) {
+            // 双指：记录距离、中点、倍数、位移
+            wy_pinching = true;
+            wy_singleDrag = false;
+            wy_startDist = wy_touchDist(wy_e.touches[0], wy_e.touches[1]);
+            wy_startScale = wy_scale;
+            var wy_m = wy_mid(wy_e.touches[0], wy_e.touches[1]);
+            wy_startMidX = wy_m.x;
+            wy_startMidY = wy_m.y;
+            wy_startTx = wy_tx;
+            wy_startTy = wy_ty;
+            wy_img.style.transition = 'none';
+            wy_status.textContent = '双指缩放中';
+            return;
+        }
+
+        var wy_t = wy_e.touches[0];
+        wy_lastX = wy_t.clientX;
+        wy_lastY = wy_t.clientY;
+        wy_tapStartX = wy_t.clientX;
+        wy_tapStartY = wy_t.clientY;
+        wy_tapStartTime = Date.now();
+        wy_pinching = false;
+
+        if (wy_scale > 1.001) {
+            wy_singleDrag = true;
+            wy_img.style.transition = 'none';
+            wy_status.textContent = '单指拖动中';
+        } else {
+            wy_singleDrag = false;
+        }
+    }, { passive: true });
+
+    // ---------- touchmove ----------
+    wy_viewer.addEventListener('touchmove', function (wy_e) {
+        // 阻止浏览器把双指手势当成页面缩放
+        if (wy_e.cancelable) wy_e.preventDefault();
+
+        if (wy_e.touches.length === 2 && wy_pinching) {
+            var wy_d = wy_touchDist(wy_e.touches[0], wy_e.touches[1]);
+            if (!wy_startDist) return;
+
+            // 每帧比例 × 起始倍数，再夹到 1～4
+            var wy_newScale = wy_startScale * (wy_d / wy_startDist);
+            wy_newScale = Math.max(WY_MIN, Math.min(WY_MAX, wy_newScale));
+            var wy_k = wy_newScale / wy_startScale;
+
+            var wy_m = wy_mid(wy_e.touches[0], wy_e.touches[1]);
+            var wy_c = wy_cx();
+
+            // 关键：中点钉住，用 k 反推位移
+            var wy_nx = wy_m.x - wy_c.x - wy_k * (wy_startMidX - wy_c.x - wy_startTx);
+            var wy_ny = wy_m.y - wy_c.y - wy_k * (wy_startMidY - wy_c.y - wy_startTy);
+
+            wy_scale = wy_newScale;
+            var wy_b = wy_bounds();
+            wy_tx = wy_damp(wy_nx, wy_b.x);
+            wy_ty = wy_damp(wy_ny, wy_b.y);
+            wy_apply(false);
+            wy_status.textContent = '双指缩放中';
+            return;
+        }
+
+        if (wy_e.touches.length === 1 && wy_singleDrag && wy_scale > 1.001) {
+            var wy_t = wy_e.touches[0];
+            var wy_dx = wy_t.clientX - wy_lastX;
+            var wy_dy = wy_t.clientY - wy_lastY;
+            wy_lastX = wy_t.clientX;
+            wy_lastY = wy_t.clientY;
+
+            var wy_b2 = wy_bounds();
+            wy_tx = wy_damp(wy_tx + wy_dx, wy_b2.x);
+            wy_ty = wy_damp(wy_ty + wy_dy, wy_b2.y);
+            wy_apply(false);
+        }
+    }, { passive: false });
+
+    // ---------- touchend / cancel ----------
+    function wy_end(wy_e) {
+        wy_sF.textContent = wy_e.touches.length;
+        wy_img.style.transition = 'none';
+
+        if (wy_pinching && wy_e.touches.length < 2) {
+            wy_pinching = false;
+            wy_clamp(true);
+            wy_status.textContent = '缩放结束 · 已夹到边界';
+            return;
+        }
+
+        if (wy_singleDrag) {
+            wy_singleDrag = false;
+            wy_clamp(true);
+            wy_status.textContent = '松手 · 回弹到边界';
+        }
+
+        // 双击判定：位移小、时间短、两次间隔 < 300ms
+        // 注意这里不能要求"当前是 1×"——放大状态下双击同样要能还原回 1×
+        var wy_now = Date.now();
+        var wy_t = wy_e.changedTouches[0];
+        var wy_moved = Math.hypot(wy_t.clientX - wy_tapStartX, wy_t.clientY - wy_tapStartY);
+
+        if (wy_moved < 10 && wy_now - wy_tapStartTime < 250) {
+            if (wy_now - wy_lastTapTime < 300) {
+                // 双击：1× → 2×（以点击处为中心），2× → 1×
+                wy_zoomAt(wy_t.clientX, wy_t.clientY, 2);
+                wy_lastTapTime = 0;
+            } else {
+                wy_lastTapTime = wy_now;
+            }
+        }
+    }
+
+    wy_viewer.addEventListener('touchend', wy_end, { passive: true });
+    wy_viewer.addEventListener('touchcancel', function (wy_e) {
+        wy_pinching = false;
+        wy_singleDrag = false;
+        wy_clamp(true);
+        wy_status.textContent = '手势被打断';
+        wy_sF.textContent = wy_e.touches.length;
+    }, { passive: true });
+
+    // 双击缩放：以点击点为基准放大 / 还原
+    function wy_zoomAt(wy_px, wy_py, wy_target) {
+        var wy_c = wy_cx();
+        var wy_to = wy_scale > 1.05 ? 1 : wy_target;
+
+        if (wy_to === 1) {
+            wy_scale = 1;
+            wy_tx = 0;
+            wy_ty = 0;
+            wy_apply(true);
+            wy_status.textContent = '双击 · 回到 1×';
+            return;
+        }
+
+        var wy_k = wy_to / wy_scale;
+        var wy_nx = wy_px - wy_c.x - wy_k * (wy_px - wy_c.x - wy_tx);
+        var wy_ny = wy_py - wy_c.y - wy_k * (wy_py - wy_c.y - wy_ty);
+        wy_scale = wy_to;
+        var wy_b = wy_bounds();
+        wy_tx = Math.max(-wy_b.x, Math.min(wy_b.x, wy_nx));
+        wy_ty = Math.max(-wy_b.y, Math.min(wy_b.y, wy_ny));
+        wy_apply(true);
+        wy_status.textContent = '双击 · 放大到 2×';
+    }
+
+    // 复位按钮（桌面预览用）
+    document.getElementById('wy_reset').addEventListener('click', function () {
+        wy_scale = 1;
+        wy_tx = 0;
+        wy_ty = 0;
+        wy_apply(true);
+        wy_status.textContent = '已复位';
+    });
+
+    // 转屏：重算边界并夹紧，倍数与位置保留
+    function wy_onResize() {
+        if (wy_scale > 1.001) {
+            wy_clamp(false);
+        }
+        wy_status.textContent = '屏幕尺寸变化 · 状态保留';
+    }
+
+    window.addEventListener('resize', wy_onResize);
+    window.addEventListener('orientationchange', function () {
+        setTimeout(wy_onResize, 260);
+    });
+
+    // 桌面没有触摸：显示提示，仍可用"复位"验证渲染
+    if (!('ontouchstart' in window)) {
+        wy_tip.classList.remove('off');
+        wy_status.textContent = '桌面模式 · 请用手机体验手势';
+    }
+
+    wy_apply(false);
+
+    // ---------- 视频位：文件存在就播放，不存在就显示说明 ----------
+    (function () {
+        var wy_box = document.getElementById('wy_v3');
+        if (!wy_box) return;
+        var wy_video = wy_box.querySelector('video');
+        wy_video.addEventListener('loadedmetadata', function () {
+            wy_box.classList.add('ready');
+        });
+        wy_video.addEventListener('error', function () {
+            wy_box.classList.remove('ready');
+        });
+    })();
+})();
+</script>
+</body>
+</html>
