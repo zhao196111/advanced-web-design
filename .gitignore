@@ -3,3 +3,7 @@ _dist/
 .DS_Store
 Thumbs.db
 .netlify/
+
+# fullstack-init/ 是独立 git 仓库（课堂要求项目根目录有 .git），
+# 主仓库不要把它当普通目录吸收，避免嵌套仓库告警；它单独提交。
+/fullstack-init/

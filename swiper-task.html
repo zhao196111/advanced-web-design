@@ -592,6 +592,224 @@
         margin-top: 10px;
     }
 
+    /* ============ 任务二 · creative 调参台：拖滑杆，看卡片 ============
+       左边是本节自带的预览实例（就地可见），右边是 6 根滑杆 / 4 套预设 / 实时代码。
+       全部类名以 zjq_ 开头，与顶部 .stage 主轮播互不干扰。 */
+    .zjq_lab {
+        background: var(--raise);
+        border: 1px solid var(--line);
+    }
+
+    .zjq_lab-top {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--line-soft);
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .1em;
+        color: var(--ink3);
+    }
+
+    .zjq_lab-top b { color: var(--red); font-weight: 400; }
+
+    .zjq_lab-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 330px;
+    }
+
+    /* 预览：沿用舞台的深底，卡片的进退与纵深才看得分明 */
+    .zjq_lab-stage {
+        background: #121110;
+        padding: 18px;
+        border-right: 1px solid var(--line);
+        min-width: 0;
+        /* 右列控制台更高，这一列会被 grid 拉高；用 grid 把内容整体垂直居中，
+           卡片就像摆在展台中间，而不是顶在上面、下面空一大截。
+           这里不能用 flex：flex 会把 Swiper 容器压窄，宽度算错后整块布局会崩。 */
+        display: grid;
+        align-content: center;
+    }
+
+    .zjq_lab-swiper {
+        width: 100%;
+        border: 1px solid #2E2A26;
+        background: #0A0908;
+        overflow: hidden;
+    }
+
+    .zjq_lab-slide {
+        position: relative;
+        height: 250px;
+        overflow: hidden;
+    }
+
+    .zjq_lab-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .zjq_lab-cap {
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        padding: 44px 16px 14px;
+        background: linear-gradient(to top, rgba(8,7,6,.92), rgba(8,7,6,.45) 48%, transparent);
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+        color: #fff;
+    }
+
+    .zjq_lab-cap .zjq_no {
+        font-family: var(--serif);
+        font-size: 26px;
+        line-height: 1;
+        color: var(--amber);
+    }
+
+    .zjq_lab-cap h4 { font-size: 15px; font-weight: 600; letter-spacing: .05em; }
+    .zjq_lab-cap p { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: #A49C90; margin-top: 2px; }
+
+    .zjq_lab-ctrl {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    .zjq_lab-ctrl button {
+        width: 34px; height: 34px;
+        border: 1px solid #363130;
+        background: transparent;
+        color: #C8BFB2;
+        font-family: var(--mono);
+        font-size: 14px;
+        cursor: pointer;
+        transition: background .2s, color .2s;
+    }
+
+    .zjq_lab-ctrl button:hover { background: #2A2523; color: #fff; }
+
+    .zjq_lab-dots { display: flex; align-items: center; gap: 8px; }
+
+    .zjq_lab-dots .swiper-pagination-bullet {
+        width: 7px; height: 7px;
+        background: #4A443C; opacity: 1; border-radius: 0;
+        margin: 0 !important; cursor: pointer; transition: all .25s;
+    }
+
+    .zjq_lab-dots .swiper-pagination-bullet-active { background: var(--amber); width: 20px; }
+
+    .zjq_lab-hint {
+        margin-top: 12px;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: .06em;
+        color: #7D756A;
+        line-height: 1.8;
+    }
+
+    .zjq_lab-hint b { color: var(--amber); font-weight: 400; }
+
+    /* 控制台 */
+    .zjq_lab-panel { padding: 18px 20px 20px; min-width: 0; }
+
+    .zjq_presets {
+        display: flex; flex-wrap: wrap; gap: 7px;
+        padding-bottom: 14px; margin-bottom: 14px;
+        border-bottom: 1px dashed var(--line);
+    }
+
+    .zjq_presets button {
+        font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+        color: var(--ink2); background: transparent;
+        border: 1px solid var(--line); padding: 5px 11px; cursor: pointer;
+        transition: all .18s;
+    }
+
+    .zjq_presets button:hover { border-color: var(--red); color: var(--red); }
+    .zjq_presets button.on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+    .zjq_group { margin-bottom: 14px; }
+
+    .zjq_group h4 {
+        font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em;
+        color: var(--ink3); margin-bottom: 6px;
+        display: flex; align-items: center; gap: 9px;
+    }
+
+    .zjq_group h4 span {
+        font-size: 10px; letter-spacing: .04em; padding: 0 6px;
+        border: 1px solid var(--line); color: var(--red);
+    }
+
+    .zjq_group[data-side="next"] h4 span { color: #2F6B3A; }
+
+    .zjq_row {
+        display: grid;
+        grid-template-columns: 58px minmax(0, 1fr) 52px;
+        align-items: center; gap: 8px; margin: 5px 0;
+    }
+
+    .zjq_row label { font-family: var(--mono); font-size: 11px; color: var(--ink2); }
+
+    .zjq_row output {
+        font-family: var(--mono); font-size: 11.5px; color: var(--red);
+        text-align: right; font-variant-numeric: tabular-nums;
+    }
+
+    .zjq_row input[type="range"] {
+        -webkit-appearance: none; appearance: none;
+        width: 100%; height: 18px; background: transparent; cursor: pointer;
+    }
+
+    .zjq_row input[type="range"]::-webkit-slider-runnable-track { height: 2px; background: var(--line); }
+
+    .zjq_row input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none; appearance: none;
+        width: 12px; height: 12px; margin-top: -5px;
+        border-radius: 0; background: var(--red);
+        border: 2px solid var(--raise); box-shadow: 0 0 0 1px var(--red);
+    }
+
+    .zjq_row input[type="range"]::-moz-range-track { height: 2px; background: var(--line); }
+
+    .zjq_row input[type="range"]::-moz-range-thumb {
+        width: 12px; height: 12px; border-radius: 0; background: var(--red);
+        border: 2px solid var(--raise);
+    }
+
+    .zjq_code {
+        background: #1B1A17; color: #D8D1C4;
+        border-left: 3px solid var(--amber);
+        font-family: var(--mono); font-size: 11px; line-height: 1.75;
+        padding: 12px 14px; margin-top: 6px;
+        white-space: pre; overflow-x: auto;
+    }
+
+    .zjq_code .zjq_k { color: #D9A05B; }
+    .zjq_code .zjq_s { color: #9DBE8A; }
+    .zjq_code .zjq_n { color: #C98B6B; }
+
+    .zjq_lab-foot {
+        border-top: 1px solid var(--line-soft);
+        padding: 12px 20px;
+        font-size: 12.5px; color: var(--ink3); line-height: 1.85;
+    }
+
+    .zjq_lab-foot b { color: var(--ink); font-weight: 600; }
+
+    .zjq_lab-foot code {
+        font-family: var(--mono); font-size: 12px;
+        background: var(--red-soft); color: #7E2515; padding: 1px 5px;
+    }
+
     /* 键盘控制台：滚到任务三时，这里同步显示当前展品，按键有没有生效一眼可见 */
     .kb-console {
         display: grid;
@@ -793,6 +1011,8 @@
         .log-item { grid-template-columns: 1fr; gap: 8px; }
         section + section { margin-top: 60px; }
         main { padding: 50px 0 60px; }
+        .zjq_lab-grid { grid-template-columns: 1fr; }
+        .zjq_lab-stage { border-right: 0; border-bottom: 1px solid var(--line); }
     }
 
     @media (max-width: 560px) {
@@ -813,6 +1033,8 @@
         .stage-bar { padding: 14px; }
         .effects button { font-size: 10.5px; padding: 7px 10px; }
         .stage-ctrl { width: 100%; justify-content: space-between; }
+        .zjq_lab-top, .zjq_lab-panel, .zjq_lab-foot { padding-left: 14px; padding-right: 14px; }
+        .zjq_lab-stage { padding: 12px; }
     }
 
     /* 键盘可达性：Tab 走到哪儿出现一条细框，鼠标点击不出现，不干扰版面 */
@@ -1090,7 +1312,7 @@
                 <span class="s-en">CREATIVE EFFECT</span>
             </div>
             <p class="s-intro">
-                课堂上讲了 fade / cube / coverflow / flip / cards 和默认的 slide，第七种 creative 没讲。它是唯一一个可以用一组 transform 把"非当前页"摆到任意位置的模式——所以能被拼成一面电影选片墙。
+                课堂上讲了 fade / cube / coverflow / flip / cards 和默认的 slide，第七种 creative 没讲。下面这台调参台把 <code>prev</code> / <code>next</code> 拆成 6 根滑杆，拖一下就能看见卡片怎么动，右侧配置代码实时跟着变。它是唯一一个可以用一组 transform 把"非当前页"摆到任意位置的模式——所以能被拼成一面电影选片墙。
             </p>
 
             <div class="stack">
@@ -1128,16 +1350,111 @@
                     </tbody>
                 </table>
 
-                <div class="lab">
-                    <div class="lab-row">
-                        <label for="rot">现场实验 · 改旋转角度</label>
-                        <input type="range" id="rot" min="0" max="40" value="6" step="1">
-                        <span class="lab-val" id="rot-val">6°</span>
+                <!-- 拖滑杆，看卡片：本节自带的第二个 Swiper 实例，参数随滑杆实时重算 -->
+                <div class="zjq_lab" id="zjq_lab">
+                    <div class="zjq_lab-top">
+                        <span><b>LIVE LAB</b> / 拖滑杆，看卡片</span>
+                        <span id="zjq_formula">退场 明显后退 · 带 8° 倾斜 · 进场缩放 0.86</span>
                     </div>
-                    <p class="lab-note">
-                        拖动滑块，当前轮播会以新的角度重建，<code>next.rotate</code> 的 z 值就是这里显示的数字。
-                        调到 20° 时，右侧那张会明显歪过去——这就是答辩里"改一个数值让卡片转 20 度"的现场操作。
-                    </p>
+
+                    <div class="zjq_lab-grid">
+                        <!-- 左：就地可见的实时预览 -->
+                        <div class="zjq_lab-stage">
+                            <div class="swiper zjq_lab-swiper" id="zjq_lab_swiper">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide zjq_lab-slide">
+                                        <img src="swiper/img/01-dome.jpg" alt="光之穹顶">
+                                        <div class="zjq_lab-cap"><span class="zjq_no">01</span><div><h4>光之穹顶</h4><p>2026 · 空间装置</p></div></div>
+                                    </div>
+                                    <div class="swiper-slide zjq_lab-slide">
+                                        <img src="swiper/img/02-shadow.jpg" alt="影子剧场">
+                                        <div class="zjq_lab-cap"><span class="zjq_no">02</span><div><h4>影子剧场</h4><p>2025 · 影像装置</p></div></div>
+                                    </div>
+                                    <div class="swiper-slide zjq_lab-slide">
+                                        <img src="swiper/img/03-mirror.jpg" alt="镜面回廊">
+                                        <div class="zjq_lab-cap"><span class="zjq_no">03</span><div><h4>镜面回廊</h4><p>2025 · 沉浸空间</p></div></div>
+                                    </div>
+                                    <div class="swiper-slide zjq_lab-slide">
+                                        <img src="swiper/img/04-forest.jpg" alt="逆光森林">
+                                        <div class="zjq_lab-cap"><span class="zjq_no">04</span><div><h4>逆光森林</h4><p>2024 · 摄影</p></div></div>
+                                    </div>
+                                    <div class="swiper-slide zjq_lab-slide">
+                                        <img src="swiper/img/05-bluehour.jpg" alt="蓝色时刻">
+                                        <div class="zjq_lab-cap"><span class="zjq_no">05</span><div><h4>蓝色时刻</h4><p>2024 · 长曝光摄影</p></div></div>
+                                    </div>
+                                    <div class="swiper-slide zjq_lab-slide">
+                                        <img src="swiper/img/06-ship.jpg" alt="爱达·魔都号">
+                                        <div class="zjq_lab-cap"><span class="zjq_no">06</span><div><h4>爱达·魔都号</h4><p>2024 · 首艘国产大型邮轮</p></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="zjq_lab-ctrl">
+                                <button type="button" id="zjq_lab_prev" aria-label="上一张">←</button>
+                                <div class="zjq_lab-dots" id="zjq_lab_dots"></div>
+                                <button type="button" id="zjq_lab_next" aria-label="下一张">→</button>
+                            </div>
+                            <p class="zjq_lab-hint">
+                                拖动右侧滑杆，<b>卡片姿态实时变化</b>；松手会按新参数重建一次，
+                                保证画面和右下角生成的代码完全一致。也可以直接拖卡片或点箭头翻页。
+                            </p>
+                        </div>
+
+                        <!-- 右：控制台 -->
+                        <div class="zjq_lab-panel">
+                            <div class="zjq_presets" id="zjq_presets">
+                                <button type="button" data-preset="wall" class="on">电影墙</button>
+                                <button type="button" data-preset="push">纯推入</button>
+                                <button type="button" data-preset="twist">侧旋</button>
+                                <button type="button" data-preset="book">翻书</button>
+                            </div>
+
+                            <div class="zjq_group" data-side="prev">
+                                <h4>prev <span>退场</span></h4>
+                                <div class="zjq_row">
+                                    <label for="zjq_prev_x">X 位移</label>
+                                    <input type="range" id="zjq_prev_x" min="-200" max="60" step="2" value="-38">
+                                    <output id="zjq_prev_x_o">-38%</output>
+                                </div>
+                                <div class="zjq_row">
+                                    <label for="zjq_prev_z">Z 纵深</label>
+                                    <input type="range" id="zjq_prev_z" min="-800" max="200" step="10" value="-320">
+                                    <output id="zjq_prev_z_o">-320</output>
+                                </div>
+                                <div class="zjq_row">
+                                    <label for="zjq_prev_r">倾斜角</label>
+                                    <input type="range" id="zjq_prev_r" min="-45" max="45" step="1" value="-8">
+                                    <output id="zjq_prev_r_o">-8°</output>
+                                </div>
+                            </div>
+
+                            <div class="zjq_group" data-side="next">
+                                <h4>next <span>进场</span></h4>
+                                <div class="zjq_row">
+                                    <label for="zjq_next_x">X 位移</label>
+                                    <input type="range" id="zjq_next_x" min="0" max="200" step="2" value="68">
+                                    <output id="zjq_next_x_o">68%</output>
+                                </div>
+                                <div class="zjq_row">
+                                    <label for="zjq_next_z">Z 纵深</label>
+                                    <input type="range" id="zjq_next_z" min="-800" max="200" step="10" value="120">
+                                    <output id="zjq_next_z_o">120</output>
+                                </div>
+                                <div class="zjq_row">
+                                    <label for="zjq_next_s">缩放</label>
+                                    <input type="range" id="zjq_next_s" min="0.4" max="1" step="0.02" value="0.86">
+                                    <output id="zjq_next_s_o">0.86</output>
+                                </div>
+                            </div>
+
+                            <div class="zjq_code" id="zjq_code_out"></div>
+                        </div>
+                    </div>
+
+                    <div class="zjq_lab-foot">
+                        <b>怎么读这 6 根滑杆：</b> <code>prev</code> 摆的是"已经翻过去那张"，<code>next</code> 摆的是"还没轮到那张"；
+                        X 位移写成百分比（相对 <b>slide 自身宽度</b>），Z 是像素级纵深，倾斜角就是 <code>rotate[2]</code>。
+                        把倾斜角拖到 <code>20°</code>，退场那张立刻歪过去 —— 这就是答辩里"改一个数值让卡片转 20 度"的现场操作。
+                    </div>
                 </div>
 
                 <div class="grid-2">
@@ -1161,13 +1478,19 @@
                     <details>
                         <summary><b>Q2</b>改一个数值让卡片转 20 度，怎么验证？</summary>
                         <div class="ans">
-                            把 <code>next.rotate</code> 的第三个值从 6 改成 20（页面上就是上面那个滑块拖到 20），右侧那张立刻歪 14 度。注意 rotate 数组的顺序是 x / y / z，写错位置会变成绕横轴翻转，卡片会像躺倒一样，不是左右倾斜。
+                            在下面调参台里把 <code>prev</code> 的「倾斜角」从 −8° 拖到 <code>20</code>，也就是 <code>rotate: [0, 0, 20]</code>，退场那张立刻歪 20 度；单位是度，不写 <code>deg</code>。注意 rotate 数组的顺序是 x / y / z，写错位置会变成绕横轴翻转，卡片会像躺倒一样，不是平面内倾斜。
                         </div>
                     </details>
                     <details>
                         <summary><b>Q3</b>七个按钮轮着点一圈，轮播变高了、照片越来越黑，为什么？</summary>
                         <div class="ans">
                             换效果只能 <code>destroy</code> 后重建，但 destroy 只回收实例和行内样式，<b>效果模块自己插进 DOM 的装饰节点它不管</b>。cube 会往 wrapper 里塞一个 <code>.swiper-cube-shadow</code> 占位层，它的 <code>height:100%</code> 把重建后的舞台撑到两倍高（实测 660px → 1171px）；coverflow / flip / cards 给每张 slide 叠的 <code>.swiper-slide-shadow-*</code> 每切一轮多一层，切六七次照片就明显压暗了。所以重建前要先把这两类节点删掉——这就是 <code>build()</code> 开头那段清理代码的由来。
+                        </div>
+                    </details>
+                    <details>
+                        <summary><b>Q4</b>调参台和页面顶部的大轮播是同一个实例吗？</summary>
+                        <div class="ans">
+                            不是，是两个各自 <code>new Swiper()</code> 出来的实例。顶部那个负责展览和任务一、任务三的键盘控制；任务二这台只服务本节预览，绑定 <code>#zjq_lab_swiper</code>，分页器和箭头也都指向自己的 id，两边翻页互不干扰。调参台还刻意关掉了 <code>keyboard</code>，否则按 ← → 时两个实例会一起翻。滑杆松手会 <code>blur()</code>，把焦点还给页面，任务三的方向键才不会被滑块吃掉。
                         </div>
                     </details>
                 </div>
@@ -1269,7 +1592,7 @@
                         <summary><b>Q5</b>之前按方向键感觉"没反应"，问题出在哪？</summary>
                         <div class="ans">
                             两处都会造成这个错觉，都改掉了：<br>
-                            ① <b>焦点被输入框抢走</b>。Swiper 的键盘处理里有这么一句判断：只要 <code>document.activeElement</code> 是 <code>input</code> / <code>textarea</code>，整段键盘逻辑直接 <code>return</code>。任务二那个角度滑块就是 <code>input</code>，拖过它一次，焦点就留在滑块上，之后按方向键改的是滑块的值，轮播一动不动。现在滑块松手就 <code>blur()</code>，把焦点还回去。<br>
+                            ① <b>焦点被输入框抢走</b>。Swiper 的键盘处理里有这么一句判断：只要 <code>document.activeElement</code> 是 <code>input</code> / <code>textarea</code>，整段键盘逻辑直接 <code>return</code>。任务二调参台里的滑杆都是 <code>input</code>，拖过一次，焦点就留在滑块上，之后按方向键改的是滑块的值，轮播一动不动。现在滑杆松手就 <code>blur()</code>，把焦点还回去。<br>
                             ② <b>翻了但看不见</b>。轮播在页面顶端，人在任务三这一节按键，轮播确实翻了，可屏幕上是任务三，等于白翻。所以加了上面这块控制台，同一个实例、同步显示，按键有没有生效一眼就能确认。
                         </div>
                     </details>
@@ -1484,23 +1807,9 @@
         });
     });
 
-    // 旋转角度实验
-    var rot = document.getElementById('rot');
-    var rotVal = document.getElementById('rot-val');
-    if (rot) {
-        rot.addEventListener('input', function () {
-            rotZ = Number(rot.value);
-            rotVal.textContent = rotZ + '°';
-            if (currentEffect === 'creative') {
-                build('creative');
-                markActive('creative');
-            }
-        });
-        // Swiper 的键盘逻辑里有这么一条守卫：activeElement 是 input / textarea 就整段放弃。
-        // 滑块的焦点不还回来，之后按方向键改的是滑块数值，轮播一动不动。
-        // 只在指针松手（鼠标 / 触摸）时 blur，键盘调节滑块本身仍然可用。
-        rot.addEventListener('pointerup', function () { rot.blur(); });
-    }
+    // 任务二的角度实验已升级为独立的「creative 调参台」（见文件末尾第二个 script）：
+    // 那 6 根滑杆自己管理预览实例；主轮播 creative 的旋转角固定用 rotZ = 6°，
+    // 不再由正文里的滑块改写，免得两个实例抢同一份参数。
 
     // 任务三控制台的两个箭头：和方向键等价，点击也能翻
     var kbPrev = document.getElementById('kb-prev');
@@ -1561,6 +1870,192 @@
         build('cube');
         markActive('cube');
     }
+})();
+</script>
+
+<script>
+/* 任务二 · creative 调参台：拖滑杆，看卡片
+   —— 与顶部展览轮播是两个独立实例；这里关掉 keyboard，避免和任务三全局按键监听抢焦点。
+      所有变量 / 函数 / id 一律 zjq_ 前缀。 */
+(function () {
+    var zjq_state = {
+        prevX: -38, prevZ: -320, prevRot: -8,
+        nextX: 68, nextZ: 120, nextScale: 0.86
+    };
+
+    var zjq_PRESETS = {
+        wall:  { prevX: -38, prevZ: -320, prevRot: -8,  nextX: 68, nextZ: 120, nextScale: 0.86 },
+        push:  { prevX: -92, prevZ: -400, prevRot: 0,   nextX: 92, nextZ: 0,   nextScale: 1 },
+        twist: { prevX: -55, prevZ: -240, prevRot: -22, nextX: 62, nextZ: 60,  nextScale: 0.9 },
+        book:  { prevX: -14, prevZ: -60,  prevRot: -32, nextX: 16,  nextZ: -60, nextScale: 0.96 }
+    };
+
+    var zjq_labSwiper = null;
+    var zjq_sliderMap = [
+        ['zjq_prev_x', 'prevX',     'int',   'zjq_prev_x_o', '%'],
+        ['zjq_prev_z', 'prevZ',     'int',   'zjq_prev_z_o', ''],
+        ['zjq_prev_r', 'prevRot',   'int',   'zjq_prev_r_o', '°'],
+        ['zjq_next_x', 'nextX',     'int',   'zjq_next_x_o', '%'],
+        ['zjq_next_z', 'nextZ',     'int',   'zjq_next_z_o', ''],
+        ['zjq_next_s', 'nextScale', 'float', 'zjq_next_s_o', '']
+    ];
+
+    /* 把 6 个数值组装成 Swiper 认识的 creativeEffect：
+       X 位移必须是带 % 的字符串（相对 slide 自身宽度），Z 与角度用数字。 */
+    function zjq_buildCreative() {
+        return {
+            limitProgress: 2,
+            prev: {
+                shadow: true,
+                translate: [zjq_state.prevX + '%', 0, zjq_state.prevZ],
+                rotate: [0, 0, zjq_state.prevRot]
+            },
+            next: {
+                translate: [zjq_state.nextX + '%', 0, zjq_state.nextZ],
+                scale: zjq_state.nextScale,
+                opacity: 0.85
+            }
+        };
+    }
+
+    /* 拖动过程中不销毁实例：改 params 后强制重算 transform，卡片实时跟着动 */
+    function zjq_liveUpdate() {
+        if (!zjq_labSwiper) return;
+        // 两个要点，缺一个拖动时画面就不动：
+        // ① 要原地改 params.creativeEffect 里的字段。Swiper 11 的 effect 持有的是这个
+        //    对象的引用，整体替换 params.creativeEffect 它读不到新值；
+        // ② 改完要 emit 一次 'setTranslate' —— 卡片姿态是在这个事件里按 progress
+        //    插值算出来的，只改数字不会自己重绘。比 destroy/rebuild 轻得多。
+        var zjq_c = zjq_buildCreative();
+        var zjq_p = zjq_labSwiper.params.creativeEffect;
+        zjq_p.prev.translate = zjq_c.prev.translate;
+        zjq_p.prev.rotate = zjq_c.prev.rotate;
+        zjq_p.next.translate = zjq_c.next.translate;
+        zjq_p.next.scale = zjq_c.next.scale;
+        zjq_p.next.opacity = zjq_c.next.opacity;
+        zjq_p.limitProgress = zjq_c.limitProgress;
+        try {
+            zjq_labSwiper.emit('setTranslate', zjq_labSwiper.translate, false);
+        } catch (zjq_err) {
+            zjq_labSwiper.update();   // 兜底：松手时还有一次完整 rebuild
+        }
+    }
+
+    /* 松手后完整重建一次：清掉 creative 叠的阴影节点，保证 DOM 干净、与代码一致 */
+    function zjq_rebuildLab() {
+        // 重建时保留当前看到的那一张，否则每拖一次滑杆都被弹回初始位置
+        var zjq_keep = 2;
+        if (zjq_labSwiper) {
+            zjq_keep = zjq_labSwiper.activeIndex;
+            zjq_labSwiper.destroy(true, true);
+            zjq_labSwiper = null;
+        }
+        var zjq_box = document.getElementById('zjq_lab_swiper');
+        if (zjq_box) {
+            zjq_box.querySelectorAll('.swiper-cube-shadow, [class*="swiper-slide-shadow"]')
+                .forEach(function (zjq_node) { zjq_node.remove(); });
+        }
+        zjq_labSwiper = new Swiper('#zjq_lab_swiper', {
+            effect: 'creative',
+            creativeEffect: zjq_buildCreative(),
+            speed: 650,
+            // 这里刻意不用 loop：Swiper 11 的 loop 不会在首张左侧补出 prev，
+            // 停在 index 0 时左边那张根本不存在，拖 prev 的参数看不出任何变化。
+            // 改成从中间一张起步，左右都有卡片，调参才有对象。
+            loop: false,
+            initialSlide: zjq_keep,
+            // 一屏 2.4 张、当前卡居中：左右各露出约 0.7 张，
+            // 拖 prev / next 的参数时，两侧卡片会立刻跟着变，不会只看到一张孤卡。
+            slidesPerView: 2.4,
+            centeredSlides: true,
+            spaceBetween: 0,
+            breakpoints: {
+                0: { slidesPerView: 1.35 },
+                760: { slidesPerView: 2.4 }
+            },
+            grabCursor: true,
+            pagination: { el: '#zjq_lab_dots', clickable: true },
+            navigation: { prevEl: '#zjq_lab_prev', nextEl: '#zjq_lab_next' },
+            keyboard: { enabled: false }
+        });
+    }
+
+    /* 生成右下角可抄走的配置代码，做一点语法着色，和页面其它 pre 一致 */
+    function zjq_codeHTML() {
+        var zjq_c = zjq_buildCreative();
+        return '<span class="zjq_k">creativeEffect</span>: {\n' +
+            '  <span class="zjq_k">prev</span>: {\n' +
+            '    shadow: <span class="zjq_n">true</span>,\n' +
+            "    translate: [<span class=\"zjq_s\">'" + zjq_c.prev.translate[0] +
+                "'</span>, 0, <span class=\"zjq_n\">" + zjq_c.prev.translate[2] + "</span>],\n" +
+            '    rotate: [0, 0, <span class="zjq_n">' + zjq_c.prev.rotate[2] + '</span>]\n' +
+            '  },\n' +
+            '  <span class="zjq_k">next</span>: {\n' +
+            "    translate: [<span class=\"zjq_s\">'" + zjq_c.next.translate[0] +
+                "'</span>, 0, <span class=\"zjq_n\">" + zjq_c.next.translate[2] + "</span>],\n" +
+            '    scale: <span class="zjq_n">' + zjq_c.next.scale.toFixed(2) + '</span>,\n' +
+            '    opacity: <span class="zjq_n">0.85</span>\n' +
+            '  },\n' +
+            '  limitProgress: <span class="zjq_n">2</span>\n' +
+            '}';
+    }
+
+    /* 读数 / 滑杆位置 / 代码 / 一句话摘要，全部由 zjq_state 推出来 */
+    function zjq_paintLab() {
+        zjq_sliderMap.forEach(function (zjq_m) {
+            var zjq_input = document.getElementById(zjq_m[0]);
+            var zjq_out = document.getElementById(zjq_m[3]);
+            var zjq_val = zjq_state[zjq_m[1]];
+            if (zjq_input) zjq_input.value = zjq_val;
+            if (zjq_out) {
+                zjq_out.textContent = (zjq_m[2] === 'float')
+                    ? zjq_val.toFixed(2) : (zjq_val + zjq_m[4]);
+            }
+        });
+        var zjq_code = document.getElementById('zjq_code_out');
+        if (zjq_code) zjq_code.innerHTML = zjq_codeHTML();
+
+        var zjq_z = zjq_state.prevZ < -200 ? '明显后退' : (zjq_state.prevZ < 0 ? '略后退' : '不后退');
+        var zjq_r = Math.abs(zjq_state.prevRot) >= 5 ? '带 ' + Math.abs(zjq_state.prevRot) + '° 倾斜' : '不倾斜';
+        var zjq_formula = document.getElementById('zjq_formula');
+        if (zjq_formula) {
+            zjq_formula.textContent = '退场 ' + zjq_z + ' · ' + zjq_r +
+                ' · 进场缩放 ' + zjq_state.nextScale.toFixed(2);
+        }
+    }
+
+    function zjq_applyPreset(zjq_key) {
+        Object.assign(zjq_state, zjq_PRESETS[zjq_key]);
+        document.querySelectorAll('#zjq_presets button').forEach(function (zjq_btn) {
+            zjq_btn.classList.toggle('on', zjq_btn.dataset.preset === zjq_key);
+        });
+        zjq_paintLab();
+        zjq_rebuildLab();
+    }
+
+    function zjq_bindLab() {
+        zjq_sliderMap.forEach(function (zjq_m) {
+            var zjq_input = document.getElementById(zjq_m[0]);
+            if (!zjq_input) return;
+            zjq_input.addEventListener('input', function () {
+                zjq_state[zjq_m[1]] = (zjq_m[2] === 'float')
+                    ? parseFloat(zjq_input.value) : parseInt(zjq_input.value, 10);
+                zjq_paintLab();
+                zjq_liveUpdate();
+            });
+            zjq_input.addEventListener('change', function () { zjq_rebuildLab(); });
+            // 指针松手即归还焦点：Swiper 的键盘模块在 activeElement 是 input 时会整段放弃，
+            // 不 blur 的话任务三按 ← → 会变成调滑块，看起来像"按键没反应"。
+            zjq_input.addEventListener('pointerup', function () { zjq_input.blur(); });
+        });
+        document.querySelectorAll('#zjq_presets button').forEach(function (zjq_btn) {
+            zjq_btn.addEventListener('click', function () { zjq_applyPreset(zjq_btn.dataset.preset); });
+        });
+    }
+
+    zjq_paintLab();
+    zjq_rebuildLab();
+    zjq_bindLab();
 })();
 </script>
 </body>
