@@ -11,9 +11,9 @@
 <title>移动端课堂实践 · 赵俊清 24006270205</title>
 <link rel="stylesheet" href="css/m.css">
 <style>
-    .tasks { display: grid; gap: 12px; margin-top: 6px; }
+    .zjq_tasks { display: grid; gap: 12px; margin-top: 6px; }
 
-    .task {
+    .zjq_task {
         display: block;
         border: 1px solid var(--line);
         background: var(--raise);
@@ -21,23 +21,23 @@
         transition: border-color .2s, background .2s;
     }
 
-    .task:active { background: #F3EEE2; }
+    .zjq_task:active { background: #F3EEE2; }
 
-    .task-top {
+    .zjq_task-top {
         display: flex;
         align-items: baseline;
         gap: 10px;
         margin-bottom: 6px;
     }
 
-    .task-top .no {
+    .zjq_task-top .zjq_no {
         font-family: var(--mono);
         font-size: 11px;
         color: var(--red);
         letter-spacing: .1em;
     }
 
-    .task-top h3 {
+    .zjq_task-top h3 {
         font-family: var(--serif);
         font-size: 18px;
         font-weight: 400;
@@ -45,11 +45,11 @@
         line-height: 1.4;
     }
 
-    .task-top .star { font-size: 10px; color: var(--amber); letter-spacing: 1px; white-space: nowrap; }
+    .zjq_task-top .zjq_star { font-size: 10px; color: var(--amber); letter-spacing: 1px; white-space: nowrap; }
 
-    .task p { font-size: 13px; color: var(--ink2); margin-bottom: 10px; }
+    .zjq_task p { font-size: 13px; color: var(--ink2); margin-bottom: 10px; }
 
-    .task-foot {
+    .zjq_task-foot {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -61,13 +61,13 @@
         padding-top: 9px;
     }
 
-    .task-foot .file { color: var(--ink2); }
-    .task-foot .go { color: var(--red); }
+    .zjq_task-foot .zjq_file { color: var(--ink2); }
+    .zjq_task-foot .zjq_go { color: var(--red); }
 
     /* 视频状态 */
-    .vstate { display: grid; gap: 8px; margin: 10px 0 16px; }
+    .zjq_vstate { display: grid; gap: 8px; margin: 10px 0 16px; }
 
-    .vstate div {
+    .zjq_vstate div {
         display: flex;
         align-items: center;
         gap: 10px;
@@ -77,7 +77,7 @@
         color: var(--ink2);
     }
 
-    .vstate b {
+    .zjq_vstate b {
         font-family: var(--mono);
         font-size: 9.5px;
         letter-spacing: .1em;
@@ -87,27 +87,27 @@
         font-weight: 400;
     }
 
-    .vstate b.wait { border-color: #D9A796; color: var(--red); }
-    .vstate span { margin-left: auto; font-family: var(--mono); font-size: 9.5px; color: var(--ink3); }
+    .zjq_vstate b.zjq_wait { border-color: #D9A796; color: var(--red); }
+    .zjq_vstate span { margin-left: auto; font-family: var(--mono); font-size: 9.5px; color: var(--ink3); }
 
     /* 数字速查 */
-    .nums {
+    .zjq_nums {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         border: 1px solid var(--line);
         margin: 10px 0 16px;
     }
 
-    .nums div {
+    .zjq_nums div {
         padding: 11px 12px;
         border-right: 1px solid var(--line-soft);
         border-bottom: 1px solid var(--line-soft);
     }
 
-    .nums div:nth-child(2n) { border-right: 0; }
-    .nums div:nth-last-child(-n+2) { border-bottom: 0; }
+    .zjq_nums div:nth-child(2n) { border-right: 0; }
+    .zjq_nums div:nth-last-child(-n+2) { border-bottom: 0; }
 
-    .nums i {
+    .zjq_nums i {
         display: block;
         font-family: var(--mono);
         font-size: 9px;
@@ -116,23 +116,23 @@
         font-style: normal;
     }
 
-    .nums b { font-family: var(--serif); font-size: 20px; font-weight: 400; }
-    .nums b small { font-family: var(--mono); font-size: 10px; color: var(--ink3); }
+    .zjq_nums b { font-family: var(--serif); font-size: 20px; font-weight: 400; }
+    .zjq_nums b small { font-family: var(--mono); font-size: 10px; color: var(--ink3); }
 
-    .hero-tags { margin-top: 12px; }
+    .zjq_hero-tags { margin-top: 12px; }
 
-    .shot-grid {
+    .zjq_shot-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 8px;
         margin: 10px 0 16px;
     }
 
-    .shot-grid figure { border: 1px solid var(--line); background: var(--raise); }
+    .zjq_shot-grid figure { border: 1px solid var(--line); background: var(--raise); }
 
-    .shot-grid img { width: 100%; display: block; height: auto; }
+    .zjq_shot-grid img { width: 100%; display: block; height: auto; }
 
-    .shot-grid figcaption {
+    .zjq_shot-grid figcaption {
         font-family: var(--mono);
         font-size: 9px;
         letter-spacing: .06em;
@@ -144,8 +144,8 @@
 </head>
 <body>
 
-<div class="topbar">
-    <div class="topbar-in">
+<div class="zjq_topbar">
+    <div class="zjq_topbar-in">
         <a href="index.html"><b>移动端实践</b></a>
         <nav>
             <a href="mobile-events.html">01</a>
@@ -156,89 +156,89 @@
     </div>
 </div>
 
-<div class="wrap">
+<div class="zjq_wrap">
 
-    <header class="phead">
-        <div class="kicker">MOBILE EVENTS · 触摸手势全解析</div>
+    <header class="zjq_phead">
+        <div class="zjq_kicker">MOBILE EVENTS · 触摸手势全解析</div>
         <h1>手机上的<em>四种手感</em></h1>
-        <p class="lead">
+        <p class="zjq_lead">
             四关分别考的是：观察、识别、多指变换、设备能力。四关都做了，任务三和任务四配真机录屏。
             建议直接用手机打开本页，从上往下按顺序试。
         </p>
-        <div class="meta">
+        <div class="zjq_meta">
             <span>赵俊清 · 24006270205</span><span>指导教师 王垚</span><span>高级网页设计</span>
         </div>
-        <div class="hero-tags">
-            <span class="tag red">touch 事件</span>
-            <span class="tag">阈值 40px</span>
-            <span class="tag">1×～4× 缩放</span>
-            <span class="tag">devicemotion</span>
+        <div class="zjq_hero-tags">
+            <span class="zjq_tag zjq_red">touch 事件</span>
+            <span class="zjq_tag">阈值 40px</span>
+            <span class="zjq_tag">1×～4× 缩放</span>
+            <span class="zjq_tag">devicemotion</span>
         </div>
     </header>
 
-    <section class="sec">
-        <div class="s-head"><span class="no">01</span><h2>四个任务</h2><span class="en">TASKS</span></div>
+    <section class="zjq_sec">
+        <div class="zjq_s-head"><span class="zjq_no">01</span><h2>四个任务</h2><span class="zjq_en">TASKS</span></div>
 
-        <div class="tasks">
-            <a class="task" href="mobile-events.html">
-                <div class="task-top">
-                    <span class="no">TASK 01</span>
+        <div class="zjq_tasks">
+            <a class="zjq_task" href="mobile-events.html">
+                <div class="zjq_task-top">
+                    <span class="zjq_no">TASK 01</span>
                     <h3>事件侦探</h3>
-                    <span class="star">⭐</span>
+                    <span class="zjq_star">⭐</span>
                 </div>
                 <p>探针区记录 touchstart / touchmove / touchend / cancel 的真实顺序、次数与坐标，附带轨迹草图，末尾是三个思考问题的答案。</p>
-                <div class="task-foot">
-                    <span class="file">mobile-events.html</span>
-                    <span class="go">进入 →</span>
+                <div class="zjq_task-foot">
+                    <span class="zjq_file">mobile-events.html</span>
+                    <span class="zjq_go">进入 →</span>
                 </div>
             </a>
 
-            <a class="task" href="mobile-gesture.html">
-                <div class="task-top">
-                    <span class="no">TASK 02</span>
+            <a class="zjq_task" href="mobile-gesture.html">
+                <div class="zjq_task-top">
+                    <span class="zjq_no">TASK 02</span>
                     <h3>手势卡片</h3>
-                    <span class="star">⭐⭐</span>
+                    <span class="zjq_star">⭐⭐</span>
                 </div>
                 <p>四道中华美食左右滑动切换，40px 阈值、300ms 冷却、0.3s 过渡，边界有提示，纵向滚动不受影响。</p>
-                <div class="task-foot">
-                    <span class="file">mobile-gesture.html</span>
-                    <span class="go">进入 →</span>
+                <div class="zjq_task-foot">
+                    <span class="zjq_file">mobile-gesture.html</span>
+                    <span class="zjq_go">进入 →</span>
                 </div>
             </a>
 
-            <a class="task" href="mobile-zoom.html">
-                <div class="task-top">
-                    <span class="no">TASK 03</span>
+            <a class="zjq_task" href="mobile-zoom.html">
+                <div class="zjq_task-top">
+                    <span class="zjq_no">TASK 03</span>
                     <h3>图片查看器</h3>
-                    <span class="star">⭐⭐⭐</span>
+                    <span class="zjq_star">⭐⭐⭐</span>
                 </div>
                 <p>双指缩放 1×～4×、双击 1×/2×、放大后拖动、边界阻尼与回弹，缩回 1× 自动居中，转屏不丢状态。含真机视频。</p>
-                <div class="task-foot">
-                    <span class="file">mobile-zoom.html</span>
-                    <span class="go">进入 →</span>
+                <div class="zjq_task-foot">
+                    <span class="zjq_file">mobile-zoom.html</span>
+                    <span class="zjq_go">进入 →</span>
                 </div>
             </a>
 
-            <a class="task" href="mobile-sensor.html">
-                <div class="task-top">
-                    <span class="no">TASK 04</span>
+            <a class="zjq_task" href="mobile-sensor.html">
+                <div class="zjq_task-top">
+                    <span class="zjq_no">TASK 04</span>
                     <h3>摇一摇抽菜谱</h3>
-                    <span class="star">⭐⭐⭐⭐</span>
+                    <span class="zjq_star">⭐⭐⭐⭐</span>
                 </div>
                 <p>devicemotion 合成加速度阈值 18、1.5s 冷却、iOS 授权按钮，没有传感器时明确提示并提供"点我抽一次"。含真机视频。</p>
-                <div class="task-foot">
-                    <span class="file">mobile-sensor.html</span>
-                    <span class="go">进入 →</span>
+                <div class="zjq_task-foot">
+                    <span class="zjq_file">mobile-sensor.html</span>
+                    <span class="zjq_go">进入 →</span>
                 </div>
             </a>
         </div>
     </section>
 
-    <section class="sec">
-        <div class="s-head"><span class="no">02</span><h2>运行截图</h2><span class="en">SCREENSHOTS</span></div>
+    <section class="zjq_sec">
+        <div class="zjq_s-head"><span class="zjq_no">02</span><h2>运行截图</h2><span class="zjq_en">SCREENSHOTS</span></div>
         <p>设备模式下逐关操作后的实际画面，四张都是操作完成的状态，点开可看原图。</p>
 
-        <div class="shot-grid">
+        <div class="zjq_shot-grid">
             <figure>
                 <a href="img/shots/task1.png"><img src="img/shots/task1.png" alt="任务一：事件日志与轨迹"></a>
                 <figcaption>01 · 拖动 9 次 move、位移 228px，click 排在 touchend 之后</figcaption>
@@ -257,16 +257,16 @@
             </figure>
         </div>
 
-        <div class="warn">
+        <div class="zjq_warn">
             这四张是浏览器设备模式（500px 宽）下截的，交互状态真实可复现；真机录屏专门放在任务三、任务四两页。
         </div>
     </section>
 
-    <section class="sec">
-        <div class="s-head"><span class="no">03</span><h2>参数速查</h2><span class="en">NUMBERS</span></div>
+    <section class="zjq_sec">
+        <div class="zjq_s-head"><span class="zjq_no">03</span><h2>参数速查</h2><span class="zjq_en">NUMBERS</span></div>
         <p>答辩时被问到数字，直接报这一页就够。</p>
 
-        <div class="nums">
+        <div class="zjq_nums">
             <div><i>滑动阈值</i><b>40<small>px</small></b></div>
             <div><i>切换冷却</i><b>300<small>ms</small></b></div>
             <div><i>卡片过渡</i><b>0.3<small>s</small></b></div>
@@ -278,14 +278,14 @@
         </div>
     </section>
 
-    <section class="sec">
-        <div class="s-head"><span class="no">04</span><h2>提交材料</h2><span class="en">SUBMIT</span></div>
+    <section class="zjq_sec">
+        <div class="zjq_s-head"><span class="zjq_no">04</span><h2>提交材料</h2><span class="zjq_en">SUBMIT</span></div>
 
-        <div class="vstate">
+        <div class="zjq_vstate">
             <div><b>任务一</b>三个思考问题与答案<span>页内 →</span></div>
             <div><b>任务二</b>效果可直接操作验收<span>页内 →</span></div>
-            <div><b class="wait">任务三</b>真机演示视频<span>待录制</span></div>
-            <div><b class="wait">任务四</b>真机演示视频<span>待录制</span></div>
+            <div><b class="zjq_wait">任务三</b>真机演示视频<span>待录制</span></div>
+            <div><b class="zjq_wait">任务四</b>真机演示视频<span>待录制</span></div>
         </div>
 
         <div class="card">
@@ -294,7 +294,7 @@
                 用另一台手机拍屏或直接用系统录屏，导出 mp4 后命名为 <code>task3.mp4</code>、<code>task4.mp4</code>，
                 放进 <code>mobile/video/</code>，两个任务页里的视频位会自动加载并可以播放，不用改代码。
             </p>
-            <ul class="plain">
+            <ul class="zjq_plain">
                 <li>任务三拍：双指放大（看倍数）→ 松手拖动 → 双击回 1× → 横屏再竖回。</li>
                 <li>任务四拍：仪表静止 9.8 → 摇一次出菜 → 马上再摇（被冷却挡住）→ 点"点我抽一次"。</li>
                 <li>视频建议 15～30 秒，竖屏，画质 720p 以上；拍的时候手指别挡住右下角倍数 / 仪表。</li>
@@ -303,7 +303,7 @@
 
         <div class="card">
             <h3>踩过的坑 <span>PITFALLS</span></h3>
-            <ul class="plain">
+            <ul class="zjq_plain">
                 <li><b>touchmove 里 preventDefault 不生效</b>：默认是 passive 监听，浏览器警告"Unable to preventDefault inside passive listener"。加 <code>{ passive: false }</code> 解决。</li>
                 <li><b>双指缩放图片乱跳</b>：只改 scale 不改 translate，图片绕自身中心放大，手指下的点被推走。用两指中点反推位移才稳。</li>
                 <li><b>devicemotion 一条数据都没有</b>：用 <code>file://</code> 打开收不到传感器，必须 HTTPS（Netlify 发布后正常）。</li>
@@ -313,7 +313,7 @@
 
         <div class="card">
             <h3>AI 提示词记录 <span>PROMPTS</span></h3>
-            <ul class="plain">
+            <ul class="zjq_plain">
                 <li><b>第 1 轮</b>："帮我写一个手机左右滑动切换卡片的页面，四张卡片。" → 返回的是只监听 click 的版本，手机上滑不动。</li>
                 <li><b>第 2 轮</b>："用 touchstart / touchend，changedTouches[0] 算横向位移，阈值 40px；加 300ms 冷却防止一次手势跳两张；容器加 touch-action: pan-y；切换用 0.3s 过渡。" → 可用。</li>
                 <li><b>第 3 轮</b>（缩放）："双指缩放用两指距离比例，以两指中点为缩放基准，位移要跟着修正，否则会跳。" → 补齐了 translate 公式。</li>
@@ -322,12 +322,12 @@
         </div>
     </section>
 
-    <section class="sec">
-        <div class="s-head"><span class="no">05</span><h2>答辩速记</h2><span class="en">QUICK ANSWERS</span></div>
+    <section class="zjq_sec">
+        <div class="zjq_s-head"><span class="zjq_no">05</span><h2>答辩速记</h2><span class="zjq_en">QUICK ANSWERS</span></div>
 
         <details open>
             <summary><b>Q1</b>为什么 touchend 里要用 changedTouches[0]？</summary>
-            <div class="ans">
+            <div class="zjq_ans">
                 抬手那一刻，这根手指已经从 <code>touches</code> 里移除了，用 <code>touches[0]</code> 拿到的是"还留在屏幕上的另一根手指"，或者 undefined。
                 <code>changedTouches</code> 专门装"这一次事件里变化的手指"，抬手时就是刚抬起的那根。
             </div>
@@ -335,21 +335,21 @@
 
         <details>
             <summary><b>Q2</b>阈值设成 5px 会怎样？</summary>
-            <div class="ans">
+            <div class="zjq_ans">
                 手指按下的抖动就有 3～8px，5px 挡不住，几乎每次点击都被判成滑动，点按钮变成翻页。40px 是"大于抖动、小于一次自然滑动"的经验值。
             </div>
         </details>
 
         <details>
             <summary><b>Q3</b>双指缩放怎么保证不跳？</summary>
-            <div class="ans">
+            <div class="zjq_ans">
                 <code>scale</code> 和 <code>translate</code> 必须一起算：手势开始时记下两指中点、当前倍数、当前位移，每帧按新倍数反推位移，让起点中点下的内容仍然落在现在中点下。
             </div>
         </details>
 
         <details>
             <summary><b>Q4</b>加了 touch-action: none 之后发生了什么？</summary>
-            <div class="ans">
+            <div class="zjq_ans">
                 这块区域的手势完全交给 JS，浏览器不再做页面滚动或缩放，所以 <code>touchmove</code> 的坐标是连续的，<code>preventDefault</code> 也才有效。
                 代价是这块区域里用户没法滚页面，所以只加在真正需要接管手势的容器上，其它地方保留默认。
             </div>
@@ -357,18 +357,18 @@
 
         <details>
             <summary><b>Q5</b>手机上没有传感器数据时，代码怎么走？</summary>
-            <div class="ans">
+            <div class="zjq_ans">
                 先挂监听、开 1.5 秒计时。没数据就把状态标成"当前设备不支持"，显示提示条，"点我抽一次"变成主操作；iOS 未授权则走按钮申请权限，被拒绝同样退回降级。
             </div>
         </details>
     </section>
 
-    <div class="pager">
+    <div class="zjq_pager">
         <a href="../index.html"><span>PORTFOLIO</span>← 返回作品集</a>
-        <a class="next" href="mobile-events.html"><span>START</span>从任务一开始 →</a>
+        <a class="zjq_next" href="mobile-events.html"><span>START</span>从任务一开始 →</a>
     </div>
 
-    <div class="pfoot">
+    <div class="zjq_pfoot">
         <span>赵俊清 · 24006270205</span>
         <span>移动端课堂实践 · 四关总览</span>
     </div>

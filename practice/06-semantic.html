@@ -9,56 +9,56 @@
     <link rel="stylesheet" href="css/06-semantic.css">
 </head>
 
-<body id="top">
+<body id="zjq_top">
 
-    <div class="px-top">
+    <div class="zjq_px-top">
         <div class="in">
-            <a class="px-brand" href="../index.html">
-                <span class="mk">赵</span>
-                <span class="tx">赵俊清的<i>课堂实践</i></span>
+            <a class="zjq_px-brand" href="../index.html">
+                <span class="zjq_mk">赵</span>
+                <span class="zjq_tx">赵俊清的<i>课堂实践</i></span>
             </a>
-            <a class="px-back" href="index.html">← 返回课堂目录</a>
+            <a class="zjq_px-back" href="index.html">← 返回课堂目录</a>
         </div>
     </div>
 
     <!-- 语义化头部：放标题和作者信息 -->
-    <header class="sem-header">
+    <header class="zjq_sem-header">
         <h1>H5 语义布局 + 溢出 / 隐藏过渡动画</h1>
         <p>姓名：赵俊清　·　高级网页设计课堂实践 · 06</p>
     </header>
 
     <!-- 导航条：跳到页面内的各个部分 -->
-    <nav class="sem-nav">
-        <a href="#part1">第一部分</a>
-        <a href="#part2">第二部分</a>
-        <a href="#demo">卡片演示</a>
-        <a href="#part3">第三部分</a>
+    <nav class="zjq_sem-nav">
+        <a href="#zjq_part1">第一部分</a>
+        <a href="#zjq_part2">第二部分</a>
+        <a href="#zjq_demo">卡片演示</a>
+        <a href="#zjq_part3">第三部分</a>
     </nav>
 
-    <div class="wrap">
-        <div class="content-row">
+    <div class="zjq_wrap">
+        <div class="zjq_content-row">
             <!-- main 是页面唯一的主要内容区 -->
             <main>
-                <section id="part1" class="panel">
+                <section id="zjq_part1" class="zjq_panel">
                     <h2>第一部分：看代码找错</h2>
                     <ol>
                         <li>
                             图片放大跑出卡片：<code>.box li</code> 缺少
-                            <span class="answer-code">overflow: hidden;</span>，修改为：
-                            <div class="code-box">.box li{<br>&nbsp;&nbsp;&nbsp;&nbsp;width: 300px;<br>&nbsp;&nbsp;&nbsp;&nbsp;overflow: hidden;<br>&nbsp;&nbsp;&nbsp;&nbsp;position: relative;<br>}</div>
+                            <span class="zjq_answer-code">overflow: hidden;</span>，修改为：
+                            <div class="zjq_code-box">.box li{<br>&nbsp;&nbsp;&nbsp;&nbsp;width: 300px;<br>&nbsp;&nbsp;&nbsp;&nbsp;overflow: hidden;<br>&nbsp;&nbsp;&nbsp;&nbsp;position: relative;<br>}</div>
                         </li>
                         <li>
                             鼠标移出没有过渡：<strong>transition</strong> 不能只写在 hover 上，应写在普通选择器里：
-                            <div class="code-box">.box img{<br>&nbsp;&nbsp;&nbsp;&nbsp;width: 100%;<br>&nbsp;&nbsp;&nbsp;&nbsp;transition: all .6s;<br>}<br>.box li:hover img{<br>&nbsp;&nbsp;&nbsp;&nbsp;transform: scale(1.2);<br>}</div>
+                            <div class="zjq_code-box">.box img{<br>&nbsp;&nbsp;&nbsp;&nbsp;width: 100%;<br>&nbsp;&nbsp;&nbsp;&nbsp;transition: all .6s;<br>}<br>.box li:hover img{<br>&nbsp;&nbsp;&nbsp;&nbsp;transform: scale(1.2);<br>}</div>
                         </li>
                         <li>
                             文字条定位错乱：文字是绝对定位，父级 li 要相对定位：
-                            <div class="code-box">.box li{<br>&nbsp;&nbsp;&nbsp;&nbsp;position: relative;<br>}</div>
+                            <div class="zjq_code-box">.box li{<br>&nbsp;&nbsp;&nbsp;&nbsp;position: relative;<br>}</div>
                         </li>
                     </ol>
                 </section>
 
-                <section id="part2" class="panel">
+                <section id="zjq_part2" class="zjq_panel">
                     <h2>第二部分：补全代码</h2>
 
                     <h3>2.1 语义标签填空</h3>
@@ -97,37 +97,37 @@
                         </tr>
                         <tr>
                             <td>防止放大图片溢出 li 容器</td>
-                            <td><span class="answer-code">overflow: hidden;</span></td>
+                            <td><span class="zjq_answer-code">overflow: hidden;</span></td>
                         </tr>
                         <tr>
                             <td>子绝父相，让文字条定位在卡片底部</td>
-                            <td><span class="answer-code">position: relative;</span></td>
+                            <td><span class="zjq_answer-code">position: relative;</span></td>
                         </tr>
                         <tr>
                             <td>hover 图片从原始大小放大到 scale(1.2)</td>
-                            <td><span class="answer-code">.card-list img</span> 和 <span class="answer-code">.card-list li:hover img</span></td>
+                            <td><span class="zjq_answer-code">.card-list img</span> 和 <span class="zjq_answer-code">.card-list li:hover img</span></td>
                         </tr>
                         <tr>
                             <td>文字高度平滑展开，移入移出都有动画</td>
-                            <td>transition 写在默认的 <span class="answer-code">.card-list p</span> 上。默认状态和 hover 状态都能读到它，所以移入移出都有动画。</td>
+                            <td>transition 写在默认的 <span class="zjq_answer-code">.card-list p</span> 上。默认状态和 hover 状态都能读到它，所以移入移出都有动画。</td>
                         </tr>
                         <tr>
                             <td>奇数卡片悬浮，文字铺满整张卡片</td>
-                            <td><span class="answer-code">.card-list li:nth-child(odd):hover p</span></td>
+                            <td><span class="zjq_answer-code">.card-list li:nth-child(odd):hover p</span></td>
                         </tr>
                     </table>
 
                     <h3>2.3 flex 两栏布局填空</h3>
                     <ul>
-                        <li>父容器开启 flex：<span class="answer-code">display: flex;</span></li>
-                        <li>设置两栏间隙 20px：<span class="answer-code">gap: 20px;</span></li>
+                        <li>父容器开启 flex：<span class="zjq_answer-code">display: flex;</span></li>
+                        <li>设置两栏间隙 20px：<span class="zjq_answer-code">gap: 20px;</span></li>
                     </ul>
                 </section>
 
-                <section id="demo" class="panel">
+                <section id="zjq_demo" class="zjq_panel">
                     <h2>卡片动画演示</h2>
                     <p>鼠标一张张移过去：图片放大、文字条展开、奇数卡片铺满整张图。</p>
-                    <ul class="card-list">
+                    <ul class="zjq_card-list">
                         <li>
                             <a href="04-stack.html">
                                 <img src="img/1.jpg" alt="卡片图片1">
@@ -167,15 +167,15 @@
                     </ul>
                 </section>
 
-                <section id="part3" class="panel">
+                <section id="zjq_part3" class="zjq_panel">
                     <h2>第三部分：手写原理简答</h2>
 
                     <h3>1. 父相子绝位置关系图</h3>
-                    <div class="draw-box">
-                        <div class="child-box">子元素<br>absolute</div>
+                    <div class="zjq_draw-box">
+                        <div class="zjq_child-box">子元素<br>absolute</div>
                         父元素 position: relative
                     </div>
-                    <p>父元素设置 <span class="answer-code">position: relative;</span> 后，子元素设置 <span class="answer-code">position: absolute;</span>，子元素就以父元素为参照，再用 bottom、left 等属性定位。</p>
+                    <p>父元素设置 <span class="zjq_answer-code">position: relative;</span> 后，子元素设置 <span class="zjq_answer-code">position: absolute;</span>，子元素就以父元素为参照，再用 bottom、left 等属性定位。</p>
 
                     <h3>2. overflow:hidden 的两个作用</h3>
                     <ul>
@@ -204,19 +204,19 @@
                     <li>文字展开使用 transition</li>
                     <li>禁止使用 float</li>
                 </ul>
-                <div class="px-note" style="margin-top:16px;">
+                <div class="zjq_px-note" style="margin-top:16px;">
                     左侧是"内容区"，右侧是"附属说明" —— 用语义标签写，页面结构和视觉位置就对得上了。
                 </div>
             </aside>
         </div>
     </div>
 
-    <footer class="sem-footer">
+    <footer class="zjq_sem-footer">
         2026 · 赵俊清 · H5 语义布局与 CSS 动画作业
     </footer>
 
     <!-- 只用 CSS 实现的固定回到顶部按钮 -->
-    <a class="back-top" href="#top">TOP</a>
+    <a class="zjq_back-top" href="#zjq_top">TOP</a>
 
 </body>
 

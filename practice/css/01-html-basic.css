@@ -4,7 +4,7 @@
    ========================================================== */
 
 /* 类选择器演示：原来用红字黄底，换成站点主色的浅蓝胶囊 */
-.px-sheet h2.title-demo {
+.zjq_px-sheet h2.zjq_title-demo {
     color: var(--primary-dark);
     background: #EFE9DA;
     padding: 10px 16px;
@@ -17,13 +17,13 @@
 }
 
 /* 段落演示：群组选择器给的紫色，改成一条浅蓝底的说明条 */
-.text-cont,
-.px-sheet ul,
-.px-sheet ol {
+.zjq_text-cont,
+.zjq_px-sheet ul,
+.zjq_px-sheet ol {
     color: #3F3C34;
 }
 
-.text-cont {
+.zjq_text-cont {
     background: #FBF8F1;
     border-left: 4px solid var(--primary-light);
     border-radius: 0;
@@ -32,7 +32,7 @@
 }
 
 /* 标题演示区：单独围一块浅底，抵消主题里 h2 的左侧竖线 */
-.raw-box {
+.zjq_raw-box {
     background: #FBF8F1;
     border: 1px dashed #D8CFBD;
     border-radius: 2px;
@@ -40,24 +40,24 @@
     margin: 12px 0;
 }
 
-.raw-box h1,
-.raw-box h2,
-.raw-box h3,
-.raw-box h4,
-.raw-box h5,
-.raw-box h6 {
+.zjq_raw-box h1,
+.zjq_raw-box h2,
+.zjq_raw-box h3,
+.zjq_raw-box h4,
+.zjq_raw-box h5,
+.zjq_raw-box h6 {
     margin: 8px 0;
     padding: 0;
     border: none;
     line-height: 1.45;
 }
 
-.raw-box h1 { font-size: 30px; }
-.raw-box h2 { font-size: 24px; }
-.raw-box h3 { font-size: 20px; color: var(--text); margin: 8px 0; }
+.zjq_raw-box h1 { font-size: 30px; }
+.zjq_raw-box h2 { font-size: 24px; }
+.zjq_raw-box h3 { font-size: 20px; color: var(--text); margin: 8px 0; }
 
 /* 表格：id 选择器，宽度与居中 */
-#user-table {
+#zjq_user-table {
     width: 100%;
     max-width: 520px;
     margin: 18px auto;
@@ -68,7 +68,7 @@
     font-size: 14.5px;
 }
 
-#user-table caption {
+#zjq_user-table caption {
     color: var(--primary-dark);
     font-size: 15px;
     font-weight: 700;
@@ -76,26 +76,26 @@
     letter-spacing: 1px;
 }
 
-#user-table th {
+#zjq_user-table th {
     background: var(--primary-light);
     color: var(--primary-dark);
     font-weight: 700;
 }
 
-#user-table th,
-#user-table td {
+#zjq_user-table th,
+#zjq_user-table td {
     border: 1px solid var(--line);
     padding: 10px 12px;
     text-align: center;
 }
 
 /* H5 语义标签演示：原来是一排光秃秃的文字，改成带标注的小方块 */
-.px-sheet header:not(.px-hero),
-.px-sheet nav,
-.px-sheet section,
-.px-sheet article,
-.px-sheet footer:not(.px-foot),
-.px-sheet aside {
+.zjq_px-sheet header:not(.zjq_px-hero),
+.zjq_px-sheet nav,
+.zjq_px-sheet section,
+.zjq_px-sheet article,
+.zjq_px-sheet footer:not(.zjq_px-foot),
+.zjq_px-sheet aside {
     border: 1px dashed #b9cdf5;
     background: #FBF8F1;
     border-radius: 2px;
@@ -178,7 +178,7 @@ input[type="button"]:hover,
     color: #7A4318;
 }
 
-.px-sheet img {
+.zjq_px-sheet img {
     border-radius: 2px;
     margin: 10px 0;
 }

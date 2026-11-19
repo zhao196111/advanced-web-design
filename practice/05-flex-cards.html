@@ -11,34 +11,34 @@
 
 <body>
 
-    <div class="px-top">
+    <div class="zjq_px-top">
         <div class="in">
-            <a class="px-brand" href="../index.html">
-                <span class="mk">赵</span>
-                <span class="tx">赵俊清的<i>课堂实践</i></span>
+            <a class="zjq_px-brand" href="../index.html">
+                <span class="zjq_mk">赵</span>
+                <span class="zjq_tx">赵俊清的<i>课堂实践</i></span>
             </a>
-            <a class="px-back" href="index.html">← 返回课堂目录</a>
+            <a class="zjq_px-back" href="index.html">← 返回课堂目录</a>
         </div>
     </div>
 
-    <header class="px-hero">
+    <header class="zjq_px-hero">
         <div class="in">
-            <p class="px-eyebrow">CLASS PRACTICE · 05 · 页面布局</p>
+            <p class="zjq_px-eyebrow">CLASS PRACTICE · 05 · 页面布局</p>
             <h1>上图下文 + 图上文字</h1>
-            <p class="px-lead">
+            <p class="zjq_px-lead">
                 用 flex 弹性布局排卡片：<code>flex-wrap</code> 负责换行，<code>gap</code> 负责间距，
                 给 <code>li</code> 定宽就实现一行三张。下半部分换成<b>父相子绝</b>，把文字条压到图片上。
             </p>
         </div>
     </header>
 
-    <main class="px-main">
-        <div class="px-sheet">
+    <main class="zjq_px-main">
+        <div class="zjq_px-sheet">
 
             <h2>一、上图下文</h2>
             <p>文字在图片下面的常规卡片：<code>li</code> 定宽 + <code>gap: 10px</code>，一张卡片一个链接。</p>
 
-            <ul class="list1">
+            <ul class="zjq_list1">
                 <li><a href="05-flex-cards.html"><img src="img/1.jpg" alt="图片1">
                         <p>一行三张</p>
                     </a></li>
@@ -66,7 +66,7 @@
                 鼠标移入，文字条从一行展开成两行 —— 奇数卡片直接铺满整张图。
             </p>
 
-            <ul class="list2">
+            <ul class="zjq_list2">
                 <li><a href="05-flex-cards.html"><img src="img/4.jpg" alt="图上文字1">
                         <p>文字盖在图片底部<br>移入展开成两行</p>
                     </a></li>
@@ -79,7 +79,7 @@
             </ul>
 
             <h2>三、这几行是关键</h2>
-            <pre class="px-code">.list1, .list2 { display: flex; flex-wrap: wrap; gap: 10px; }
+            <pre class="zjq_px-code">.list1, .list2 { display: flex; flex-wrap: wrap; gap: 10px; }
 
 /* 定宽：一行 3 张，2 个 gap 共 20px，所以减 20px */
 .list1 li { flex: 0 0 calc((100% - 20px) / 3); }
@@ -92,7 +92,7 @@
               height: 44px; transition: height .4s ease; }   /* 子绝 */
 .list2 li:hover p { height: 88px; }                        /* 一行 → 两行 */</pre>
 
-            <div class="px-note">
+            <div class="zjq_px-note">
                 <b>为什么 <code>flex: 0 0 calc((100% - 20px) / 3)</code> 里要减 20px？</b>
                 一行三张卡片之间有两个 <code>gap</code>，每个 10px，共占 20px。
                 这 20px 不属于任何一张卡片，所以宽度要先把它们扣掉再三等分。
@@ -101,19 +101,19 @@
         </div>
     </main>
 
-    <footer class="px-foot">
+    <footer class="zjq_px-foot">
         赵俊清 · 《高级网页设计》课堂实践 · 上图下文 + 图上文字（Flex） · 2026
     </footer>
 
-    <button class="px-top-btn" id="pxTop" title="返回顶部">↑</button>
+    <button class="zjq_px-top-btn" id="zjq_pxTop" title="返回顶部">↑</button>
 
     <script>
-        var pxTop = document.getElementById("pxTop");
+        var zjq_pxTop = document.getElementById("zjq_pxTop");
         window.addEventListener("scroll", function () {
-            if (window.scrollY > 360) { pxTop.classList.add("show"); }
-            else { pxTop.classList.remove("show"); }
+            if (window.scrollY > 360) { zjq_pxTop.classList.add("show"); }
+            else { zjq_pxTop.classList.remove("show"); }
         });
-        pxTop.addEventListener("click", function () {
+        zjq_pxTop.addEventListener("click", function () {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
     </script>

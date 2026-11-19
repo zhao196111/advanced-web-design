@@ -3,7 +3,7 @@
    结构：ul.list1 > li > a > img + p
    ========================================================== */
 
-ul.list1 {
+ul.zjq_list1 {
     list-style: none;
     margin: 20px 0 6px;
     padding: 0;
@@ -13,7 +13,7 @@ ul.list1 {
     gap: 20px;
 }
 
-ul.list1 li {
+ul.zjq_list1 li {
     background: #fff;
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -22,25 +22,25 @@ ul.list1 li {
     transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
 }
 
-ul.list1 li:hover {
+ul.zjq_list1 li:hover {
     transform: translateY(-6px);
     border-color: #E3D3C9;
     box-shadow: var(--shadow-hover);
 }
 
-ul.list1 a {
+ul.zjq_list1 a {
     display: block;
     color: inherit;
 }
 
-ul.list1 a:hover {
+ul.zjq_list1 a:hover {
     text-decoration: none;
     color: inherit;
 }
 
 /* 上图：固定高度 + object-fit 裁切，不变形。
    transition 写在默认状态上，移入移出才都有动画。 */
-ul.list1 img {
+ul.zjq_list1 img {
     width: 100%;
     height: 172px;
     object-fit: cover;
@@ -48,12 +48,12 @@ ul.list1 img {
     transition: transform .6s ease;
 }
 
-ul.list1 li:hover img {
+ul.zjq_list1 li:hover img {
     transform: scale(1.12);
 }
 
 /* 下文：水平居中；height 与 line-height 相等时单行也垂直居中 */
-ul.list1 p {
+ul.zjq_list1 p {
     margin: 0;
     padding: 12px 14px;
     text-align: center;
@@ -63,7 +63,7 @@ ul.list1 p {
     border-top: 1px solid var(--line);
 }
 
-ul.list1 li:hover p {
+ul.zjq_list1 li:hover p {
     color: var(--primary);
 }
 

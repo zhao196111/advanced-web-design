@@ -14,7 +14,7 @@
 <title>任务四 · 摇一摇抽菜谱 | 移动端课堂实践 · 赵俊清</title>
 <link rel="stylesheet" href="css/m.css">
 <style>
-    .wy_shaker {
+    .zjq_wy_shaker {
         position: relative;
         background: var(--stage);
         border: 1px solid var(--line);
@@ -24,7 +24,7 @@
     }
 
     /* 背景同心圆，摇动时脉冲一次 */
-    .wy_rings {
+    .zjq_wy_rings {
         position: absolute;
         left: 50%;
         top: 44%;
@@ -35,7 +35,7 @@
         opacity: .5;
     }
 
-    .wy_rings i {
+    .zjq_wy_rings i {
         position: absolute;
         left: 50%;
         top: 50%;
@@ -44,18 +44,18 @@
         border-radius: 50%;
     }
 
-    .wy_rings i:nth-child(1) { width: 120px; height: 120px; }
-    .wy_rings i:nth-child(2) { width: 200px; height: 200px; }
-    .wy_rings i:nth-child(3) { width: 292px; height: 292px; border-color: rgba(201, 154, 91, .16); }
+    .zjq_wy_rings i:nth-child(1) { width: 120px; height: 120px; }
+    .zjq_wy_rings i:nth-child(2) { width: 200px; height: 200px; }
+    .zjq_wy_rings i:nth-child(3) { width: 292px; height: 292px; border-color: rgba(201, 154, 91, .16); }
 
-    .wy_shaker.pulse .wy_rings i { animation: wy_pulse .6s ease-out; }
+    .zjq_wy_shaker.zjq_pulse .zjq_wy_rings i { animation: wy_pulse .6s ease-out; }
 
     @keyframes wy_pulse {
         0% { transform: translate(-50%, -50%) scale(1); opacity: .9; }
         100% { transform: translate(-50%, -50%) scale(1.18); opacity: .2; }
     }
 
-    .wy_shaker h2 {
+    .zjq_wy_shaker h2 {
         position: relative;
         font-family: var(--serif);
         font-size: 24px;
@@ -65,7 +65,7 @@
         margin-bottom: 6px;
     }
 
-    .wy_shaker .wy_sub {
+    .zjq_wy_shaker .zjq_wy_sub {
         position: relative;
         font-family: var(--mono);
         font-size: 10px;
@@ -74,7 +74,7 @@
     }
 
     /* 结果区 */
-    .wy_result {
+    .zjq_wy_result {
         position: relative;
         margin: 20px auto 4px;
         min-height: 96px;
@@ -85,7 +85,7 @@
         gap: 4px;
     }
 
-    .wy_result .wy_plate {
+    .zjq_wy_result .zjq_wy_plate {
         font-family: var(--mono);
         font-size: 9.5px;
         letter-spacing: .2em;
@@ -93,7 +93,7 @@
         opacity: .8;
     }
 
-    .wy_result .wy_dish {
+    .zjq_wy_result .zjq_wy_dish {
         font-family: var(--serif);
         font-size: 30px;
         color: #FFF6E6;
@@ -101,15 +101,15 @@
         line-height: 1.3;
     }
 
-    .wy_result .wy_desc {
+    .zjq_wy_result .zjq_wy_desc {
         font-size: 12.5px;
         color: #B7AF9F;
         max-width: 26ch;
         line-height: 1.8;
     }
 
-    .wy_result.pop .wy_dish { animation: wy_pop .45s cubic-bezier(.2,.9,.3,1.2); }
-    .wy_result.pop .wy_desc { animation: wy_fade .45s ease .1s both; }
+    .zjq_wy_result.zjq_pop .zjq_wy_dish { animation: wy_pop .45s cubic-bezier(.2,.9,.3,1.2); }
+    .zjq_wy_result.zjq_pop .zjq_wy_desc { animation: wy_fade .45s ease .1s both; }
 
     @keyframes wy_pop {
         0% { transform: scale(.72) translateY(8px); opacity: 0; }
@@ -123,14 +123,14 @@
     }
 
     /* 加速度仪表 */
-    .wy_meter {
+    .zjq_wy_meter {
         position: relative;
         margin: 16px 0 6px;
         height: 4px;
         background: rgba(255, 255, 255, .1);
     }
 
-    .wy_meter .wy_fill {
+    .zjq_wy_meter .zjq_wy_fill {
         position: absolute;
         left: 0;
         top: 0;
@@ -140,7 +140,7 @@
         transition: width .06s linear;
     }
 
-    .wy_meter .wy_mark {
+    .zjq_wy_meter .zjq_wy_mark {
         position: absolute;
         left: 60%;                 /* 18 / 30 */
         top: -4px;
@@ -149,7 +149,7 @@
         background: var(--red);
     }
 
-    .wy_meter-label {
+    .zjq_wy_meter-label {
         position: relative;
         display: flex;
         justify-content: space-between;
@@ -159,10 +159,10 @@
         color: #7E776B;
     }
 
-    .wy_meter-label b { color: var(--amber); font-weight: 400; }
+    .zjq_wy_meter-label b { color: var(--amber); font-weight: 400; }
 
     /* 状态行 */
-    .wy_sensorbar {
+    .zjq_wy_sensorbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -177,14 +177,14 @@
         color: var(--ink3);
     }
 
-    .wy_sensorbar b { color: var(--ink2); font-weight: 400; }
-    .wy_sensorbar .ok { color: #2E6B4F; }
-    .wy_sensorbar .bad { color: var(--red); }
+    .zjq_wy_sensorbar b { color: var(--ink2); font-weight: 400; }
+    .zjq_wy_sensorbar .zjq_ok { color: #2E6B4F; }
+    .zjq_wy_sensorbar .zjq_bad { color: var(--red); }
 
-    .wy_actions { display: flex; gap: 8px; margin: 12px 0 4px; }
-    .wy_actions .btn { flex: 1; font-size: 12.5px; padding: 11px 8px; }
+    .zjq_wy_actions { display: flex; gap: 8px; margin: 12px 0 4px; }
+    .zjq_wy_actions .btn { flex: 1; font-size: 12.5px; padding: 11px 8px; }
 
-    .wy_ask {
+    .zjq_wy_ask {
         display: none;
         border: 1px solid var(--red);
         background: var(--red-soft);
@@ -192,10 +192,10 @@
         margin: 12px 0;
     }
 
-    .wy_ask.on { display: block; }
-    .wy_ask p { font-size: 12.5px; color: #6E2A1B; margin-bottom: 10px; }
+    .zjq_wy_ask.zjq_on { display: block; }
+    .zjq_wy_ask p { font-size: 12.5px; color: #6E2A1B; margin-bottom: 10px; }
 
-    .wy_counters {
+    .zjq_wy_counters {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         border: 1px solid var(--line);
@@ -203,14 +203,14 @@
         background: var(--raise);
     }
 
-    .wy_counters div {
+    .zjq_wy_counters div {
         padding: 9px 12px;
         border-right: 1px solid var(--line-soft);
     }
 
-    .wy_counters div:last-child { border-right: 0; }
+    .zjq_wy_counters div:last-child { border-right: 0; }
 
-    .wy_counters i {
+    .zjq_wy_counters i {
         display: block;
         font-family: var(--mono);
         font-size: 9px;
@@ -219,91 +219,91 @@
         font-style: normal;
     }
 
-    .wy_counters b { font-family: var(--mono); font-size: 13px; font-weight: 400; }
+    .zjq_wy_counters b { font-family: var(--mono); font-size: 13px; font-weight: 400; }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-    <div class="topbar-in">
+<div class="zjq_topbar">
+    <div class="zjq_topbar-in">
         <a href="index.html"><b>移动端实践</b></a>
         <nav>
             <a href="mobile-events.html">01</a>
             <a href="mobile-gesture.html">02</a>
             <a href="mobile-zoom.html">03</a>
-            <a href="mobile-sensor.html" class="on">04</a>
+            <a href="mobile-sensor.html" class="zjq_on">04</a>
         </nav>
     </div>
 </div>
 
-<div class="wrap">
+<div class="zjq_wrap">
 
-    <header class="phead">
-        <div class="kicker">TASK 04 · 设备传感器 · 权限 · 降级</div>
+    <header class="zjq_phead">
+        <div class="zjq_kicker">TASK 04 · 设备传感器 · 权限 · 降级</div>
         <h1>摇一摇，<em>摇出今日菜谱</em></h1>
-        <p class="lead">
+        <p class="zjq_lead">
             监听 <code>devicemotion</code>，用 <code>accelerationIncludingGravity</code> 算合成加速度，
             超过 18 判定为一次摇动，随后 1.5 秒冷却。没有传感器的设备不会白屏——会明确告诉你"不支持"，
             并给一个"点我抽一次"的按钮兜底。
         </p>
-        <div class="meta">
+        <div class="zjq_meta">
             <span>赵俊清</span><span>24006270205</span><span>指导教师 王垚</span><span>阈值 18 · 冷却 1.5s</span>
         </div>
     </header>
 
-    <section class="sec">
-        <div class="s-head"><span class="no">01</span><h2>摇一摇</h2><span class="en">SHAKE</span></div>
+    <section class="zjq_sec">
+        <div class="zjq_s-head"><span class="zjq_no">01</span><h2>摇一摇</h2><span class="zjq_en">SHAKE</span></div>
 
-        <div class="wy_shaker" id="wy_shaker">
-            <div class="wy_rings"><i></i><i></i><i></i></div>
+        <div class="zjq_wy_shaker" id="zjq_wy_shaker">
+            <div class="zjq_wy_rings"><i></i><i></i><i></i></div>
             <h2>摇一摇手机</h2>
-            <div class="wy_sub">SHAKE TO DRAW TODAY'S DISH</div>
+            <div class="zjq_wy_sub">SHAKE TO DRAW TODAY'S DISH</div>
 
-            <div class="wy_result" id="wy_result">
-                <div class="wy_plate">TODAY'S PICK</div>
-                <div class="wy_dish" id="wy_dish">待抽取</div>
-                <div class="wy_desc" id="wy_desc">摇一摇手机，或点下面的按钮</div>
+            <div class="zjq_wy_result" id="zjq_wy_result">
+                <div class="zjq_wy_plate">TODAY'S PICK</div>
+                <div class="zjq_wy_dish" id="zjq_wy_dish">待抽取</div>
+                <div class="zjq_wy_desc" id="zjq_wy_desc">摇一摇手机，或点下面的按钮</div>
             </div>
 
-            <div class="wy_meter">
-                <div class="wy_fill" id="wy_fill"></div>
-                <div class="wy_mark"></div>
+            <div class="zjq_wy_meter">
+                <div class="zjq_wy_fill" id="zjq_wy_fill"></div>
+                <div class="zjq_wy_mark"></div>
             </div>
-            <div class="wy_meter-label">
-                <span>合成加速度 <b id="wy_mag">0.0</b> m/s²</span>
+            <div class="zjq_wy_meter-label">
+                <span>合成加速度 <b id="zjq_wy_mag">0.0</b> m/s²</span>
                 <span>阈值 18</span>
             </div>
         </div>
 
-        <div class="wy_sensorbar">
-            <span>传感器 <b id="wy_state">检测中…</b></span>
-            <span>冷却 <b id="wy_cool">READY</b></span>
+        <div class="zjq_wy_sensorbar">
+            <span>传感器 <b id="zjq_wy_state">检测中…</b></span>
+            <span>冷却 <b id="zjq_wy_cool">READY</b></span>
         </div>
 
-        <div class="wy_counters">
-            <div><i>摇动次数</i><b id="wy_n_shake">0</b></div>
-            <div><i>事件 / 秒</i><b id="wy_n_rate">0</b></div>
-            <div><i>峰值</i><b id="wy_n_peak">0.0</b></div>
+        <div class="zjq_wy_counters">
+            <div><i>摇动次数</i><b id="zjq_wy_n_shake">0</b></div>
+            <div><i>事件 / 秒</i><b id="zjq_wy_n_rate">0</b></div>
+            <div><i>峰值</i><b id="zjq_wy_n_peak">0.0</b></div>
         </div>
 
-        <div class="wy_ask" id="wy_ask">
+        <div class="zjq_wy_ask" id="zjq_wy_ask">
             <p>iOS 13 以后，读取运动传感器必须先征得用户同意。点下面的按钮，在系统弹窗里选"允许"，就能摇一摇抽菜谱了。</p>
-            <button type="button" class="btn btn-red btn-block" id="wy_allow">允许访问运动传感器</button>
+            <button type="button" class="btn zjq_btn-red zjq_btn-block" id="zjq_wy_allow">允许访问运动传感器</button>
         </div>
 
-        <div class="wy_actions">
-            <button type="button" class="btn" id="wy_fallback">点我抽一次</button>
-            <button type="button" class="btn" id="wy_recheck">重新检测</button>
+        <div class="zjq_wy_actions">
+            <button type="button" class="btn" id="zjq_wy_fallback">点我抽一次</button>
+            <button type="button" class="btn" id="zjq_wy_recheck">重新检测</button>
         </div>
 
-        <div class="note" id="wy_unsupported" style="display:none">
+        <div class="zjq_note" id="zjq_wy_unsupported" style="display:none">
             <b>当前设备不支持：</b>没有收到 <code>devicemotion</code> 数据。可能是台式机、浏览器不支持，或页面没跑在
             HTTPS 下。上面的"点我抽一次"就是为这种情况准备的降级入口，功能照常可用。
         </div>
     </section>
 
-    <section class="sec">
-        <div class="s-head"><span class="no">02</span><h2>为什么必须做降级</h2><span class="en">FALLBACK</span></div>
+    <section class="zjq_sec">
+        <div class="zjq_s-head"><span class="zjq_no">02</span><h2>为什么必须做降级</h2><span class="zjq_en">FALLBACK</span></div>
 
         <p>
             传感器是"有就有、没有就没有"的能力：台式机没有加速度计，部分安卓浏览器不发 <code>devicemotion</code>，
@@ -334,12 +334,12 @@
             </tbody>
         </table>
 
-<pre><span class="c">// 合成加速度：三个轴平方和开根号</span>
-<span class="k">var</span> wy_a = wy_e.accelerationIncludingGravity;
-<span class="k">var</span> wy_mag = Math.hypot(wy_a.x <span class="k">||</span> <span class="n">0</span>, wy_a.y <span class="k">||</span> <span class="n">0</span>, wy_a.z <span class="k">||</span> <span class="n">0</span>);
+<pre><span class="zjq_c">// 合成加速度：三个轴平方和开根号</span>
+<span class="zjq_k">var</span> wy_a = wy_e.accelerationIncludingGravity;
+<span class="zjq_k">var</span> wy_mag = Math.hypot(wy_a.x <span class="zjq_k">||</span> <span class="zjq_n">0</span>, wy_a.y <span class="zjq_k">||</span> <span class="zjq_n">0</span>, wy_a.z <span class="zjq_k">||</span> <span class="zjq_n">0</span>);
 
-<span class="c">// 阈值 + 冷却，两个都不能少</span>
-<span class="k">if</span> (wy_mag &gt; <span class="n">18</span> &amp;&amp; wy_now - wy_lastShake &gt; <span class="n">1500</span>) {
+<span class="zjq_c">// 阈值 + 冷却，两个都不能少</span>
+<span class="zjq_k">if</span> (wy_mag &gt; <span class="zjq_n">18</span> &amp;&amp; wy_now - wy_lastShake &gt; <span class="zjq_n">1500</span>) {
     wy_lastShake = wy_now;
     wy_draw();
 }</pre>
@@ -354,16 +354,16 @@
         </div>
     </section>
 
-    <section class="sec">
-        <div class="s-head"><span class="no">03</span><h2>真机演示视频</h2><span class="en">SCREEN RECORDING</span></div>
+    <section class="zjq_sec">
+        <div class="zjq_s-head"><span class="zjq_no">03</span><h2>真机演示视频</h2><span class="zjq_en">SCREEN RECORDING</span></div>
         <p>
             这一关必须真机拍：电脑上没有传感器。录屏文件命名为 <code>task4.mp4</code> 放进 <code>mobile/video/</code>，
             页面会自动加载。
         </p>
 
-        <div class="vslot" id="wy_v4">
+        <div class="zjq_vslot" id="zjq_wy_v4">
             <video src="video/task4.mp4" controls playsinline preload="metadata" webkit-playsinline></video>
-            <div class="vempty">
+            <div class="zjq_vempty">
                 <b>VIDEO SLOT · TASK 04</b>
                 <div>等待真机录屏：<code>mobile/video/task4.mp4</code></div>
                 <div style="font-size:11px;opacity:.75;max-width:34ch">
@@ -372,18 +372,18 @@
             </div>
         </div>
 
-        <div class="warn">
+        <div class="zjq_warn">
             注意：<code>devicemotion</code> 必须在 HTTPS 或 localhost 下才可能拿到数据，
             用 <code>file://</code> 直接打开是收不到的——这也是为什么这一页要发布到 Netlify 再看。
         </div>
     </section>
 
-    <section class="sec">
-        <div class="s-head"><span class="no">04</span><h2>答辩准备</h2><span class="en">Q &amp; A</span></div>
+    <section class="zjq_sec">
+        <div class="zjq_s-head"><span class="zjq_no">04</span><h2>答辩准备</h2><span class="zjq_en">Q &amp; A</span></div>
 
         <details open>
             <summary><b>Q1</b>acceleration 和 accelerationIncludingGravity 有什么区别？</summary>
-            <div class="ans">
+            <div class="zjq_ans">
                 前者已经减掉了重力，静止时三个轴都接近 0，读数只反映"额外运动"；后者把重力也算进去，
                 静止时合成值约 9.8。摇一摇用后者：静止基线稳定在 9.8，阈值 18 就很好理解——
                 相当于"在重力之外又叠加了 8 以上的加速度"。而且部分设备的 <code>acceleration</code> 直接返回 null，
@@ -393,7 +393,7 @@
 
         <details>
             <summary><b>Q2</b>为什么阈值 18、冷却 1.5 秒？</summary>
-            <div class="ans">
+            <div class="zjq_ans">
                 静止 9.8，走路约 12～15，正常摇动峰值 20～40。取 18 能把"走路 / 拿起手机"和"摇"分开。
                 摇动期间事件每秒几十次，一次摇动会连续越过阈值，1.5 秒冷却保证一次摇动只抽一次菜，
                 同时人也不会觉得"要等很久才能再摇"。
@@ -402,7 +402,7 @@
 
         <details>
             <summary><b>Q3</b>iOS 上为什么要按钮申请权限？</summary>
-            <div class="ans">
+            <div class="zjq_ans">
                 iOS 13 起，运动与方向传感器必须在<b>用户手势</b>里调用 <code>DeviceMotionEvent.requestPermission()</code>，
                 页面加载时自动调用会被拒绝。所以先显示一个"允许访问运动传感器"的按钮，用户点了才申请，
                 <code>granted</code> 之后才开始监听，<code>denied</code> 就退回降级按钮。
@@ -411,7 +411,7 @@
 
         <details>
             <summary><b>Q4</b>没有传感器时你的代码怎么走？</summary>
-            <div class="ans">
+            <div class="zjq_ans">
                 挂上监听后启动 1.5 秒计时，如果这段时间一条数据都没收到（或 <code>accelerationIncludingGravity</code> 是 null），
                 就把状态标成"不支持"，显示提示条，并把"点我抽一次"作为主操作。计时器在收到第一条数据时清掉，
                 所以真机上不会误报。
@@ -419,12 +419,12 @@
         </details>
     </section>
 
-    <div class="pager">
+    <div class="zjq_pager">
         <a href="mobile-zoom.html"><span>PREV 03</span>← 图片查看器</a>
-        <a class="next" href="index.html"><span>INDEX</span>任务总览 →</a>
+        <a class="zjq_next" href="index.html"><span>INDEX</span>任务总览 →</a>
     </div>
 
-    <div class="pfoot">
+    <div class="zjq_pfoot">
         <span>赵俊清 · 24006270205</span>
         <span>移动端课堂实践 · 任务四</span>
     </div>
@@ -434,35 +434,35 @@
 (function () {
     'use strict';
 
-    var wy_shaker = document.getElementById('wy_shaker');
-    var wy_result = document.getElementById('wy_result');
-    var wy_dishOut = document.getElementById('wy_dish');
-    var wy_descOut = document.getElementById('wy_desc');
-    var wy_state = document.getElementById('wy_state');
-    var wy_fill = document.getElementById('wy_fill');
-    var wy_magOut = document.getElementById('wy_mag');
-    var wy_coolOut = document.getElementById('wy_cool');
-    var wy_unsupported = document.getElementById('wy_unsupported');
-    var wy_ask = document.getElementById('wy_ask');
+    var zjq_wy_shaker = document.getElementById('zjq_wy_shaker');
+    var zjq_wy_result = document.getElementById('zjq_wy_result');
+    var zjq_wy_dishOut = document.getElementById('zjq_wy_dish');
+    var zjq_wy_descOut = document.getElementById('zjq_wy_desc');
+    var zjq_wy_state = document.getElementById('zjq_wy_state');
+    var zjq_wy_fill = document.getElementById('zjq_wy_fill');
+    var zjq_wy_magOut = document.getElementById('zjq_wy_mag');
+    var zjq_wy_coolOut = document.getElementById('zjq_wy_cool');
+    var zjq_wy_unsupported = document.getElementById('zjq_wy_unsupported');
+    var zjq_wy_ask = document.getElementById('zjq_wy_ask');
 
-    var WY_THRESHOLD = 18;      // 阈值约 18
-    var WY_COOLDOWN = 1500;     // 冷却 1.5 秒
-    var WY_WAIT = 1500;         // 1.5 秒内没有数据就判定不支持
+    var zjq_WY_THRESHOLD = 18;      // 阈值约 18
+    var zjq_WY_COOLDOWN = 1500;     // 冷却 1.5 秒
+    var zjq_WY_WAIT = 1500;         // 1.5 秒内没有数据就判定不支持
 
-    var wy_lastShake = 0;
-    var wy_shakeCount = 0;
-    var wy_peak = 0;
-    var wy_gotData = false;
-    var wy_started = false;
-    var wy_waitTimer = null;
-    var wy_coolTimer = null;
+    var zjq_wy_lastShake = 0;
+    var zjq_wy_shakeCount = 0;
+    var zjq_wy_peak = 0;
+    var zjq_wy_gotData = false;
+    var zjq_wy_started = false;
+    var zjq_wy_waitTimer = null;
+    var zjq_wy_coolTimer = null;
 
     // 事件频率统计
-    var wy_rateCount = 0;
-    var wy_rateTimer = null;
+    var zjq_wy_rateCount = 0;
+    var zjq_wy_rateTimer = null;
 
     // 今日菜谱池
-    var wy_menu = [
+    var zjq_wy_menu = [
         { name: '麻婆豆腐', desc: '麻辣烫香酥嫩，一勺红油盖住整碗饭' },
         { name: '葱油拌面', desc: '葱段熬到焦褐，一勺酱油拌开就是上海' },
         { name: '白切鸡', desc: '三提三放，过冰水，皮爽肉滑骨带血' },
@@ -474,197 +474,197 @@
     ];
 
     // ---------- 抽一道菜 ----------
-    function wy_draw() {
-        var wy_i = Math.floor(Math.random() * wy_menu.length);
-        var wy_item = wy_menu[wy_i];
+    function zjq_wy_draw() {
+        var zjq_wy_i = Math.floor(Math.random() * zjq_wy_menu.length);
+        var zjq_wy_item = zjq_wy_menu[zjq_wy_i];
 
-        wy_dishOut.textContent = wy_item.name;
-        wy_descOut.textContent = wy_item.desc;
+        zjq_wy_dishOut.textContent = zjq_wy_item.name;
+        zjq_wy_descOut.textContent = zjq_wy_item.desc;
 
         // 弹一下：先移除再加，保证连续触发也有动画
-        wy_result.classList.remove('pop');
-        void wy_result.offsetWidth;
-        wy_result.classList.add('pop');
+        zjq_wy_result.classList.remove('zjq_pop');
+        void zjq_wy_result.offsetWidth;
+        zjq_wy_result.classList.add('zjq_pop');
 
-        wy_shaker.classList.remove('pulse');
-        void wy_shaker.offsetWidth;
-        wy_shaker.classList.add('pulse');
+        zjq_wy_shaker.classList.remove('zjq_pulse');
+        void zjq_wy_shaker.offsetWidth;
+        zjq_wy_shaker.classList.add('zjq_pulse');
     }
 
-    function wy_cooldownUI() {
-        wy_coolOut.textContent = 'COOLING';
-        wy_coolOut.className = 'bad';
-        clearTimeout(wy_coolTimer);
-        wy_coolTimer = setTimeout(function () {
-            wy_coolOut.textContent = 'READY';
-            wy_coolOut.className = 'ok';
-        }, WY_COOLDOWN);
+    function zjq_wy_cooldownUI() {
+        zjq_wy_coolOut.textContent = 'COOLING';
+        zjq_wy_coolOut.className = 'zjq_bad';
+        clearTimeout(zjq_wy_coolTimer);
+        zjq_wy_coolTimer = setTimeout(function () {
+            zjq_wy_coolOut.textContent = 'READY';
+            zjq_wy_coolOut.className = 'zjq_ok';
+        }, zjq_WY_COOLDOWN);
     }
 
-    function wy_trigger(wy_source) {
-        wy_shakeCount++;
-        document.getElementById('wy_n_shake').textContent = wy_shakeCount;
-        wy_draw();
-        wy_cooldownUI();
-        wy_state.textContent = wy_source === 'shake' ? '摇动已识别' : '手动抽取（降级）';
-        wy_state.className = wy_source === 'shake' ? 'ok' : '';
+    function zjq_wy_trigger(zjq_wy_source) {
+        zjq_wy_shakeCount++;
+        document.getElementById('zjq_wy_n_shake').textContent = zjq_wy_shakeCount;
+        zjq_wy_draw();
+        zjq_wy_cooldownUI();
+        zjq_wy_state.textContent = zjq_wy_source === 'shake' ? '摇动已识别' : '手动抽取（降级）';
+        zjq_wy_state.className = zjq_wy_source === 'shake' ? 'ok' : '';
     }
 
     // ---------- devicemotion ----------
-    function wy_onMotion(wy_e) {
-        var wy_a = wy_e.accelerationIncludingGravity;
+    function zjq_wy_onMotion(zjq_wy_e) {
+        var zjq_wy_a = zjq_wy_e.accelerationIncludingGravity;
         // 有些设备只给 acceleration，甚至两个都不给
-        if (!wy_a && wy_e.acceleration) wy_a = wy_e.acceleration;
-        if (!wy_a || (wy_a.x === null && wy_a.y === null && wy_a.z === null)) return;
+        if (!zjq_wy_a && zjq_wy_e.acceleration) zjq_wy_a = zjq_wy_e.acceleration;
+        if (!zjq_wy_a || (zjq_wy_a.x === null && zjq_wy_a.y === null && zjq_wy_a.z === null)) return;
 
-        if (!wy_gotData) {
-            wy_gotData = true;
-            clearTimeout(wy_waitTimer);
-            wy_unsupported.style.display = 'none';
-            wy_ask.classList.remove('on');       // 数据能进来就说明权限没问题
-            wy_state.textContent = '已连接 · 可摇动';
-            wy_state.className = 'ok';
+        if (!zjq_wy_gotData) {
+            zjq_wy_gotData = true;
+            clearTimeout(zjq_wy_waitTimer);
+            zjq_wy_unsupported.style.display = 'none';
+            zjq_wy_ask.classList.remove('zjq_on');       // 数据能进来就说明权限没问题
+            zjq_wy_state.textContent = '已连接 · 可摇动';
+            zjq_wy_state.className = 'zjq_ok';
         }
 
-        var wy_mag = Math.hypot(wy_a.x || 0, wy_a.y || 0, wy_a.z || 0);
+        var zjq_wy_mag = Math.hypot(zjq_wy_a.x || 0, zjq_wy_a.y || 0, zjq_wy_a.z || 0);
 
         // 仪表最多画到 30，避免一摇就满格
-        wy_fill.style.width = Math.min(100, (wy_mag / 30) * 100) + '%';
-        wy_magOut.textContent = wy_mag.toFixed(1);
+        zjq_wy_fill.style.width = Math.min(100, (zjq_wy_mag / 30) * 100) + '%';
+        zjq_wy_magOut.textContent = zjq_wy_mag.toFixed(1);
 
-        if (wy_mag > wy_peak) {
-            wy_peak = wy_mag;
-            document.getElementById('wy_n_peak').textContent = wy_peak.toFixed(1);
+        if (zjq_wy_mag > zjq_wy_peak) {
+            zjq_wy_peak = zjq_wy_mag;
+            document.getElementById('zjq_wy_n_peak').textContent = zjq_wy_peak.toFixed(1);
         }
 
         // 阈值 + 冷却
-        var wy_now = Date.now();
-        if (wy_mag > WY_THRESHOLD && wy_now - wy_lastShake > WY_COOLDOWN) {
-            wy_lastShake = wy_now;
-            wy_trigger('shake');
+        var zjq_wy_now = Date.now();
+        if (zjq_wy_mag > zjq_WY_THRESHOLD && zjq_wy_now - zjq_wy_lastShake > zjq_WY_COOLDOWN) {
+            zjq_wy_lastShake = zjq_wy_now;
+            zjq_wy_trigger('shake');
         }
 
         // 频率统计
-        wy_rateCount++;
+        zjq_wy_rateCount++;
     }
 
     // 1.5 秒没有数据 → 分两种情况：可能是没授权，也可能是真没有传感器
-    function wy_armWait() {
-        clearTimeout(wy_waitTimer);
-        wy_waitTimer = setTimeout(function () {
-            if (wy_gotData) return;
-            if (wy_needPermission) {
-                wy_state.textContent = '等待授权';
-                wy_state.className = 'bad';
-                wy_ask.classList.add('on');
+    function zjq_wy_armWait() {
+        clearTimeout(zjq_wy_waitTimer);
+        zjq_wy_waitTimer = setTimeout(function () {
+            if (zjq_wy_gotData) return;
+            if (zjq_wy_needPermission) {
+                zjq_wy_state.textContent = '等待授权';
+                zjq_wy_state.className = 'zjq_bad';
+                zjq_wy_ask.classList.add('zjq_on');
                 return;
             }
-            wy_state.textContent = '当前设备不支持';
-            wy_state.className = 'bad';
-            wy_unsupported.style.display = 'block';
-        }, WY_WAIT);
+            zjq_wy_state.textContent = '当前设备不支持';
+            zjq_wy_state.className = 'zjq_bad';
+            zjq_wy_unsupported.style.display = 'block';
+        }, zjq_WY_WAIT);
     }
 
     // ---------- 启动监听 ----------
-    function wy_start() {
-        if (wy_started) return;
-        wy_started = true;
-        wy_state.textContent = '监听中…';
-        wy_state.className = '';
+    function zjq_wy_start() {
+        if (zjq_wy_started) return;
+        zjq_wy_started = true;
+        zjq_wy_state.textContent = '监听中…';
+        zjq_wy_state.className = '';
 
-        window.addEventListener('devicemotion', wy_onMotion, { passive: true });
+        window.addEventListener('devicemotion', zjq_wy_onMotion, { passive: true });
 
         // 事件频率：每秒清零一次
-        wy_rateTimer = setInterval(function () {
-            document.getElementById('wy_n_rate').textContent = wy_rateCount;
-            wy_rateCount = 0;
+        zjq_wy_rateTimer = setInterval(function () {
+            document.getElementById('zjq_wy_n_rate').textContent = zjq_wy_rateCount;
+            zjq_wy_rateCount = 0;
         }, 1000);
 
-        wy_armWait();
+        zjq_wy_armWait();
     }
 
     // ---------- iOS 权限 ----------
-    var wy_DME = window.DeviceMotionEvent;
+    var zjq_wy_DME = window.DeviceMotionEvent;
     // requestPermission 实际上是 iOS Safari 专属接口，但部分 Chromium 也挂了这个函数。
     // 若只按"有函数就等授权"来写，安卓 / 桌面会一直卡在"需要授权"，所以两者都判断：
     // 真 iOS 才引导授权，其它平台先挂监听，拿不到数据再按"不支持"处理。
-    var wy_isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    var zjq_wy_isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    var wy_needPermission = !!(wy_isIOS && wy_DME && typeof wy_DME.requestPermission === 'function');
+    var zjq_wy_needPermission = !!(zjq_wy_isIOS && zjq_wy_DME && typeof zjq_wy_DME.requestPermission === 'function');
 
-    if (wy_DME) {
-        wy_start();
+    if (zjq_wy_DME) {
+        zjq_wy_start();
     } else {
-        wy_state.textContent = '当前设备不支持';
-        wy_state.className = 'bad';
-        wy_unsupported.style.display = 'block';
+        zjq_wy_state.textContent = '当前设备不支持';
+        zjq_wy_state.className = 'zjq_bad';
+        zjq_wy_unsupported.style.display = 'block';
     }
 
-    if (wy_needPermission) {
-        wy_ask.classList.add('on');
-        if (!wy_gotData) {
-            wy_state.textContent = '需要授权';
-            wy_state.className = 'bad';
+    if (zjq_wy_needPermission) {
+        zjq_wy_ask.classList.add('zjq_on');
+        if (!zjq_wy_gotData) {
+            zjq_wy_state.textContent = '需要授权';
+            zjq_wy_state.className = 'zjq_bad';
         }
 
-        document.getElementById('wy_allow').addEventListener('click', function () {
-            wy_DME.requestPermission().then(function (wy_res) {
-                if (wy_res === 'granted') {
-                    wy_ask.classList.remove('on');
-                    wy_state.textContent = '已授权';
-                    wy_state.className = 'ok';
-                    wy_start();
+        document.getElementById('zjq_wy_allow').addEventListener('click', function () {
+            zjq_wy_DME.requestPermission().then(function (zjq_wy_res) {
+                if (zjq_wy_res === 'granted') {
+                    zjq_wy_ask.classList.remove('zjq_on');
+                    zjq_wy_state.textContent = '已授权';
+                    zjq_wy_state.className = 'zjq_ok';
+                    zjq_wy_start();
                 } else {
-                    wy_ask.classList.remove('on');
-                    wy_state.textContent = '权限被拒绝';
-                    wy_state.className = 'bad';
-                    wy_unsupported.style.display = 'block';
+                    zjq_wy_ask.classList.remove('zjq_on');
+                    zjq_wy_state.textContent = '权限被拒绝';
+                    zjq_wy_state.className = 'zjq_bad';
+                    zjq_wy_unsupported.style.display = 'block';
                 }
             }).catch(function () {
-                wy_state.textContent = '权限申请失败';
-                wy_state.className = 'bad';
-                wy_unsupported.style.display = 'block';
+                zjq_wy_state.textContent = '权限申请失败';
+                zjq_wy_state.className = 'zjq_bad';
+                zjq_wy_unsupported.style.display = 'block';
             });
         });
     }
 
     // ---------- 降级按钮 / 重新检测 ----------
-    document.getElementById('wy_fallback').addEventListener('click', function () {
-        wy_trigger('manual');
+    document.getElementById('zjq_wy_fallback').addEventListener('click', function () {
+        zjq_wy_trigger('manual');
     });
 
-    document.getElementById('wy_recheck').addEventListener('click', function () {
-        wy_gotData = false;
-        wy_unsupported.style.display = 'none';
-        wy_state.textContent = '重新检测…';
-        wy_state.className = '';
-        wy_start();
-        wy_armWait();              // 已挂过监听时 wy_start 会直接返回，这里单独重开计时
+    document.getElementById('zjq_wy_recheck').addEventListener('click', function () {
+        zjq_wy_gotData = false;
+        zjq_wy_unsupported.style.display = 'none';
+        zjq_wy_state.textContent = '重新检测…';
+        zjq_wy_state.className = '';
+        zjq_wy_start();
+        zjq_wy_armWait();              // 已挂过监听时 wy_start 会直接返回，这里单独重开计时
     });
 
     // 页面隐藏时暂停频率统计，回来继续
     document.addEventListener('visibilitychange', function () {
         if (document.hidden) {
-            clearInterval(wy_rateTimer);
-            wy_rateTimer = null;
-        } else if (wy_started && !wy_rateTimer) {
-            wy_rateTimer = setInterval(function () {
-                document.getElementById('wy_n_rate').textContent = wy_rateCount;
-                wy_rateCount = 0;
+            clearInterval(zjq_wy_rateTimer);
+            zjq_wy_rateTimer = null;
+        } else if (zjq_wy_started && !zjq_wy_rateTimer) {
+            zjq_wy_rateTimer = setInterval(function () {
+                document.getElementById('zjq_wy_n_rate').textContent = zjq_wy_rateCount;
+                zjq_wy_rateCount = 0;
             }, 1000);
         }
     });
 
     // ---------- 视频位 ----------
     (function () {
-        var wy_box = document.getElementById('wy_v4');
-        if (!wy_box) return;
-        var wy_video = wy_box.querySelector('video');
-        wy_video.addEventListener('loadedmetadata', function () {
-            wy_box.classList.add('ready');
+        var zjq_wy_box = document.getElementById('zjq_wy_v4');
+        if (!zjq_wy_box) return;
+        var zjq_wy_video = zjq_wy_box.querySelector('video');
+        zjq_wy_video.addEventListener('loadedmetadata', function () {
+            zjq_wy_box.classList.add('zjq_ready');
         });
-        wy_video.addEventListener('error', function () {
-            wy_box.classList.remove('ready');
+        zjq_wy_video.addEventListener('error', function () {
+            zjq_wy_box.classList.remove('zjq_ready');
         });
     })();
 })();

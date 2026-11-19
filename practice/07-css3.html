@@ -11,48 +11,48 @@
 
 <body>
 
-    <div class="px-top">
+    <div class="zjq_px-top">
         <div class="in">
-            <a class="px-brand" href="../index.html">
-                <span class="mk">赵</span>
-                <span class="tx">赵俊清的<i>课堂实践</i></span>
+            <a class="zjq_px-brand" href="../index.html">
+                <span class="zjq_mk">赵</span>
+                <span class="zjq_tx">赵俊清的<i>课堂实践</i></span>
             </a>
-            <a class="px-back" href="index.html">← 返回课堂目录</a>
+            <a class="zjq_px-back" href="index.html">← 返回课堂目录</a>
         </div>
     </div>
 
-    <header class="px-hero">
+    <header class="zjq_px-hero">
         <div class="in">
-            <p class="px-eyebrow">CLASS PRACTICE · 07 · CSS3 + 动画</p>
+            <p class="zjq_px-eyebrow">CLASS PRACTICE · 07 · CSS3 + 动画</p>
             <h1>CSS3 选择器与动画</h1>
-            <p class="px-lead">
+            <p class="zjq_px-lead">
                 十二个方块，十二种写法：<code>:nth-child</code>、<code>:nth-of-type</code>、<code>:nth-last-child</code> 挑元素，
                 <code>::first-letter</code>、<code>::before</code> 加装饰，<code>transform</code> 与 <code>@keyframes</code> 负责动起来。
             </p>
         </div>
     </header>
 
-    <main class="px-main">
-        <div class="px-sheet">
+    <main class="zjq_px-main">
+        <div class="zjq_px-sheet">
 
-            <h2 class="grid-title">把鼠标放到每一个方块上看看</h2>
-            <div class="parent">
-                <div class="box">1</div>
-                <div class="box">2</div>
-                <div class="box">3</div>
-                <div class="box">4</div>
-                <div class="box">5</div>
-                <div class="box">6</div>
-                <div class="box">7</div>
-                <div class="box">8</div>
-                <div class="box">9</div>
-                <div class="box">10</div>
-                <div class="box">11</div>
-                <div class="box">12</div>
+            <h2 class="zjq_grid-title">把鼠标放到每一个方块上看看</h2>
+            <div class="zjq_parent">
+                <div class="zjq_box">1</div>
+                <div class="zjq_box">2</div>
+                <div class="zjq_box">3</div>
+                <div class="zjq_box">4</div>
+                <div class="zjq_box">5</div>
+                <div class="zjq_box">6</div>
+                <div class="zjq_box">7</div>
+                <div class="zjq_box">8</div>
+                <div class="zjq_box">9</div>
+                <div class="zjq_box">10</div>
+                <div class="zjq_box">11</div>
+                <div class="zjq_box">12</div>
             </div>
 
             <h2>每一格对应哪个知识点</h2>
-            <ul class="effect-list">
+            <ul class="zjq_effect-list">
                 <li><b>:nth-child(2)</b> 第 2 个孩子 → 换色、字号变大</li>
                 <li><b>:nth-child(3):hover</b> 悬停 → 圆角 50% 变圆</li>
                 <li><b>:nth-child(4):hover</b> 悬停 → box-shadow 阴影</li>
@@ -69,7 +69,7 @@
 
             <h2>入场动画</h2>
             <p>打开这一页时看到的"依次落下"，是 <code>@keyframes</code> + <code>animation-delay</code> 做的：</p>
-            <pre class="px-code">@keyframes boxIn {
+            <pre class="zjq_px-code">@keyframes boxIn {
     from { transform: translateY(-60px); opacity: 0; }
     to   { transform: translateY(0);     opacity: 1; }
 }
@@ -78,7 +78,7 @@
 .box:nth-child(2)  { animation-delay: .06s; }            /* 依次延后 */
 .box:nth-child(3)  { animation-delay: .12s; }</pre>
 
-            <div class="px-note">
+            <div class="zjq_px-note">
                 <b>踩过的坑：</b>原来写的是 <code>animation: box 1s ease forwards;</code>，
                 但关键帧定义的名字叫 <code>boxIn</code> —— 名字对不上，动画根本不跑。
                 动画没反应时，先检查 <code>@keyframes</code> 的名字和 <code>animation</code> 里写的是不是同一个。
@@ -94,19 +94,19 @@
         </div>
     </main>
 
-    <footer class="px-foot">
+    <footer class="zjq_px-foot">
         赵俊清 · 《高级网页设计》课堂实践 · CSS3 选择器 + 动画 · 2026
     </footer>
 
-    <button class="px-top-btn" id="pxTop" title="返回顶部">↑</button>
+    <button class="zjq_px-top-btn" id="zjq_pxTop" title="返回顶部">↑</button>
 
     <script>
-        var pxTop = document.getElementById("pxTop");
+        var zjq_pxTop = document.getElementById("zjq_pxTop");
         window.addEventListener("scroll", function () {
-            if (window.scrollY > 360) { pxTop.classList.add("show"); }
-            else { pxTop.classList.remove("show"); }
+            if (window.scrollY > 360) { zjq_pxTop.classList.add("show"); }
+            else { zjq_pxTop.classList.remove("show"); }
         });
-        pxTop.addEventListener("click", function () {
+        zjq_pxTop.addEventListener("click", function () {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
     </script>

@@ -39,13 +39,13 @@
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
-    .wrap {
+    .zjq_wrap {
         width: min(100% - 64px, var(--wrap));
         margin-inline: auto;
     }
 
     /* ============ 顶栏 ============ */
-    .topbar {
+    .zjq_topbar {
         background: var(--stage);
         color: #EDE7DA;
         font-family: var(--mono);
@@ -54,7 +54,7 @@
         border-bottom: 1px solid #2A2724;
     }
 
-    .topbar .wrap {
+    .zjq_topbar .zjq_wrap {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -62,15 +62,15 @@
         height: 46px;
     }
 
-    .topbar b { color: #fff; font-weight: 600; }
-    .topbar .sep { color: #5C564C; margin: 0 10px; }
+    .zjq_topbar b { color: #fff; font-weight: 600; }
+    .zjq_topbar .zjq_sep { color: #5C564C; margin: 0 10px; }
 
-    .topbar nav { display: flex; gap: 18px; }
-    .topbar nav a { color: #9C9488; transition: color .2s; }
-    .topbar nav a:hover { color: var(--amber); }
+    .zjq_topbar nav { display: flex; gap: 18px; }
+    .zjq_topbar nav a { color: #9C9488; transition: color .2s; }
+    .zjq_topbar nav a:hover { color: var(--amber); }
 
     /* ============ 展览舞台 ============ */
-    .stage-wrap {
+    .zjq_stage-wrap {
         background:
             radial-gradient(120% 90% at 50% 0%, #242019 0%, #121110 55%, #0C0B0A 100%);
         color: #EDE7DA;
@@ -79,7 +79,7 @@
         position: relative;
     }
 
-    .stage-head {
+    .zjq_stage-head {
         display: flex;
         align-items: flex-end;
         justify-content: space-between;
@@ -88,7 +88,7 @@
         margin-bottom: 28px;
     }
 
-    .stage-kicker {
+    .zjq_stage-kicker {
         font-family: var(--mono);
         font-size: 11px;
         letter-spacing: .3em;
@@ -96,7 +96,7 @@
         margin-bottom: 12px;
     }
 
-    .stage-title {
+    .zjq_stage-title {
         font-family: var(--serif);
         font-size: clamp(30px, 4vw, 46px);
         font-weight: 400;
@@ -104,12 +104,12 @@
         line-height: 1.2;
     }
 
-    .stage-title em {
+    .zjq_stage-title em {
         font-style: normal;
         color: var(--amber);
     }
 
-    .stage-sub {
+    .zjq_stage-sub {
         font-size: 13px;
         color: #948C80;
         max-width: 380px;
@@ -118,7 +118,7 @@
     }
 
     /* Swiper 主体 */
-    .stage {
+    .zjq_stage {
         width: 100%;
         border: 1px solid #2E2A26;
         background: #0A0908;
@@ -126,34 +126,34 @@
     }
 
     /* creative 电影墙：卡片等比缩小，左右两侧留出空隙，邻格才露得出来 */
-    .stage.is-creative .frame {
+    .zjq_stage.zjq_is-creative .zjq_frame {
         transform: scale(.9);
     }
 
     /* 非当前卡的题注压淡，避免边缘出现被切断的文字 */
-    .stage.is-creative .swiper-slide:not(.swiper-slide-active) .frame figcaption {
+    .zjq_stage.zjq_is-creative .swiper-slide:not(.swiper-slide-active) .zjq_frame figcaption {
         opacity: .28;
     }
 
-    .exhibit {
+    .zjq_exhibit {
         position: relative;
         aspect-ratio: 16 / 9;
     }
 
-    .frame {
+    .zjq_frame {
         position: absolute;
         inset: 0;
         overflow: hidden;
         background: #0A0908;
     }
 
-    .exhibit img {
+    .zjq_exhibit img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
 
-    .exhibit figcaption {
+    .zjq_exhibit figcaption {
         position: absolute;
         left: 0;
         right: 0;
@@ -165,7 +165,7 @@
         gap: 18px;
     }
 
-    .exhibit .no {
+    .zjq_exhibit .zjq_no {
         font-family: var(--serif);
         font-size: 40px;
         line-height: 1;
@@ -173,7 +173,7 @@
         opacity: .9;
     }
 
-    .exhibit h3 {
+    .zjq_exhibit h3 {
         font-size: clamp(19px, 2.2vw, 26px);
         font-weight: 600;
         letter-spacing: .06em;
@@ -181,7 +181,7 @@
         margin-bottom: 4px;
     }
 
-    .exhibit .meta {
+    .zjq_exhibit .zjq_meta {
         font-family: var(--mono);
         font-size: 11px;
         letter-spacing: .14em;
@@ -189,7 +189,7 @@
     }
 
     /* 控制条 */
-    .stage-bar {
+    .zjq_stage-bar {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -201,13 +201,13 @@
         background: #171513;
     }
 
-    .effects {
+    .zjq_effects {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
     }
 
-    .effects button {
+    .zjq_effects button {
         font-family: var(--mono);
         font-size: 11.5px;
         letter-spacing: .06em;
@@ -222,35 +222,35 @@
         gap: 7px;
     }
 
-    .effects button i {
+    .zjq_effects button i {
         font-style: normal;
         color: #6B645A;
         font-size: 10px;
     }
 
-    .effects button:hover { border-color: #5A5248; color: #DDD4C6; }
+    .zjq_effects button:hover { border-color: #5A5248; color: #DDD4C6; }
 
-    .effects button.on {
+    .zjq_effects button.zjq_on {
         background: var(--amber);
         border-color: var(--amber);
         color: #171412;
     }
 
-    .effects button.on i { color: #6B4A22; }
+    .zjq_effects button.zjq_on i { color: #6B4A22; }
 
-    .effects button.extra {
+    .zjq_effects button.zjq_extra {
         border-style: dashed;
         border-color: #4A3B29;
         color: var(--amber);
     }
 
-    .stage-ctrl {
+    .zjq_stage-ctrl {
         display: flex;
         align-items: center;
         gap: 10px;
     }
 
-    .stage-ctrl button {
+    .zjq_stage-ctrl button {
         width: 38px;
         height: 38px;
         border: 1px solid #363130;
@@ -261,16 +261,16 @@
         transition: all .2s;
     }
 
-    .stage-ctrl button:hover { background: #2A2523; color: #fff; }
+    .zjq_stage-ctrl button:hover { background: #2A2523; color: #fff; }
 
-    .stage-dots {
+    .zjq_stage-dots {
         display: flex;
         align-items: center;
         gap: 9px;
         margin: 0 6px;
     }
 
-    .stage-dots .swiper-pagination-bullet {
+    .zjq_stage-dots .swiper-pagination-bullet {
         width: 7px;
         height: 7px;
         background: #4A443C;
@@ -281,12 +281,12 @@
         cursor: pointer;
     }
 
-    .stage-dots .swiper-pagination-bullet-active {
+    .zjq_stage-dots .swiper-pagination-bullet-active {
         background: var(--amber);
         width: 22px;
     }
 
-    .stage-foot {
+    .zjq_stage-foot {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -299,15 +299,15 @@
         color: #7D756A;
     }
 
-    .stage-foot .live b { color: var(--amber); font-weight: 400; }
+    .zjq_stage-foot .zjq_live b { color: var(--amber); font-weight: 400; }
 
-    .keyhint {
+    .zjq_keyhint {
         display: inline-flex;
         align-items: center;
         gap: 8px;
     }
 
-    .keyhint kbd {
+    .zjq_keyhint kbd {
         font-family: var(--mono);
         font-size: 11px;
         border: 1px solid #3A3532;
@@ -318,7 +318,7 @@
         text-align: center;
     }
 
-    .keyhint .hit {
+    .zjq_keyhint .zjq_hit {
         color: var(--amber);
         border-color: var(--amber);
     }
@@ -328,7 +328,7 @@
 
     section + section { margin-top: 84px; }
 
-    .s-head {
+    .zjq_s-head {
         display: flex;
         align-items: baseline;
         gap: 16px;
@@ -337,21 +337,21 @@
         margin-bottom: 10px;
     }
 
-    .s-no {
+    .zjq_s-no {
         font-family: var(--mono);
         font-size: 12px;
         color: var(--red);
         letter-spacing: .1em;
     }
 
-    .s-head h2 {
+    .zjq_s-head h2 {
         font-family: var(--serif);
         font-size: clamp(22px, 2.6vw, 29px);
         font-weight: 400;
         letter-spacing: .05em;
     }
 
-    .s-en {
+    .zjq_s-en {
         margin-left: auto;
         font-family: var(--mono);
         font-size: 10.5px;
@@ -359,14 +359,14 @@
         color: var(--ink3);
     }
 
-    .s-intro {
+    .zjq_s-intro {
         color: var(--ink2);
         font-size: 14.5px;
         max-width: 720px;
         margin-bottom: 30px;
     }
 
-    .grid-2 {
+    .zjq_grid-2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 28px;
@@ -433,7 +433,7 @@
         padding: 1px 5px;
     }
 
-    .pass {
+    .zjq_pass {
         font-family: var(--mono);
         font-size: 11px;
         color: #2F6B3A;
@@ -452,12 +452,12 @@
         border-left: 3px solid var(--amber);
     }
 
-    pre .c { color: #7E776A; }
-    pre .k { color: #D9A05B; }
-    pre .s { color: #9DBE8A; }
-    pre .n { color: #C98B6B; }
+    pre .zjq_c { color: #7E776A; }
+    pre .zjq_k { color: #D9A05B; }
+    pre .zjq_s { color: #9DBE8A; }
+    pre .zjq_n { color: #C98B6B; }
 
-    .code-label {
+    .zjq_code-label {
         font-family: var(--mono);
         font-size: 10.5px;
         letter-spacing: .16em;
@@ -468,25 +468,25 @@
         gap: 10px;
     }
 
-    .code-label b { color: var(--red); font-weight: 400; }
+    .zjq_code-label b { color: var(--red); font-weight: 400; }
 
-    .stack > * + * { margin-top: 20px; }
+    .zjq_stack > * + * { margin-top: 20px; }
 
     /* 验证截图 */
-    .shots {
+    .zjq_shots {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 16px;
         margin-top: 18px;
     }
 
-    .shot {
+    .zjq_shot {
         border: 1px solid var(--line);
         background: #fff;
     }
 
-    .shot img { width: 100%; }
-    .shot figcaption {
+    .zjq_shot img { width: 100%; }
+    .zjq_shot figcaption {
         font-family: var(--mono);
         font-size: 10.5px;
         letter-spacing: .08em;
@@ -496,13 +496,13 @@
     }
 
     /* 答辩问答 */
-    .qa { border-top: 1px solid var(--ink); }
+    .zjq_qa { border-top: 1px solid var(--ink); }
 
-    .qa details {
+    .zjq_qa details {
         border-bottom: 1px solid var(--line-soft);
     }
 
-    .qa summary {
+    .zjq_qa summary {
         list-style: none;
         cursor: pointer;
         padding: 16px 4px;
@@ -512,9 +512,9 @@
         align-items: baseline;
     }
 
-    .qa summary::-webkit-details-marker { display: none; }
+    .zjq_qa summary::-webkit-details-marker { display: none; }
 
-    .qa summary::after {
+    .zjq_qa summary::after {
         content: "+";
         margin-left: auto;
         font-family: var(--mono);
@@ -522,9 +522,9 @@
         font-size: 15px;
     }
 
-    .qa details[open] summary::after { content: "−"; }
+    .zjq_qa details[open] summary::after { content: "−"; }
 
-    .qa summary b {
+    .zjq_qa summary b {
         font-family: var(--mono);
         font-size: 11px;
         color: var(--red);
@@ -532,7 +532,7 @@
         letter-spacing: .1em;
     }
 
-    .qa .ans {
+    .zjq_qa .zjq_ans {
         padding: 0 4px 20px 40px;
         font-size: 13.5px;
         color: var(--ink2);
@@ -540,20 +540,20 @@
     }
 
     /* 实验滑块 */
-    .lab {
+    .zjq_lab {
         background: var(--raise);
         border: 1px solid var(--line);
         padding: 22px 24px;
     }
 
-    .lab-row {
+    .zjq_lab-row {
         display: flex;
         align-items: center;
         gap: 16px;
         flex-wrap: wrap;
     }
 
-    .lab-row label {
+    .zjq_lab-row label {
         font-family: var(--mono);
         font-size: 11.5px;
         letter-spacing: .1em;
@@ -579,14 +579,14 @@
         border-radius: 0;
     }
 
-    .lab-val {
+    .zjq_lab-val {
         font-family: var(--mono);
         font-size: 13px;
         color: var(--red);
         min-width: 58px;
     }
 
-    .lab-note {
+    .zjq_lab-note {
         font-size: 12.5px;
         color: var(--ink3);
         margin-top: 10px;
@@ -734,7 +734,7 @@
     }
 
     .zjq_presets button:hover { border-color: var(--red); color: var(--red); }
-    .zjq_presets button.on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+    .zjq_presets button.zjq_on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
     .zjq_group { margin-bottom: 14px; }
 
@@ -811,7 +811,7 @@
     }
 
     /* 键盘控制台：滚到任务三时，这里同步显示当前展品，按键有没有生效一眼可见 */
-    .kb-console {
+    .zjq_kb-console {
         display: grid;
         grid-template-columns: 210px 1fr;
         align-items: center;
@@ -822,19 +822,19 @@
         transition: border-color .2s, background .2s;
     }
 
-    .kb-console.hit {
+    .zjq_kb-console.zjq_hit {
         border-color: var(--red);
         background: var(--red-soft);
     }
 
-    .kb-console > img {
+    .zjq_kb-console > img {
         width: 100%;
         aspect-ratio: 16/9;
         object-fit: cover;
         display: block;
     }
 
-    .kb-side {
+    .zjq_kb-side {
         display: flex;
         align-items: flex-end;
         justify-content: space-between;
@@ -842,14 +842,14 @@
         flex-wrap: wrap;
     }
 
-    .kb-label {
+    .zjq_kb-label {
         font-family: var(--mono);
         font-size: 10px;
         letter-spacing: .12em;
         color: var(--ink3);
     }
 
-    .kb-meta b {
+    .zjq_kb-meta b {
         display: block;
         font-family: var(--serif);
         font-size: 21px;
@@ -858,7 +858,7 @@
         line-height: 1.2;
     }
 
-    .kb-idx {
+    .zjq_kb-idx {
         display: block;
         font-family: var(--mono);
         font-size: 11px;
@@ -867,9 +867,9 @@
         margin-top: 6px;
     }
 
-    .kb-keys { display: flex; align-items: center; gap: 8px; }
+    .zjq_kb-keys { display: flex; align-items: center; gap: 8px; }
 
-    .kb-keys button {
+    .zjq_kb-keys button {
         width: 36px;
         height: 36px;
         border: 1px solid var(--ink);
@@ -881,17 +881,17 @@
         transition: background .18s, color .18s;
     }
 
-    .kb-keys button:hover { background: var(--ink); color: var(--paper); }
-    .kb-keys button:active { transform: translateY(1px); }
+    .zjq_kb-keys button:hover { background: var(--ink); color: var(--paper); }
+    .zjq_kb-keys button:active { transform: translateY(1px); }
 
-    .kb-state {
+    .zjq_kb-state {
         font-family: var(--mono);
         font-size: 10.5px;
         letter-spacing: .06em;
         color: var(--ink3);
     }
 
-    .kb-note {
+    .zjq_kb-note {
         grid-column: 1 / -1;
         border-top: 1px solid var(--line-soft);
         padding-top: 12px;
@@ -900,7 +900,7 @@
         line-height: 1.85;
     }
 
-    .kb-note kbd {
+    .zjq_kb-note kbd {
         font-family: var(--mono);
         font-size: 10.5px;
         border: 1px solid var(--line);
@@ -909,7 +909,7 @@
     }
 
     /* 展品卡 */
-    .work {
+    .zjq_work {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 0;
@@ -917,16 +917,16 @@
         background: var(--raise);
     }
 
-    .work img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16/10; }
+    .zjq_work img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16/10; }
 
-    .work-body {
+    .zjq_work-body {
         padding: 30px 32px;
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
 
-    .work-body .tag {
+    .zjq_work-body .zjq_tag {
         font-family: var(--mono);
         font-size: 10.5px;
         letter-spacing: .18em;
@@ -934,7 +934,7 @@
         margin-bottom: 10px;
     }
 
-    .work-body h3 {
+    .zjq_work-body h3 {
         font-family: var(--serif);
         font-size: 26px;
         font-weight: 400;
@@ -942,7 +942,7 @@
         margin-bottom: 4px;
     }
 
-    .work-body .en {
+    .zjq_work-body .zjq_en {
         font-family: var(--mono);
         font-size: 11px;
         color: var(--ink3);
@@ -950,9 +950,9 @@
         margin-bottom: 16px;
     }
 
-    .work-body p { font-size: 13.5px; color: var(--ink2); }
+    .zjq_work-body p { font-size: 13.5px; color: var(--ink2); }
 
-    .facts {
+    .zjq_facts {
         display: flex;
         gap: 22px;
         margin-top: 18px;
@@ -961,13 +961,13 @@
         flex-wrap: wrap;
     }
 
-    .facts div { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); letter-spacing: .06em; }
-    .facts b { display: block; font-family: var(--serif); font-size: 19px; color: var(--ink); font-weight: 400; letter-spacing: 0; }
+    .zjq_facts div { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); letter-spacing: .06em; }
+    .zjq_facts b { display: block; font-family: var(--serif); font-size: 19px; color: var(--ink); font-weight: 400; letter-spacing: 0; }
 
     /* 对话记录 */
-    .log { border-top: 1px solid var(--ink); }
+    .zjq_log { border-top: 1px solid var(--ink); }
 
-    .log-item {
+    .zjq_log-item {
         display: grid;
         grid-template-columns: 118px 1fr;
         gap: 24px;
@@ -975,7 +975,7 @@
         border-bottom: 1px solid var(--line-soft);
     }
 
-    .log-item .who {
+    .zjq_log-item .zjq_who {
         font-family: var(--mono);
         font-size: 10.5px;
         letter-spacing: .14em;
@@ -983,11 +983,11 @@
         padding-top: 3px;
     }
 
-    .log-item .who b { display: block; color: var(--red); font-weight: 400; margin-bottom: 4px; }
+    .zjq_log-item .zjq_who b { display: block; color: var(--red); font-weight: 400; margin-bottom: 4px; }
 
-    .log-item .say { font-size: 13.5px; color: var(--ink2); }
-    .log-item .say .q { color: var(--ink); }
-    .log-item .say strong { font-weight: 600; color: var(--ink); }
+    .zjq_log-item .zjq_say { font-size: 13.5px; color: var(--ink2); }
+    .zjq_log-item .zjq_say .zjq_q { color: var(--ink); }
+    .zjq_log-item .zjq_say strong { font-weight: 600; color: var(--ink); }
 
     footer {
         border-top: 1px solid var(--line);
@@ -998,17 +998,17 @@
         color: var(--ink3);
     }
 
-    footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    footer .zjq_wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
     /* ============ 响应式 ============ */
     @media (max-width: 900px) {
         .wrap { width: calc(100% - 40px); }
-        .grid-2, .shots, .work { grid-template-columns: 1fr; }
-        .work img { aspect-ratio: 16/9; }
-        .stage-sub { text-align: left; }
-        .exhibit figcaption { padding: 50px 20px 18px; }
-        .exhibit .no { font-size: 28px; }
-        .log-item { grid-template-columns: 1fr; gap: 8px; }
+        .zjq_grid-2, .zjq_shots, .zjq_work { grid-template-columns: 1fr; }
+        .zjq_work img { aspect-ratio: 16/9; }
+        .zjq_stage-sub { text-align: left; }
+        .zjq_exhibit figcaption { padding: 50px 20px 18px; }
+        .zjq_exhibit .zjq_no { font-size: 28px; }
+        .zjq_log-item { grid-template-columns: 1fr; gap: 8px; }
         section + section { margin-top: 60px; }
         main { padding: 50px 0 60px; }
         .zjq_lab-grid { grid-template-columns: 1fr; }
@@ -1017,139 +1017,139 @@
 
     @media (max-width: 560px) {
         .topbar nav { display: none; }
-        .s-en { display: none; }
+        .zjq_s-en { display: none; }
         th, td { padding: 9px 9px; }
         td code, p code, li code { word-break: break-word; }
-        .stage-title { font-size: 27px; }
-        .stage-sub { font-size: 12px; }
-        .exhibit figcaption { padding: 40px 14px 14px; }
-        .exhibit h3 { font-size: 17px; }
-        .exhibit .no { font-size: 22px; }
-        .work-body { padding: 22px; }
+        .zjq_stage-title { font-size: 27px; }
+        .zjq_stage-sub { font-size: 12px; }
+        .zjq_exhibit figcaption { padding: 40px 14px 14px; }
+        .zjq_exhibit h3 { font-size: 17px; }
+        .zjq_exhibit .zjq_no { font-size: 22px; }
+        .zjq_work-body { padding: 22px; }
         pre { font-size: 11.5px; padding: 16px 14px; }
-        .stage.is-creative .frame { transform: scale(.94); }
-        .kb-console { grid-template-columns: 1fr; gap: 14px; }
-        .kb-side { align-items: center; }
-        .stage-bar { padding: 14px; }
-        .effects button { font-size: 10.5px; padding: 7px 10px; }
-        .stage-ctrl { width: 100%; justify-content: space-between; }
+        .zjq_stage.zjq_is-creative .zjq_frame { transform: scale(.94); }
+        .zjq_kb-console { grid-template-columns: 1fr; gap: 14px; }
+        .zjq_kb-side { align-items: center; }
+        .zjq_stage-bar { padding: 14px; }
+        .zjq_effects button { font-size: 10.5px; padding: 7px 10px; }
+        .zjq_stage-ctrl { width: 100%; justify-content: space-between; }
         .zjq_lab-top, .zjq_lab-panel, .zjq_lab-foot { padding-left: 14px; padding-right: 14px; }
         .zjq_lab-stage { padding: 12px; }
     }
 
     /* 键盘可达性：Tab 走到哪儿出现一条细框，鼠标点击不出现，不干扰版面 */
     :focus-visible { outline: 1px solid var(--red); outline-offset: 3px; }
-    .stage:focus-visible { outline-color: var(--amber); }
+    .zjq_stage:focus-visible { outline-color: var(--amber); }
 </style>
 </head>
 <body>
 
-<header class="topbar">
-    <div class="wrap">
+<header class="zjq_topbar">
+    <div class="zjq_wrap">
         <div>
-            <b>高级网页设计</b><span class="sep">/</span>Swiper 综合任务<span class="sep">/</span>赵俊清 24006270205
+            <b>高级网页设计</b><span class="zjq_sep">/</span>Swiper 综合任务<span class="zjq_sep">/</span>赵俊清 24006270205
         </div>
         <nav>
-            <a href="#task1">任务一</a>
-            <a href="#task2">任务二</a>
-            <a href="#task3">任务三</a>
-            <a href="#log">对话记录</a>
+            <a href="#zjq_task1">任务一</a>
+            <a href="#zjq_task2">任务二</a>
+            <a href="#zjq_task3">任务三</a>
+            <a href="#zjq_log">对话记录</a>
             <a href="index.html">← 返回作品集</a>
         </nav>
     </div>
 </header>
 
 <!-- ============ 展览舞台 ============ -->
-<div class="stage-wrap">
-    <div class="wrap">
-        <div class="stage-head">
+<div class="zjq_stage-wrap">
+    <div class="zjq_wrap">
+        <div class="zjq_stage-head">
             <div>
-                <div class="stage-kicker">EXHIBITION / 光影展 · 六件展品</div>
-                <h1 class="stage-title">在光落下的地方，<em>看见影子</em></h1>
+                <div class="zjq_stage-kicker">EXHIBITION / 光影展 · 六件展品</div>
+                <h1 class="zjq_stage-title">在光落下的地方，<em>看见影子</em></h1>
             </div>
-            <p class="stage-sub">
+            <p class="zjq_stage-sub">
                 一个 Swiper 轮播同时承担两个任务：任务一的四项配置是它的初始状态，
                 任务二新增的第七个按钮是它的第二种讲法。
             </p>
         </div>
 
         <!-- Swiper -->
-        <div class="swiper stage">
+        <div class="swiper zjq_stage">
             <div class="swiper-wrapper">
 
-                <div class="swiper-slide exhibit">
-                    <div class="frame">
+                <div class="swiper-slide zjq_exhibit">
+                    <div class="zjq_frame">
                     <img src="swiper/img/01-dome.jpg" alt="穹顶展厅">
                     <figcaption>
-                        <span class="no">01</span>
+                        <span class="zjq_no">01</span>
                         <div>
                             <h3>光之穹顶</h3>
-                            <p class="meta">2026 · 空间装置 / 单频投影</p>
+                            <p class="zjq_meta">2026 · 空间装置 / 单频投影</p>
                         </div>
                     </figcaption>
                     </div>
                 </div>
 
-                <div class="swiper-slide exhibit">
-                    <div class="frame">
+                <div class="swiper-slide zjq_exhibit">
+                    <div class="zjq_frame">
                     <img src="swiper/img/02-shadow.jpg" alt="影子剧场">
                     <figcaption>
-                        <span class="no">02</span>
+                        <span class="zjq_no">02</span>
                         <div>
                             <h3>影子剧场</h3>
-                            <p class="meta">2025 · 影像 / 幕布与实体</p>
+                            <p class="zjq_meta">2025 · 影像 / 幕布与实体</p>
                         </div>
                     </figcaption>
                     </div>
                 </div>
 
-                <div class="swiper-slide exhibit">
-                    <div class="frame">
+                <div class="swiper-slide zjq_exhibit">
+                    <div class="zjq_frame">
                     <img src="swiper/img/03-mirror.jpg" alt="镜面回廊">
                     <figcaption>
-                        <span class="no">03</span>
+                        <span class="zjq_no">03</span>
                         <div>
                             <h3>镜面回廊</h3>
-                            <p class="meta">2025 · 沉浸空间 / 无限反射</p>
+                            <p class="zjq_meta">2025 · 沉浸空间 / 无限反射</p>
                         </div>
                     </figcaption>
                     </div>
                 </div>
 
-                <div class="swiper-slide exhibit">
-                    <div class="frame">
+                <div class="swiper-slide zjq_exhibit">
+                    <div class="zjq_frame">
                     <img src="swiper/img/04-forest.jpg" alt="逆光森林">
                     <figcaption>
-                        <span class="no">04</span>
+                        <span class="zjq_no">04</span>
                         <div>
                             <h3>逆光森林</h3>
-                            <p class="meta">2024 · 摄影 / 晨雾与丁达尔光</p>
+                            <p class="zjq_meta">2024 · 摄影 / 晨雾与丁达尔光</p>
                         </div>
                     </figcaption>
                     </div>
                 </div>
 
-                <div class="swiper-slide exhibit">
-                    <div class="frame">
+                <div class="swiper-slide zjq_exhibit">
+                    <div class="zjq_frame">
                     <img src="swiper/img/05-bluehour.jpg" alt="蓝色时刻">
                     <figcaption>
-                        <span class="no">05</span>
+                        <span class="zjq_no">05</span>
                         <div>
                             <h3>蓝色时刻</h3>
-                            <p class="meta">2024 · 长曝光摄影 / 城市入夜</p>
+                            <p class="zjq_meta">2024 · 长曝光摄影 / 城市入夜</p>
                         </div>
                     </figcaption>
                     </div>
                 </div>
 
-                <div class="swiper-slide exhibit">
-                    <div class="frame">
+                <div class="swiper-slide zjq_exhibit">
+                    <div class="zjq_frame">
                     <img src="swiper/img/06-ship.jpg" alt="爱达·魔都号">
                     <figcaption>
-                        <span class="no">06</span>
+                        <span class="zjq_no">06</span>
                         <div>
                             <h3>爱达·魔都号</h3>
-                            <p class="meta">2024 · 首艘国产大型邮轮 / 影像记录</p>
+                            <p class="zjq_meta">2024 · 首艘国产大型邮轮 / 影像记录</p>
                         </div>
                     </figcaption>
                     </div>
@@ -1159,52 +1159,52 @@
         </div>
 
         <!-- 控制条 -->
-        <div class="stage-bar">
-            <div class="effects" id="effects">
+        <div class="zjq_stage-bar">
+            <div class="zjq_effects" id="zjq_effects">
                 <button data-effect="slide"><i>01</i>滑片</button>
                 <button data-effect="fade"><i>02</i>淡入</button>
                 <button data-effect="cube"><i>03</i>方块</button>
                 <button data-effect="coverflow"><i>04</i>封面流</button>
                 <button data-effect="flip"><i>05</i>翻转</button>
                 <button data-effect="cards"><i>06</i>卡片堆叠</button>
-                <button data-effect="creative" class="extra"><i>07</i>creative 电影墙</button>
+                <button data-effect="creative" class="zjq_extra"><i>07</i>creative 电影墙</button>
             </div>
-            <div class="stage-ctrl">
-                <button class="stage-prev" aria-label="上一张">←</button>
-                <div class="stage-dots"></div>
-                <button class="stage-next" aria-label="下一张">→</button>
+            <div class="zjq_stage-ctrl">
+                <button class="zjq_stage-prev" aria-label="上一张">←</button>
+                <div class="zjq_stage-dots"></div>
+                <button class="zjq_stage-next" aria-label="下一张">→</button>
             </div>
         </div>
 
-        <div class="stage-foot">
-            <div class="live" id="live">
-                当前效果 <b id="live-effect">cube</b> · 第 <b id="live-idx">1</b> / 6 件 · 自动播放 <b id="live-auto">开</b>
+        <div class="zjq_stage-foot">
+            <div class="zjq_live" id="zjq_live">
+                当前效果 <b id="zjq_live-effect">cube</b> · 第 <b id="zjq_live-idx">1</b> / 6 件 · 自动播放 <b id="zjq_live-auto">开</b>
             </div>
-            <div class="keyhint">
-                <kbd id="k-left">←</kbd><kbd id="k-right">→</kbd> 键盘切换
-                <kbd id="k-space">空格</kbd> 暂停 / 继续
+            <div class="zjq_keyhint">
+                <kbd id="zjq_k-left">←</kbd><kbd id="zjq_k-right">→</kbd> 键盘切换
+                <kbd id="zjq_k-space">空格</kbd> 暂停 / 继续
             </div>
         </div>
     </div>
 </div>
 
 <main>
-    <div class="wrap">
+    <div class="zjq_wrap">
 
         <!-- ============ 01 任务一 ============ -->
-        <section id="task1">
-            <div class="s-head">
-                <span class="s-no">01</span>
+        <section id="zjq_task1">
+            <div class="zjq_s-head">
+                <span class="zjq_s-no">01</span>
                 <h2>任务一 · 提示词工程：让 AI 听懂需求</h2>
-                <span class="s-en">PROMPT ENGINEERING</span>
+                <span class="zjq_s-en">PROMPT ENGINEERING</span>
             </div>
-            <p class="s-intro">
+            <p class="zjq_s-intro">
                 上面那个轮播的初始状态，就是需求里那四条。这一节不写新代码，只记录两轮提示词怎么把需求"翻译"成参数。
             </p>
 
-            <div class="stack">
+            <div class="zjq_stack">
                 <div>
-                    <div class="code-label"><b>需求拆解</b> 四条硬性要求 → 四个参数</div>
+                    <div class="zjq_code-label"><b>需求拆解</b> 四条硬性要求 → 四个参数</div>
                     <table>
                         <thead>
                             <tr><th>需求原话</th><th>落到哪个参数</th><th>取值</th></tr>
@@ -1218,7 +1218,7 @@
                     </table>
                 </div>
 
-                <div class="grid-2">
+                <div class="zjq_grid-2">
                     <div class="card">
                         <h3>第 1 轮提示词 <span>ROUND 01</span></h3>
                         <p>"帮我做一个 Swiper 轮播，六张图，自动播放，带圆点分页器，用立方体效果，好看一点。"</p>
@@ -1238,65 +1238,65 @@
                 </div>
 
                 <div>
-                    <div class="code-label"><b>最终配置</b> 页面上实际运行的就是这段</div>
-<pre><span class="k">const</span> swiper = <span class="k">new</span> <span class="n">Swiper</span>(<span class="s">'.stage'</span>, {
-  effect: <span class="s">'cube'</span>,                    <span class="c">// ④ 初始效果</span>
-  loop: <span class="k">false</span>,                      <span class="c">// ① 无循环</span>
-  speed: <span class="n">700</span>,
+                    <div class="zjq_code-label"><b>最终配置</b> 页面上实际运行的就是这段</div>
+<pre><span class="zjq_k">const</span> swiper = <span class="zjq_k">new</span> <span class="zjq_n">Swiper</span>(<span class="zjq_s">'.zjq_stage'</span>, {
+  effect: <span class="zjq_s">'cube'</span>,                    <span class="zjq_c">// ④ 初始效果</span>
+  loop: <span class="zjq_k">false</span>,                      <span class="zjq_c">// ① 无循环</span>
+  speed: <span class="zjq_n">700</span>,
   autoplay: {
-    delay: <span class="n">3200</span>,                   <span class="c">// ② 3.2 秒</span>
-    disableOnInteraction: <span class="k">false</span>    <span class="c">// ② 手动后不停止</span>
+    delay: <span class="zjq_n">3200</span>,                   <span class="zjq_c">// ② 3.2 秒</span>
+    disableOnInteraction: <span class="zjq_k">false</span>    <span class="zjq_c">// ② 手动后不停止</span>
   },
   pagination: {
-    el: <span class="s">'.stage-dots'</span>,
-    clickable: <span class="k">true</span>                 <span class="c">// ③ 圆点可点击</span>
+    el: <span class="zjq_s">'.zjq_stage-dots'</span>,
+    clickable: <span class="zjq_k">true</span>                 <span class="zjq_c">// ③ 圆点可点击</span>
   },
-  cubeEffect: { shadow: <span class="k">true</span>, slideShadows: <span class="k">true</span>, shadowOffset: <span class="n">22</span>, shadowScale: <span class="n">0.92</span> }
+  cubeEffect: { shadow: <span class="zjq_k">true</span>, slideShadows: <span class="zjq_k">true</span>, shadowOffset: <span class="zjq_n">22</span>, shadowScale: <span class="zjq_n">0.92</span> }
 });</pre>
                 </div>
 
                 <div>
-                    <div class="code-label"><b>逐条验证</b> 亲自在页面上点一遍</div>
+                    <div class="zjq_code-label"><b>逐条验证</b> 亲自在页面上点一遍</div>
                     <table>
                         <thead>
                             <tr><th>需求</th><th>怎么验的</th><th>结论</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>无循环</td><td>连点下一张到第 6 件，再点</td><td><span class="pass">✓ 停在 06，按钮不再前进</span></td></tr>
-                            <tr><td>3.2 秒自动 + 手动后不停</td><td>拖动后松手，掐表看是否继续</td><td><span class="pass">✓ 松手约 3.2 秒后自动翻</span></td></tr>
-                            <tr><td>圆点可点击</td><td>直接点第 4 个圆点</td><td><span class="pass">✓ 跳到 04，圆点变长</span></td></tr>
-                            <tr><td>初始 cube</td><td>刷新页面看第一屏</td><td><span class="pass">✓ 立方体三面可见</span></td></tr>
+                            <tr><td>无循环</td><td>连点下一张到第 6 件，再点</td><td><span class="zjq_pass">✓ 停在 06，按钮不再前进</span></td></tr>
+                            <tr><td>3.2 秒自动 + 手动后不停</td><td>拖动后松手，掐表看是否继续</td><td><span class="zjq_pass">✓ 松手约 3.2 秒后自动翻</span></td></tr>
+                            <tr><td>圆点可点击</td><td>直接点第 4 个圆点</td><td><span class="zjq_pass">✓ 跳到 04，圆点变长</span></td></tr>
+                            <tr><td>初始 cube</td><td>刷新页面看第一屏</td><td><span class="zjq_pass">✓ 立方体三面可见</span></td></tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="shots">
-                    <figure class="shot">
+                <div class="zjq_shots">
+                    <figure class="zjq_shot">
                         <img src="swiper/img/verify-1.jpg" alt="初始 cube 效果截图">
                         <figcaption>验证 01 · 刷新后默认 cube，第 1 个圆点高亮</figcaption>
                     </figure>
-                    <figure class="shot">
+                    <figure class="zjq_shot">
                         <img src="swiper/img/verify-2.jpg" alt="第七个效果按钮截图">
                         <figcaption>验证 02 · 点第 7 个按钮后切到 creative 电影墙</figcaption>
                     </figure>
                 </div>
 
-                <div class="qa">
+                <div class="zjq_qa">
                     <details open>
                         <summary><b>Q1</b>第一版提示词漏掉了哪个需求？</summary>
-                        <div class="ans">
+                        <div class="zjq_ans">
                             漏的不是"没提"，而是"提了但被默认值吃掉"。我说了自动播放，却没说不许手动后停止，<code>disableOnInteraction</code> 默认 true，脚本一碰就停；<code>loop</code> 我压根没提，AI 按经验给了 true；分页器我写了"带圆点"，但没写"可点击"。四条里只有 cube 是对的。
                         </div>
                     </details>
                     <details>
                         <summary><b>Q2</b>你是怎么在第二轮里"说清楚"的？</summary>
-                        <div class="ans">
+                        <div class="zjq_ans">
                             三件事：一是编号，四条需求单独成行，AI 不会把两条并成一条；二是把自然语言换成 API 里的说法（"手动之后别停"→ <code>disableOnInteraction: false</code>）；三是加一句"默认值不要替我决定"，把 AI 的默认推断权收回来。
                         </div>
                     </details>
                     <details>
                         <summary><b>Q3</b>AI 第一次给的代码错在哪？</summary>
-                        <div class="ans">
+                        <div class="zjq_ans">
                             ① <code>loop: true</code>，与"无循环"完全相反；② <code>autoplay</code> 只有 <code>delay</code>，缺 <code>disableOnInteraction: false</code>，手动操作即停；③ <code>pagination</code> 只有 <code>el</code>，缺 <code>clickable: true</code>，圆点成了纯装饰。三处都是"省略参数 → 走默认值"造成的。
                         </div>
                     </details>
@@ -1305,36 +1305,36 @@
         </section>
 
         <!-- ============ 02 任务二 ============ -->
-        <section id="task2">
-            <div class="s-head">
-                <span class="s-no">02</span>
+        <section id="zjq_task2">
+            <div class="zjq_s-head">
+                <span class="zjq_s-no">02</span>
                 <h2>任务二 · creative 仿写：AI 教你课堂没讲的第 7 种</h2>
-                <span class="s-en">CREATIVE EFFECT</span>
+                <span class="zjq_s-en">CREATIVE EFFECT</span>
             </div>
-            <p class="s-intro">
+            <p class="zjq_s-intro">
                 课堂上讲了 fade / cube / coverflow / flip / cards 和默认的 slide，第七种 creative 没讲。下面这台调参台把 <code>prev</code> / <code>next</code> 拆成 6 根滑杆，拖一下就能看见卡片怎么动，右侧配置代码实时跟着变。它是唯一一个可以用一组 transform 把"非当前页"摆到任意位置的模式——所以能被拼成一面电影选片墙。
             </p>
 
-            <div class="stack">
+            <div class="zjq_stack">
                 <div>
-                    <div class="code-label"><b>核心写法</b> creativeEffect 只有 prev / next 两个入口</div>
+                    <div class="zjq_code-label"><b>核心写法</b> creativeEffect 只有 prev / next 两个入口</div>
 <pre>creativeEffect: {
-  <span class="c">// 上一张：缩小、往左推出画面，带角度压暗</span>
+  <span class="zjq_c">// 上一张：缩小、往左推出画面，带角度压暗</span>
   prev: {
-    shadow: <span class="k">true</span>,
-    translate: [<span class="s">'-85%'</span>, <span class="n">0</span>, <span class="n">-320</span>],   <span class="c">// x / y / z</span>
-    origin: <span class="s">'right center'</span>,
-    rotate: [<span class="n">0</span>, <span class="n">12</span>, <span class="n">-6</span>],          <span class="c">// 绕 x / y / z 轴的角度</span>
-    opacity: <span class="n">0.5</span>,
-    scale: <span class="n">0.86</span>
+    shadow: <span class="zjq_k">true</span>,
+    translate: [<span class="zjq_s">'-85%'</span>, <span class="zjq_n">0</span>, <span class="zjq_n">-320</span>],   <span class="zjq_c">// x / y / z</span>
+    origin: <span class="zjq_s">'right center'</span>,
+    rotate: [<span class="zjq_n">0</span>, <span class="zjq_n">12</span>, <span class="zjq_n">-6</span>],          <span class="zjq_c">// 绕 x / y / z 轴的角度</span>
+    opacity: <span class="zjq_n">0.5</span>,
+    scale: <span class="zjq_n">0.86</span>
   },
-  <span class="c">// 下一张：留在画面右侧，只露出一格，像待选的胶片</span>
+  <span class="zjq_c">// 下一张：留在画面右侧，只露出一格，像待选的胶片</span>
   next: {
-    translate: [<span class="s">'85%'</span>, <span class="n">0</span>, <span class="n">-200</span>],
-    origin: <span class="s">'left center'</span>,
-    rotate: [<span class="n">0</span>, <span class="n">-12</span>, <span class="n">6</span>],
-    opacity: <span class="n">0.92</span>,
-    scale: <span class="n">1</span>
+    translate: [<span class="zjq_s">'85%'</span>, <span class="zjq_n">0</span>, <span class="zjq_n">-200</span>],
+    origin: <span class="zjq_s">'left center'</span>,
+    rotate: [<span class="zjq_n">0</span>, <span class="zjq_n">-12</span>, <span class="zjq_n">6</span>],
+    opacity: <span class="zjq_n">0.92</span>,
+    scale: <span class="zjq_n">1</span>
   }}</pre>
                 </div>
 
@@ -1402,7 +1402,7 @@
                         <!-- 右：控制台 -->
                         <div class="zjq_lab-panel">
                             <div class="zjq_presets" id="zjq_presets">
-                                <button type="button" data-preset="wall" class="on">电影墙</button>
+                                <button type="button" data-preset="wall" class="zjq_on">电影墙</button>
                                 <button type="button" data-preset="push">纯推入</button>
                                 <button type="button" data-preset="twist">侧旋</button>
                                 <button type="button" data-preset="book">翻书</button>
@@ -1457,7 +1457,7 @@
                     </div>
                 </div>
 
-                <div class="grid-2">
+                <div class="zjq_grid-2">
                     <div class="card">
                         <h3>prev 的 transform 控制什么 <span>PREV</span></h3>
                         <p>控制"左邻"这张卡片的位置和姿态：往左退多远（translate 的负百分比）、要不要缩小（scale）、要不要压暗（opacity）、带多大角度（rotate）。它只在 creative 模式下生效，切回 slide 就完全不参与。</p>
@@ -1468,28 +1468,28 @@
                     </div>
                 </div>
 
-                <div class="qa">
+                <div class="zjq_qa">
                     <details>
                         <summary><b>Q1</b>transform 里的百分数是相对谁的？</summary>
-                        <div class="ans">
+                        <div class="zjq_ans">
                             相对 slide 自身。写 <code>translate: ['-26%', 0, -260]</code>，横向位移量是这张 slide 宽度的 −26%；<code>112%</code> 就是把自己整个推到画面外再多出 12%。而第三个值 <code>-260</code> 不带单位，是像素，属于 3D 的 z 轴，负值往屏幕里退。
                         </div>
                     </details>
                     <details>
                         <summary><b>Q2</b>改一个数值让卡片转 20 度，怎么验证？</summary>
-                        <div class="ans">
+                        <div class="zjq_ans">
                             在下面调参台里把 <code>prev</code> 的「倾斜角」从 −8° 拖到 <code>20</code>，也就是 <code>rotate: [0, 0, 20]</code>，退场那张立刻歪 20 度；单位是度，不写 <code>deg</code>。注意 rotate 数组的顺序是 x / y / z，写错位置会变成绕横轴翻转，卡片会像躺倒一样，不是平面内倾斜。
                         </div>
                     </details>
                     <details>
                         <summary><b>Q3</b>七个按钮轮着点一圈，轮播变高了、照片越来越黑，为什么？</summary>
-                        <div class="ans">
+                        <div class="zjq_ans">
                             换效果只能 <code>destroy</code> 后重建，但 destroy 只回收实例和行内样式，<b>效果模块自己插进 DOM 的装饰节点它不管</b>。cube 会往 wrapper 里塞一个 <code>.swiper-cube-shadow</code> 占位层，它的 <code>height:100%</code> 把重建后的舞台撑到两倍高（实测 660px → 1171px）；coverflow / flip / cards 给每张 slide 叠的 <code>.swiper-slide-shadow-*</code> 每切一轮多一层，切六七次照片就明显压暗了。所以重建前要先把这两类节点删掉——这就是 <code>build()</code> 开头那段清理代码的由来。
                         </div>
                     </details>
                     <details>
                         <summary><b>Q4</b>调参台和页面顶部的大轮播是同一个实例吗？</summary>
-                        <div class="ans">
+                        <div class="zjq_ans">
                             不是，是两个各自 <code>new Swiper()</code> 出来的实例。顶部那个负责展览和任务一、任务三的键盘控制；任务二这台只服务本节预览，绑定 <code>#zjq_lab_swiper</code>，分页器和箭头也都指向自己的 id，两边翻页互不干扰。调参台还刻意关掉了 <code>keyboard</code>，否则按 ← → 时两个实例会一起翻。滑杆松手会 <code>blur()</code>，把焦点还给页面，任务三的方向键才不会被滑块吃掉。
                         </div>
                     </details>
@@ -1498,28 +1498,28 @@
         </section>
 
         <!-- ============ 03 任务三 ============ -->
-        <section id="task3">
-            <div class="s-head">
-                <span class="s-no">03</span>
+        <section id="zjq_task3">
+            <div class="zjq_s-head">
+                <span class="zjq_s-no">03</span>
                 <h2>任务三 · 综合创作：第六件展品与键盘控制</h2>
-                <span class="s-en">SIXTH WORK &amp; KEYBOARD</span>
+                <span class="zjq_s-en">SIXTH WORK &amp; KEYBOARD</span>
             </div>
-            <p class="s-intro">
+            <p class="zjq_s-intro">
                 两件事：把"爱达·魔都号"做成第六件展品补进轮播；再挑一个课上没讲的能力——这里选键盘控制，让 ← → 直接翻页，空格暂停自动播放。
             </p>
 
-            <div class="stack">
-                <div class="work">
+            <div class="zjq_stack">
+                <div class="zjq_work">
                     <img src="swiper/img/06-ship.jpg" alt="爱达·魔都号">
-                    <div class="work-body">
-                        <span class="tag">WORK 06 / 新增展品</span>
+                    <div class="zjq_work-body">
+                        <span class="zjq_tag">WORK 06 / 新增展品</span>
                         <h3>爱达·魔都号</h3>
-                        <div class="en">ADORA MAGIC CITY · 2024</div>
+                        <div class="zjq_en">ADORA MAGIC CITY · 2024</div>
                         <p>
                             首艘国产大型邮轮，2024 年 1 月 1 日从上海首航。船体侧面的彩绘涂装是它最好认的地方，
                             夜里靠港时，几百扇舷窗的暖光会一整排在江面上铺开——这也是它被放进"光影展"的原因。
                         </p>
-                        <div class="facts">
+                        <div class="zjq_facts">
                             <div>总吨位<b>13.55 万吨</b></div>
                             <div>全长<b>323.6 米</b></div>
                             <div>甲板<b>24 层</b></div>
@@ -1529,29 +1529,29 @@
                 </div>
 
                 <div>
-                    <div class="code-label"><b>键盘控制</b> Swiper 自带的 keyboard 模块，课堂上没讲</div>
+                    <div class="zjq_code-label"><b>键盘控制</b> Swiper 自带的 keyboard 模块，课堂上没讲</div>
 <pre>keyboard: {
-  enabled: <span class="k">true</span>,
-  onlyInViewport: <span class="k">false</span>,   <span class="c">// 轮播不在视口里也响应</span>
-  pageUpDown: <span class="k">false</span>       <span class="c">// 关掉 PageUp/PageDown，避免和页面滚动打架</span>
+  enabled: <span class="zjq_k">true</span>,
+  onlyInViewport: <span class="zjq_k">false</span>,   <span class="zjq_c">// 轮播不在视口里也响应</span>
+  pageUpDown: <span class="zjq_k">false</span>       <span class="zjq_c">// 关掉 PageUp/PageDown，避免和页面滚动打架</span>
 }</pre>
                 </div>
 
-                <div class="kb-console" id="kb-console">
-                    <img id="kb-thumb" src="swiper/img/01-dome.jpg" alt="当前展品">
-                    <div class="kb-side">
-                        <div class="kb-meta">
-                            <span class="kb-label">NOW SHOWING / 当前展品</span>
-                            <b id="kb-name">光影穹顶</b>
-                            <span class="kb-idx" id="kb-idx">01 / 06</span>
+                <div class="zjq_kb-console" id="zjq_kb-console">
+                    <img id="zjq_kb-thumb" src="swiper/img/01-dome.jpg" alt="当前展品">
+                    <div class="zjq_kb-side">
+                        <div class="zjq_kb-meta">
+                            <span class="zjq_kb-label">NOW SHOWING / 当前展品</span>
+                            <b id="zjq_kb-name">光影穹顶</b>
+                            <span class="zjq_kb-idx" id="zjq_kb-idx">01 / 06</span>
                         </div>
-                        <div class="kb-keys">
-                            <button type="button" id="kb-prev" aria-label="上一件展品">←</button>
-                            <button type="button" id="kb-next" aria-label="下一件展品">→</button>
-                            <span class="kb-state" id="kb-auto">自动播放 开</span>
+                        <div class="zjq_kb-keys">
+                            <button type="button" id="zjq_kb-prev" aria-label="上一件展品">←</button>
+                            <button type="button" id="zjq_kb-next" aria-label="下一件展品">→</button>
+                            <span class="zjq_kb-state" id="zjq_kb-auto">自动播放 开</span>
                         </div>
                     </div>
-                    <p class="kb-note">
+                    <p class="zjq_kb-note">
                         这一块和页面顶部的轮播是同一个实例。滚到这里按 <kbd>←</kbd> <kbd>→</kbd>，
                         缩略图、展品名和编号会立刻换——不用滚回页面顶端，也能确认按键真的接管了轮播。
                         控制台里的两个箭头按钮等价于按方向键，按 <kbd>空格</kbd> 则是暂停 / 恢复自动播放。
@@ -1563,34 +1563,34 @@
                     <p>按键盘 <code>←</code> <code>→</code>，页面顶部的轮播跟着翻，同时下面这块控制台立刻换图换名；点控制台里的两个按钮效果一样。按 <code>空格</code> 暂停或恢复自动播放，"自动播放"的状态会在开 / 关之间切。</p>
                 </div>
 
-                <div class="qa">
+                <div class="zjq_qa">
                     <details>
                         <summary><b>Q1</b>这段代码什么意思？</summary>
-                        <div class="ans">
+                        <div class="zjq_ans">
                             <code>keyboard.enabled</code> 打开键盘监听；<code>onlyInViewport: false</code> 表示不管轮播有没有滚进视口都接管按键，否则页面往下滑到第二节时按方向键就没反应；<code>pageUpDown: false</code> 是为了不和浏览器的翻页键冲突。空格暂停是我在它外面另写的监听。
                         </div>
                     </details>
                     <details>
                         <summary><b>Q2</b>AI 第一次给的哪里不对，你改了什么？</summary>
-                        <div class="ans">
+                        <div class="zjq_ans">
                             第一次只给了 <code>keyboard: true</code>，在 Swiper 11 里这个写法不报错但也不生效——它要的是对象。<code>onlyInViewport</code> 默认 true，导致滚到页面下方按键无反应，我改成了 false。另外它把 PageUp/PageDown 也接管了，和页面滚动打架，我关掉了。
                         </div>
                     </details>
                     <details>
                         <summary><b>Q3</b>新参数的作用？</summary>
-                        <div class="ans">
+                        <div class="zjq_ans">
                             <code>onlyInViewport: false</code> 决定监听范围（元素级还是全局）；<code>pageUpDown: false</code> 决定是否把翻页键也算作切换键；<code>disableOnInteraction: false</code>（任务一）决定手动操作后自动播放要不要继续。三个都是"开关型"参数，不改数值只改行为。
                         </div>
                     </details>
                     <details>
                         <summary><b>Q4</b>现场把 delay 改成指定值，会怎么变？</summary>
-                        <div class="ans">
+                        <div class="zjq_ans">
                             <code>delay</code> 是毫秒，指自动翻页的间隔。改成 1000 就是每 1 秒翻一张，节奏明显变急；改成 8000 就变成慢速展示。它在初始化时读一次，改完要销毁重建（页面上切效果就是这个过程）才生效；如果只想临场改，可以调 <code>swiper.params.autoplay.delay = 1000</code>，下一轮立刻按新值走。
                         </div>
                     </details>
                     <details>
                         <summary><b>Q5</b>之前按方向键感觉"没反应"，问题出在哪？</summary>
-                        <div class="ans">
+                        <div class="zjq_ans">
                             两处都会造成这个错觉，都改掉了：<br>
                             ① <b>焦点被输入框抢走</b>。Swiper 的键盘处理里有这么一句判断：只要 <code>document.activeElement</code> 是 <code>input</code> / <code>textarea</code>，整段键盘逻辑直接 <code>return</code>。任务二调参台里的滑杆都是 <code>input</code>，拖过一次，焦点就留在滑块上，之后按方向键改的是滑块的值，轮播一动不动。现在滑杆松手就 <code>blur()</code>，把焦点还回去。<br>
                             ② <b>翻了但看不见</b>。轮播在页面顶端，人在任务三这一节按键，轮播确实翻了，可屏幕上是任务三，等于白翻。所以加了上面这块控制台，同一个实例、同步显示，按键有没有生效一眼就能确认。
@@ -1601,41 +1601,41 @@
         </section>
 
         <!-- ============ 04 对话记录 ============ -->
-        <section id="log">
-            <div class="s-head">
-                <span class="s-no">04</span>
+        <section id="zjq_log">
+            <div class="zjq_s-head">
+                <span class="zjq_s-no">04</span>
                 <h2>与 AI 的关键对话记录</h2>
-                <span class="s-en">PROMPTS &amp; ANSWERS</span>
+                <span class="zjq_s-en">PROMPTS &amp; ANSWERS</span>
             </div>
-            <p class="s-intro">按任务拆分，只留真正改变过代码的那几轮。左边是提问，右边是我采纳或推翻的部分。</p>
+            <p class="zjq_s-intro">按任务拆分，只留真正改变过代码的那几轮。左边是提问，右边是我采纳或推翻的部分。</p>
 
-            <div class="log">
-                <div class="log-item">
-                    <div class="who"><b>任务一</b>第 1 轮</div>
-                    <div class="say">
-                        <span class="q">"做一个 Swiper 轮播，六张图，自动播放，带圆点分页器，用立方体效果。"</span><br>
+            <div class="zjq_log">
+                <div class="zjq_log-item">
+                    <div class="zjq_who"><b>任务一</b>第 1 轮</div>
+                    <div class="zjq_say">
+                        <span class="zjq_q">"做一个 Swiper 轮播，六张图，自动播放，带圆点分页器，用立方体效果。"</span><br>
                         AI 给出 <strong>loop: true</strong>、<strong>autoplay: { delay: 3000 }</strong>、<strong>pagination: { el }</strong>。
                         问题：三条需求被默认值吃掉，只有 cube 是对的。
                     </div>
                 </div>
-                <div class="log-item">
-                    <div class="who"><b>任务一</b>第 2 轮</div>
-                    <div class="say">
-                        <span class="q">"四条必须同时满足：关掉循环；autoplay 3200 且手动拖动后仍继续；圆点可点击；初始 cube 并给出 cubeEffect 阴影参数。不要替我决定默认值。"</span><br>
+                <div class="zjq_log-item">
+                    <div class="zjq_who"><b>任务一</b>第 2 轮</div>
+                    <div class="zjq_say">
+                        <span class="zjq_q">"四条必须同时满足：关掉循环；autoplay 3200 且手动拖动后仍继续；圆点可点击；初始 cube 并给出 cubeEffect 阴影参数。不要替我决定默认值。"</span><br>
                         这一轮才拿到正确配置，四项实测全部通过（见上面两张验证截图）。
                     </div>
                 </div>
-                <div class="log-item">
-                    <div class="who"><b>任务二</b>读官方示例</div>
-                    <div class="say">
-                        <span class="q">"解释 swiper 官方 demo 257-effect-creative.html 里 creativeEffect 的 prev 和 next，各自控制什么？百分数相对谁？"</span><br>
+                <div class="zjq_log-item">
+                    <div class="zjq_who"><b>任务二</b>读官方示例</div>
+                    <div class="zjq_say">
+                        <span class="zjq_q">"解释 swiper 官方 demo 257-effect-creative.html 里 creativeEffect 的 prev 和 next，各自控制什么？百分数相对谁？"</span><br>
                         要点：prev / next 分别描述当前张左右两侧卡片的位移、旋转、缩放、透明度；百分比相对 slide 自身尺寸，第三个位移值是像素级的 z 轴纵深。
                     </div>
                 </div>
-                <div class="log-item">
-                    <div class="who"><b>任务三</b>键盘控制</div>
-                    <div class="say">
-                        <span class="q">"Swiper 11 里 keyboard 怎么配？为什么写 keyboard: true 不生效？"</span><br>
+                <div class="zjq_log-item">
+                    <div class="zjq_who"><b>任务三</b>键盘控制</div>
+                    <div class="zjq_say">
+                        <span class="zjq_q">"Swiper 11 里 keyboard 怎么配？为什么写 keyboard: true 不生效？"</span><br>
                         要点：必须写成对象；<strong>onlyInViewport 默认 true</strong> 会让轮播离开视口后失灵，改成 false；<strong>pageUpDown</strong> 会和页面滚动冲突，关掉。
                     </div>
                 </div>
@@ -1646,7 +1646,7 @@
 </main>
 
 <footer>
-    <div class="wrap">
+    <div class="zjq_wrap">
         <span>高级网页设计 · 第 4 讲综合任务 · 赵俊清 24006270205</span>
         <span>Swiper 11.2.10 · 本地引入 · 六件展品</span>
     </div>
@@ -1655,12 +1655,12 @@
 <script src="swiper/lib/swiper-bundle.min.js"></script>
 <script>
 (function () {
-    var el = document.querySelector('.stage');
-    var sw = null;
-    var currentEffect = 'cube';
-    var rotZ = 6;
+    var zjq_el = document.querySelector('.zjq_stage');
+    var zjq_sw = null;
+    var zjq_currentEffect = 'cube';
+    var zjq_rotZ = 6;
 
-    var EFFECT_CN = {
+    var zjq_EFFECT_CN = {
         slide: 'slide 滑片',
         fade: 'fade 淡入',
         cube: 'cube 方块',
@@ -1670,39 +1670,39 @@
         creative: 'creative 电影墙'
     };
 
-    function effectParams(effect) {
-        if (effect === 'cube') {
+    function zjq_effectParams(zjq_effect) {
+        if (zjq_effect === 'cube') {
             return { cubeEffect: { shadow: true, slideShadows: true, shadowOffset: 22, shadowScale: 0.92 } };
         }
-        if (effect === 'fade') {
+        if (zjq_effect === 'fade') {
             return { fadeEffect: { crossFade: true } };
         }
-        if (effect === 'coverflow') {
+        if (zjq_effect === 'coverflow') {
             return {
                 coverflowEffect: { rotate: 38, stretch: 0, depth: 160, modifier: 1, slideShadows: false }
             };
         }
-        if (effect === 'flip') {
+        if (zjq_effect === 'flip') {
             return { flipEffect: { slideShadows: true, limitRotation: true } };
         }
-        if (effect === 'cards') {
+        if (zjq_effect === 'cards') {
             return { cardsEffect: { perSlideOffset: 9, perSlideRotate: 3, rotate: true, slideShadows: true } };
         }
-        if (effect === 'creative') {
+        if (zjq_effect === 'creative') {
             return {
                 creativeEffect: {
                     prev: {
                         shadow: true,
                         translate: ['-85%', 0, -320],
                         origin: 'right center',
-                        rotate: [0, 12, -rotZ],
+                        rotate: [0, 12, -zjq_rotZ],
                         opacity: 0.5,
                         scale: 0.86
                     },
                     next: {
                         translate: ['85%', 0, -200],
                         origin: 'left center',
-                        rotate: [0, -12, rotZ],
+                        rotate: [0, -12, zjq_rotZ],
                         opacity: 0.92,
                         scale: 1
                     }
@@ -1712,98 +1712,98 @@
         return {};
     }
 
-    var initialIdx = 0;
+    var zjq_initialIdx = 0;
 
-    function build(effect) {
+    function zjq_build(zjq_effect) {
         // 换效果时保留当前看到的位置：先记下索引再销毁，重建时用它当 initialSlide，
         // 否则每点一次按钮都被弹回第一件
-        var keep = initialIdx;
-        if (sw) {
-            keep = sw.realIndex;
-            sw.destroy(true, true);
-            sw = null;
+        var zjq_keep = zjq_initialIdx;
+        if (zjq_sw) {
+            zjq_keep = zjq_sw.realIndex;
+            zjq_sw.destroy(true, true);
+            zjq_sw = null;
         }
         // destroy 只清实例和样式，不会移除效果模块自己插进 DOM 的装饰节点：
         // ① .swiper-cube-shadow 是 cube 往 wrapper 里塞的占位层，它的 height:100%
         //    会让重建后的舞台被撑到两倍高（实测 660 → 1171），画面下方留一大片空白；
         // ② .swiper-slide-shadow-* 是各效果给每张 slide 叠的阴影层，每切一轮就多一层，
         //    切六七次后照片会越压越黑。重建前先一起擦干净。
-        el.querySelectorAll('.swiper-cube-shadow, [class*="swiper-slide-shadow"]')
-            .forEach(function (node) { node.remove(); });
-        el.classList.toggle('is-creative', effect === 'creative');
-        var base = {
-            effect: effect,
-            initialSlide: keep,
-            centeredSlides: effect === 'creative',
+        zjq_el.querySelectorAll('.swiper-cube-shadow, [class*="swiper-slide-shadow"]')
+            .forEach(function (zjq_node) { zjq_node.remove(); });
+        zjq_el.classList.toggle('zjq_is-creative', zjq_effect === 'creative');
+        var zjq_base = {
+            effect: zjq_effect,
+            initialSlide: zjq_keep,
+            centeredSlides: zjq_effect === 'creative',
             slidesPerView: 1,
             loop: false,
             speed: 700,
             grabCursor: true,
             autoplay: { delay: 3200, disableOnInteraction: false, pauseOnMouseEnter: false },
-            pagination: { el: '.stage-dots', clickable: true },
-            navigation: { nextEl: '.stage-next', prevEl: '.stage-prev' },
+            pagination: { el: '.zjq_stage-dots', clickable: true },
+            navigation: { nextEl: '.zjq_stage-next', prevEl: '.zjq_stage-prev' },
             keyboard: { enabled: true, onlyInViewport: false, pageUpDown: false },
             on: {
-                slideChange: function (s) { updateLive(s); },
-                autoplayStop: function () { setAuto('关'); },
-                autoplayStart: function () { setAuto('开'); }
+                slideChange: function (zjq_s) { zjq_updateLive(zjq_s); },
+                autoplayStop: function () { zjq_setAuto('关'); },
+                autoplayStart: function () { zjq_setAuto('开'); }
             }
         };
-        var extra = effectParams(effect);
-        var cfg = Object.assign(base, extra);
-        sw = new Swiper(el, cfg);
+        var zjq_extra = zjq_effectParams(zjq_effect);
+        var zjq_cfg = Object.assign(zjq_base, zjq_extra);
+        zjq_sw = new Swiper(zjq_el, zjq_cfg);
         // 重建会重新拉起自动播放；若之前用空格暂停过，新实例也要停住，
         // 不然状态栏写着"关"、轮播却在自己翻，两边说法不一致
-        if (spacePaused) sw.autoplay.stop();
-        currentEffect = effect;
-        updateLive(sw);
+        if (zjq_spacePaused) zjq_sw.autoplay.stop();
+        zjq_currentEffect = zjq_effect;
+        zjq_updateLive(zjq_sw);
     }
 
-    function setAuto(text) {
-        var node = document.getElementById('live-auto');
-        if (node) node.textContent = text;
-        var kbNode = document.getElementById('kb-auto');
-        if (kbNode) kbNode.textContent = '自动播放 ' + text;
+    function zjq_setAuto(zjq_text) {
+        var zjq_node = document.getElementById('zjq_live-auto');
+        if (zjq_node) zjq_node.textContent = zjq_text;
+        var zjq_kbNode = document.getElementById('zjq_kb-auto');
+        if (zjq_kbNode) zjq_kbNode.textContent = '自动播放 ' + zjq_text;
     }
 
     // 任务三的控制台：和主轮播是同一个实例，翻到哪件这里就跟到哪件
-    function syncConsole(s) {
-        var thumb = document.getElementById('kb-thumb');
-        var name = document.getElementById('kb-name');
-        var idx = document.getElementById('kb-idx');
-        if (!thumb || !s.slides) return;
-        var slide = s.slides[s.activeIndex];
-        if (!slide) return;
-        var img = slide.querySelector('img');
-        var title = slide.querySelector('h3');
-        if (img) {
-            thumb.src = img.getAttribute('src');
-            thumb.alt = img.alt || '当前展品';
+    function zjq_syncConsole(zjq_s) {
+        var zjq_thumb = document.getElementById('zjq_kb-thumb');
+        var zjq_name = document.getElementById('zjq_kb-name');
+        var zjq_idx = document.getElementById('zjq_kb-idx');
+        if (!zjq_thumb || !zjq_s.slides) return;
+        var zjq_slide = zjq_s.slides[zjq_s.activeIndex];
+        if (!zjq_slide) return;
+        var zjq_img = zjq_slide.querySelector('img');
+        var zjq_title = zjq_slide.querySelector('h3');
+        if (zjq_img) {
+            zjq_thumb.src = zjq_img.getAttribute('src');
+            zjq_thumb.alt = zjq_img.alt || '当前展品';
         }
-        if (title && name) name.textContent = title.textContent.trim();
-        if (idx) idx.textContent = ('0' + (s.realIndex + 1)).slice(-2) + ' / 0' + s.slides.length;
+        if (zjq_title && zjq_name) zjq_name.textContent = zjq_title.textContent.trim();
+        if (zjq_idx) zjq_idx.textContent = ('0' + (zjq_s.realIndex + 1)).slice(-2) + ' / 0' + zjq_s.slides.length;
     }
 
-    function updateLive(s) {
-        var idx = document.getElementById('live-idx');
-        var eff = document.getElementById('live-effect');
-        if (idx) idx.textContent = (s.realIndex + 1);
-        if (eff) eff.textContent = EFFECT_CN[currentEffect] || currentEffect;
-        syncConsole(s);
+    function zjq_updateLive(zjq_s) {
+        var zjq_idx = document.getElementById('zjq_live-idx');
+        var zjq_eff = document.getElementById('zjq_live-effect');
+        if (zjq_idx) zjq_idx.textContent = (zjq_s.realIndex + 1);
+        if (zjq_eff) zjq_eff.textContent = zjq_EFFECT_CN[zjq_currentEffect] || zjq_currentEffect;
+        zjq_syncConsole(zjq_s);
     }
 
     // 效果按钮
-    var btns = document.querySelectorAll('#effects button');
-    function markActive(effect) {
-        btns.forEach(function (b) {
-            b.classList.toggle('on', b.dataset.effect === effect);
+    var zjq_btns = document.querySelectorAll('#zjq_effects button');
+    function zjq_markActive(zjq_effect) {
+        zjq_btns.forEach(function (zjq_b) {
+            zjq_b.classList.toggle('zjq_on', zjq_b.dataset.effect === zjq_effect);
         });
     }
-    btns.forEach(function (btn) {
+    zjq_btns.forEach(function (btn) {
         btn.addEventListener('click', function () {
-            if (btn.dataset.effect === currentEffect) return;
-            build(btn.dataset.effect);
-            markActive(btn.dataset.effect);
+            if (btn.dataset.effect === zjq_currentEffect) return;
+            zjq_build(btn.dataset.effect);
+            zjq_markActive(btn.dataset.effect);
         });
     });
 
@@ -1812,63 +1812,63 @@
     // 不再由正文里的滑块改写，免得两个实例抢同一份参数。
 
     // 任务三控制台的两个箭头：和方向键等价，点击也能翻
-    var kbPrev = document.getElementById('kb-prev');
-    var kbNext = document.getElementById('kb-next');
-    if (kbPrev) kbPrev.addEventListener('click', function () { if (sw) sw.slidePrev(); });
-    if (kbNext) kbNext.addEventListener('click', function () { if (sw) sw.slideNext(); });
+    var zjq_kbPrev = document.getElementById('zjq_kb-prev');
+    var zjq_kbNext = document.getElementById('zjq_kb-next');
+    if (zjq_kbPrev) zjq_kbPrev.addEventListener('click', function () { if (zjq_sw) zjq_sw.slidePrev(); });
+    if (zjq_kbNext) zjq_kbNext.addEventListener('click', function () { if (zjq_sw) zjq_sw.slideNext(); });
 
     // 键盘提示：只做视觉反馈，翻页交给 Swiper 的 keyboard 模块
-    var kLeft = document.getElementById('k-left');
-    var kRight = document.getElementById('k-right');
-    var kSpace = document.getElementById('k-space');
-    var spacePaused = false;
+    var zjq_kLeft = document.getElementById('zjq_k-left');
+    var zjq_kRight = document.getElementById('zjq_k-right');
+    var zjq_kSpace = document.getElementById('zjq_k-space');
+    var zjq_spacePaused = false;
 
-    function flash(node) {
-        if (!node) return;
-        node.classList.add('hit');
-        setTimeout(function () { node.classList.remove('hit'); }, 160);
+    function zjq_flash(zjq_node) {
+        if (!zjq_node) return;
+        zjq_node.classList.add('zjq_hit');
+        setTimeout(function () { zjq_node.classList.remove('zjq_hit'); }, 160);
     }
 
     // 按键被接收时让任务三的控制台闪一下边框，人在页面下方也知道"这次按键生效了"
-    function pulseConsole() {
-        var box = document.getElementById('kb-console');
-        if (!box) return;
-        box.classList.add('hit');
-        setTimeout(function () { box.classList.remove('hit'); }, 220);
+    function zjq_pulseConsole() {
+        var zjq_box = document.getElementById('zjq_kb-console');
+        if (!zjq_box) return;
+        zjq_box.classList.add('zjq_hit');
+        setTimeout(function () { zjq_box.classList.remove('zjq_hit'); }, 220);
     }
 
-    document.addEventListener('keydown', function (e) {
-        var ae = document.activeElement;
-        var inField = ae && /^(input|textarea)$/i.test(ae.nodeName);
-        if (e.key === 'ArrowLeft') { flash(kLeft); if (!inField) pulseConsole(); }
-        if (e.key === 'ArrowRight') { flash(kRight); if (!inField) pulseConsole(); }
-        if (e.code === 'Space') {
-            flash(kSpace);
-            if (!sw) return;
-            e.preventDefault();
-            if (spacePaused) {
-                sw.autoplay.start();
-                setAuto('开');
+    document.addEventListener('keydown', function (zjq_e) {
+        var zjq_ae = document.activeElement;
+        var zjq_inField = zjq_ae && /^(input|textarea)$/i.test(zjq_ae.nodeName);
+        if (zjq_e.key === 'ArrowLeft') { zjq_flash(zjq_kLeft); if (!zjq_inField) zjq_pulseConsole(); }
+        if (zjq_e.key === 'ArrowRight') { zjq_flash(zjq_kRight); if (!zjq_inField) zjq_pulseConsole(); }
+        if (zjq_e.code === 'Space') {
+            zjq_flash(zjq_kSpace);
+            if (!zjq_sw) return;
+            zjq_e.preventDefault();
+            if (zjq_spacePaused) {
+                zjq_sw.autoplay.start();
+                zjq_setAuto('开');
             } else {
-                sw.autoplay.stop();
-                setAuto('关');
+                zjq_sw.autoplay.stop();
+                zjq_setAuto('关');
             }
-            spacePaused = !spacePaused;
+            zjq_spacePaused = !zjq_spacePaused;
         }
     });
 
     // 支持 ?effect=creative 直接以某个效果打开，方便截图与演示
-    var qs = new URLSearchParams(location.search);
-    var startEffect = qs.get('effect');
-    var startIdx = parseInt(qs.get('i') || '0', 10);
-    if (!isNaN(startIdx) && startIdx > 0) startIdx = Math.min(startIdx, 5); else startIdx = 0;
-    initialIdx = startIdx;
-    if (startEffect && EFFECT_CN[startEffect]) {
-        build(startEffect);
-        markActive(startEffect);
+    var zjq_qs = new URLSearchParams(location.search);
+    var zjq_startEffect = zjq_qs.get('effect');
+    var zjq_startIdx = parseInt(zjq_qs.get('i') || '0', 10);
+    if (!isNaN(zjq_startIdx) && zjq_startIdx > 0) zjq_startIdx = Math.min(zjq_startIdx, 5); else zjq_startIdx = 0;
+    zjq_initialIdx = zjq_startIdx;
+    if (zjq_startEffect && zjq_EFFECT_CN[zjq_startEffect]) {
+        zjq_build(zjq_startEffect);
+        zjq_markActive(zjq_startEffect);
     } else {
-        build('cube');
-        markActive('cube');
+        zjq_build('cube');
+        zjq_markActive('cube');
     }
 })();
 </script>
@@ -2027,7 +2027,7 @@
     function zjq_applyPreset(zjq_key) {
         Object.assign(zjq_state, zjq_PRESETS[zjq_key]);
         document.querySelectorAll('#zjq_presets button').forEach(function (zjq_btn) {
-            zjq_btn.classList.toggle('on', zjq_btn.dataset.preset === zjq_key);
+            zjq_btn.classList.toggle('zjq_on', zjq_btn.dataset.preset === zjq_key);
         });
         zjq_paintLab();
         zjq_rebuildLab();

@@ -2,7 +2,7 @@
    02 · 表单控件练习 专属样式
    ========================================================== */
 
-.form-card {
+.zjq_form-card {
     background: #FBF8F1;
     border: 1px solid var(--line);
     border-radius: 2px;
@@ -10,7 +10,7 @@
     margin: 18px 0;
 }
 
-.field {
+.zjq_field {
     display: flex;
     align-items: flex-start;
     gap: 14px;
@@ -18,7 +18,7 @@
     flex-wrap: wrap;
 }
 
-.field > label {
+.zjq_field > label {
     flex: none;
     width: 96px;
     padding-top: 8px;
@@ -27,12 +27,12 @@
     color: #3F3C34;
 }
 
-.field .ctrl {
+.zjq_field .zjq_ctrl {
     flex: 1;
     min-width: 220px;
 }
 
-.field .tip {
+.zjq_field .zjq_tip {
     display: block;
     margin-top: 6px;
     font-size: 12.5px;
@@ -76,7 +76,7 @@ textarea:focus {
 box-shadow: none;
 }
 
-.form-actions {
+.zjq_form-actions {
     display: flex;
     gap: 10px;
     padding-top: 6px;
@@ -85,7 +85,7 @@ box-shadow: none;
     padding-top: 18px;
 }
 
-.form-actions button {
+.zjq_form-actions button {
     border: none;
     border-radius: 2px;
     padding: 10px 24px;
@@ -98,17 +98,17 @@ box-shadow: none;
     transition: background .2s, transform .2s;
 }
 
-.form-actions button.ghost {
+.zjq_form-actions button.zjq_ghost {
     background: var(--primary-light);
     color: var(--primary-dark);
 }
 
-.form-actions button:hover {
+.zjq_form-actions button:hover {
     transform: translateY(-2px);
     background: var(--primary-dark);
     color: #fff;
 }
 
-.px-sheet table.mini {
+.zjq_px-sheet table.zjq_mini {
     font-size: 14px;
 }

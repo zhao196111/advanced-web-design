@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="css/m.css">
 <style>
     /* 探针区：自己接管手势，所以 touch-action 设 none */
-    .probe {
+    .zjq_probe {
         position: relative;
         height: 260px;
         background: var(--stage);
@@ -27,9 +27,9 @@
         margin: 12px 0 8px;
     }
 
-    .probe canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .zjq_probe canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-    .probe .hint {
+    .zjq_probe .zjq_hint {
         position: absolute;
         inset: 0;
         display: flex;
@@ -45,9 +45,9 @@
         transition: opacity .2s;
     }
 
-    .probe.touched .hint { opacity: 0; }
+    .zjq_probe.zjq_touched .zjq_hint { opacity: 0; }
 
-    .probe .fingers {
+    .zjq_probe .zjq_fingers {
         position: absolute;
         left: 10px;
         top: 8px;
@@ -58,22 +58,22 @@
     }
 
     /* 统计 */
-    .stats {
+    .zjq_stats {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         border: 1px solid var(--line);
         border-bottom: 0;
     }
 
-    .stat {
+    .zjq_stat {
         padding: 10px 10px 9px;
         border-bottom: 1px solid var(--line);
         border-right: 1px solid var(--line);
     }
 
-    .stat:nth-child(3n) { border-right: 0; }
+    .zjq_stat:nth-child(3n) { border-right: 0; }
 
-    .stat i {
+    .zjq_stat i {
         display: block;
         font-family: var(--mono);
         font-size: 9.5px;
@@ -82,7 +82,7 @@
         font-style: normal;
     }
 
-    .stat b {
+    .zjq_stat b {
         display: block;
         font-family: var(--serif);
         font-size: 21px;
@@ -90,16 +90,16 @@
         line-height: 1.3;
     }
 
-    .stat b small { font-family: var(--mono); font-size: 10px; color: var(--ink3); margin-left: 2px; }
+    .zjq_stat b small { font-family: var(--mono); font-size: 10px; color: var(--ink3); margin-left: 2px; }
 
     /* 日志 */
-    .logbox {
+    .zjq_logbox {
         border: 1px solid var(--line);
         border-top: 0;
         background: var(--raise);
     }
 
-    .logbar {
+    .zjq_logbar {
         display: flex;
         align-items: center;
         gap: 8px;
@@ -111,9 +111,9 @@
         color: var(--ink3);
     }
 
-    .logbar span { flex: 1; }
+    .zjq_logbar span { flex: 1; }
 
-    .logbar button {
+    .zjq_logbar button {
         font-family: var(--mono);
         font-size: 10px;
         letter-spacing: .06em;
@@ -124,9 +124,9 @@
         cursor: pointer;
     }
 
-    .logbar button:active { background: var(--ink); color: var(--paper); }
+    .zjq_logbar button:active { background: var(--ink); color: var(--paper); }
 
-    #wy_log {
+    #zjq_wy_log {
         list-style: none;
         height: 220px;
         overflow-y: auto;
@@ -134,7 +134,7 @@
         padding: 4px 0;
     }
 
-    #wy_log li {
+    #zjq_wy_log li {
         display: flex;
         gap: 8px;
         padding: 3px 10px;
@@ -144,20 +144,20 @@
         color: var(--ink2);
     }
 
-    #wy_log li .t { color: var(--ink3); }
-    #wy_log li .e { min-width: 74px; font-weight: 600; }
-    #wy_log li[data-e="touchstart"] .e { color: #2E6B4F; }
-    #wy_log li[data-e="touchmove"] .e { color: #1F5C8B; }
-    #wy_log li[data-e="touchend"] .e { color: #8A5A1B; }
-    #wy_log li[data-e="touchcancel"] .e { color: var(--red); }
-    #wy_log li[data-e="click"] .e { color: #7A4A86; }
-    #wy_log li[data-e="longpress"] .e { color: var(--red); }
-    #wy_log li.empty { color: var(--ink3); font-style: normal; }
+    #zjq_wy_log li .zjq_t { color: var(--ink3); }
+    #zjq_wy_log li .zjq_e { min-width: 74px; font-weight: 600; }
+    #zjq_wy_log li[data-e="touchstart"] .zjq_e { color: #2E6B4F; }
+    #zjq_wy_log li[data-e="touchmove"] .zjq_e { color: #1F5C8B; }
+    #zjq_wy_log li[data-e="touchend"] .zjq_e { color: #8A5A1B; }
+    #zjq_wy_log li[data-e="touchcancel"] .zjq_e { color: var(--red); }
+    #zjq_wy_log li[data-e="click"] .zjq_e { color: #7A4A86; }
+    #zjq_wy_log li[data-e="longpress"] .zjq_e { color: var(--red); }
+    #zjq_wy_log li.zjq_empty { color: var(--ink3); font-style: normal; }
 
     /* 操作清单 */
-    .ops { display: grid; gap: 8px; margin: 12px 0 16px; }
+    .zjq_ops { display: grid; gap: 8px; margin: 12px 0 16px; }
 
-    .op {
+    .zjq_op {
         display: flex;
         align-items: center;
         gap: 10px;
@@ -168,7 +168,7 @@
         transition: border-color .2s, color .2s, background .2s;
     }
 
-    .op i {
+    .zjq_op i {
         width: 16px;
         height: 16px;
         border: 1px solid var(--line);
@@ -176,9 +176,9 @@
         position: relative;
     }
 
-    .op.done { border-color: #B9C9AE; color: var(--ink); background: #F2F5EC; }
-    .op.done i { border-color: #2E6B4F; background: #2E6B4F; }
-    .op.done i::after {
+    .zjq_op.zjq_done { border-color: #B9C9AE; color: var(--ink); background: #F2F5EC; }
+    .zjq_op.zjq_done i { border-color: #2E6B4F; background: #2E6B4F; }
+    .zjq_op.zjq_done i::after {
         content: "";
         position: absolute;
         left: 4px;
@@ -190,9 +190,9 @@
         transform: rotate(42deg);
     }
 
-    .op b { font-family: var(--mono); font-size: 10px; color: var(--ink3); font-weight: 400; margin-left: auto; }
+    .zjq_op b { font-family: var(--mono); font-size: 10px; color: var(--ink3); font-weight: 400; margin-left: auto; }
 
-    .export {
+    .zjq_export {
         width: 100%;
         min-height: 96px;
         border: 1px solid var(--line);
@@ -205,16 +205,16 @@
         display: none;
     }
 
-    .export.on { display: block; }
+    .zjq_export.zjq_on { display: block; }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-    <div class="topbar-in">
+<div class="zjq_topbar">
+    <div class="zjq_topbar-in">
         <a href="index.html"><b>移动端实践</b></a>
         <nav>
-            <a href="mobile-events.html" class="on">01</a>
+            <a href="mobile-events.html" class="zjq_on">01</a>
             <a href="mobile-gesture.html">02</a>
             <a href="mobile-zoom.html">03</a>
             <a href="mobile-sensor.html">04</a>
@@ -222,68 +222,68 @@
     </div>
 </div>
 
-<div class="wrap">
+<div class="zjq_wrap">
 
-    <header class="phead">
-        <div class="kicker">TASK 01 · 观察 · 记录 · 不写业务代码</div>
+    <header class="zjq_phead">
+        <div class="zjq_kicker">TASK 01 · 观察 · 记录 · 不写业务代码</div>
         <h1>事件侦探：<em>一次拖动</em>到底发生了什么</h1>
-        <p class="lead">
+        <p class="zjq_lead">
             不写代码也能做的一关。下面这块黑色区域是一个"探针"，它把收到的每一个触摸事件按毫秒顺序写进日志。
             用手机依次做五种操作，观察事件顺序、次数和坐标，再去回答末尾那三个问题。
         </p>
-        <div class="meta">
+        <div class="zjq_meta">
             <span>赵俊清</span><span>24006270205</span><span>指导教师 王垚</span><span>高级网页设计</span>
         </div>
     </header>
 
-    <section class="sec">
-        <div class="s-head"><span class="no">01</span><h2>探针区</h2><span class="en">PROBE</span></div>
+    <section class="zjq_sec">
+        <div class="zjq_s-head"><span class="zjq_no">01</span><h2>探针区</h2><span class="zjq_en">PROBE</span></div>
 
-        <div class="probe" id="wy_probe">
-            <canvas id="wy_trace"></canvas>
-            <div class="fingers" id="wy_fingers">FINGERS 0</div>
-            <div class="hint">
+        <div class="zjq_probe" id="zjq_wy_probe">
+            <canvas id="zjq_wy_trace"></canvas>
+            <div class="zjq_fingers" id="zjq_wy_fingers">FINGERS 0</div>
+            <div class="zjq_hint">
                 <div>在这里点击 / 拖动 / 双指 / 长按</div>
                 <div style="font-size:9.5px;letter-spacing:.1em">TOUCH ME</div>
             </div>
         </div>
 
-        <div class="stats">
-            <div class="stat"><i>START</i><b id="wy_c_start">0</b></div>
-            <div class="stat"><i>MOVE</i><b id="wy_c_move">0</b></div>
-            <div class="stat"><i>END</i><b id="wy_c_end">0</b></div>
-            <div class="stat"><i>CANCEL</i><b id="wy_c_cancel">0</b></div>
-            <div class="stat"><i>CLICK</i><b id="wy_c_click">0</b></div>
-            <div class="stat"><i>本次位移</i><b id="wy_c_dist">0<small>px</small></b></div>
+        <div class="zjq_stats">
+            <div class="zjq_stat"><i>START</i><b id="zjq_wy_c_start">0</b></div>
+            <div class="zjq_stat"><i>MOVE</i><b id="zjq_wy_c_move">0</b></div>
+            <div class="zjq_stat"><i>END</i><b id="zjq_wy_c_end">0</b></div>
+            <div class="zjq_stat"><i>CANCEL</i><b id="zjq_wy_c_cancel">0</b></div>
+            <div class="zjq_stat"><i>CLICK</i><b id="zjq_wy_c_click">0</b></div>
+            <div class="zjq_stat"><i>本次位移</i><b id="zjq_wy_c_dist">0<small>px</small></b></div>
         </div>
 
-        <div class="logbox">
-            <div class="logbar">
+        <div class="zjq_logbox">
+            <div class="zjq_logbar">
                 <span>EVENT LOG</span>
-                <button type="button" id="wy_btn_export">导出</button>
-                <button type="button" id="wy_btn_clear">清空</button>
+                <button type="button" id="zjq_wy_btn_export">导出</button>
+                <button type="button" id="zjq_wy_btn_clear">清空</button>
             </div>
-            <ul id="wy_log"><li class="empty">等待触摸事件……</li></ul>
+            <ul id="zjq_wy_log"><li class="zjq_empty">等待触摸事件……</li></ul>
         </div>
 
-        <textarea class="export" id="wy_export" readonly></textarea>
+        <textarea class="zjq_export" id="zjq_wy_export" readonly></textarea>
 
-        <div class="note">
+        <div class="zjq_note">
             <b>怎么用：</b>在探针区依次做下面五种操作，每一项做完会自动打勾。日志里点 <code>导出</code> 可以把整段记录复制出来，
             贴进提交表或截图存档。
         </div>
 
-        <div class="ops">
-            <div class="op" data-op="tap"><i></i><span>单击一次</span><b>TAP</b></div>
-            <div class="op" data-op="drag"><i></i><span>按住向上拖动</span><b>DRAG</b></div>
-            <div class="op" data-op="swipe"><i></i><span>向左快速一滑</span><b>SWIPE</b></div>
-            <div class="op" data-op="pinch"><i></i><span>双指同时触摸</span><b>PINCH</b></div>
-            <div class="op" data-op="long"><i></i><span>长按 0.6 秒后抬起</span><b>HOLD</b></div>
+        <div class="zjq_ops">
+            <div class="zjq_op" data-op="tap"><i></i><span>单击一次</span><b>TAP</b></div>
+            <div class="zjq_op" data-op="drag"><i></i><span>按住向上拖动</span><b>DRAG</b></div>
+            <div class="zjq_op" data-op="swipe"><i></i><span>向左快速一滑</span><b>SWIPE</b></div>
+            <div class="zjq_op" data-op="pinch"><i></i><span>双指同时触摸</span><b>PINCH</b></div>
+            <div class="zjq_op" data-op="long"><i></i><span>长按 0.6 秒后抬起</span><b>HOLD</b></div>
         </div>
     </section>
 
-    <section class="sec">
-        <div class="s-head"><span class="no">02</span><h2>记录：事件顺序表</h2><span class="en">ORDER</span></div>
+    <section class="zjq_sec">
+        <div class="zjq_s-head"><span class="zjq_no">02</span><h2>记录：事件顺序表</h2><span class="zjq_en">ORDER</span></div>
         <p>手机上五种操作的标准顺序，用上面的日志可以逐条对上。加粗的是"一定会出现"的事件。</p>
 
         <table>
@@ -325,12 +325,12 @@
         </table>
     </section>
 
-    <section class="sec">
-        <div class="s-head"><span class="no">03</span><h2>三个思考问题</h2><span class="en">ANSWERS</span></div>
+    <section class="zjq_sec">
+        <div class="zjq_s-head"><span class="zjq_no">03</span><h2>三个思考问题</h2><span class="zjq_en">ANSWERS</span></div>
 
         <details open>
             <summary><b>Q1</b>一次拖动里 touchmove 大约触发多少次，和距离有什么关系？</summary>
-            <div class="ans">
+            <div class="zjq_ans">
                 不是"距离 ÷ 固定值"，而是<b>持续时间 × 屏幕刷新率</b>——浏览器会把同一帧内的指针采样合并成一次
                 touchmove，所以 60Hz 的屏幕一秒最多 60 次，120Hz 的 ProMotion 最多 120 次。<br><br>
                 实测感受：慢慢拖 300px 花 1 秒，大约 45～60 次；同样 300px 快速一甩只要 0.2 秒，只有 10～14 次，
@@ -341,7 +341,7 @@
 
         <details open>
             <summary><b>Q2</b>click 出现在 touchend 之前还是之后？</summary>
-            <div class="ans">
+            <div class="zjq_ans">
                 <b>之后。</b>一次轻点的完整顺序是 <code>touchstart → touchend → mousedown → mouseup → click</code>。
                 旧版移动浏览器为了等"双击缩放"会延迟 300ms 才派发 click，所以当年点按钮总有一顿；现在只要
                 <code>&lt;meta name="viewport"&gt;</code> 写了 <code>width=device-width</code>，这个延迟就取消了，
@@ -353,7 +353,7 @@
 
         <details open>
             <summary><b>Q3</b>如果把 touchend 换成 touchcancel，会发生什么？</summary>
-            <div class="ans">
+            <div class="zjq_ans">
                 <b>收尾逻辑不会执行，状态会卡住。</b>touchcancel 是系统"抢走"这串触摸时触发的——来电、下拉通知栏、
                 三指截屏、浏览器接管滚动都可能触发它，此时手指并没有抬起，所以浏览器用 cancel 而不是 end。<br><br>
                 如果代码只在 touchend 里做复位（清定时器、解锁冷却、把滑块放回边界、把 dragging 置回 false），
@@ -372,12 +372,12 @@
         </div>
     </section>
 
-    <div class="pager">
+    <div class="zjq_pager">
         <a href="index.html"><span>INDEX</span>任务总览</a>
-        <a class="next" href="mobile-gesture.html"><span>NEXT 02</span>手势卡片 →</a>
+        <a class="zjq_next" href="mobile-gesture.html"><span>NEXT 02</span>手势卡片 →</a>
     </div>
 
-    <div class="pfoot">
+    <div class="zjq_pfoot">
         <span>赵俊清 · 24006270205</span>
         <span>移动端课堂实践 · 任务一</span>
     </div>
@@ -387,260 +387,260 @@
 (function () {
     'use strict';
 
-    var wy_probe = document.getElementById('wy_probe');
-    var wy_log = document.getElementById('wy_log');
-    var wy_canvas = document.getElementById('wy_trace');
-    var wy_ctx = wy_canvas.getContext('2d');
-    var wy_fingers = document.getElementById('wy_fingers');
+    var zjq_wy_probe = document.getElementById('zjq_wy_probe');
+    var zjq_wy_log = document.getElementById('zjq_wy_log');
+    var zjq_wy_canvas = document.getElementById('zjq_wy_trace');
+    var zjq_wy_ctx = zjq_wy_canvas.getContext('2d');
+    var zjq_wy_fingers = document.getElementById('zjq_wy_fingers');
 
     // 计数与本次拖动状态
-    var wy_count = { touchstart: 0, touchmove: 0, touchend: 0, touchcancel: 0, click: 0 };
-    var wy_startX = 0, wy_startY = 0, wy_lastX = 0, wy_lastY = 0;
-    var wy_totalDist = 0, wy_moves = 0, wy_startTime = 0;
-    var wy_pressTimer = null;
-    var wy_longFired = false;
-    var wy_done = {};            // 五种操作是否已完成
-    var wy_lines = [];           // 导出的文本行
-    var wy_path = [];            // 轨迹点
+    var zjq_wy_count = { touchstart: 0, touchmove: 0, touchend: 0, touchcancel: 0, click: 0 };
+    var zjq_wy_startX = 0, zjq_wy_startY = 0, zjq_wy_lastX = 0, zjq_wy_lastY = 0;
+    var zjq_wy_totalDist = 0, zjq_wy_moves = 0, zjq_wy_startTime = 0;
+    var zjq_wy_pressTimer = null;
+    var zjq_wy_longFired = false;
+    var zjq_wy_done = {};            // 五种操作是否已完成
+    var zjq_wy_lines = [];           // 导出的文本行
+    var zjq_wy_path = [];            // 轨迹点
 
     // ---------- 画布尺寸（考虑高清屏） ----------
-    function wy_fitCanvas() {
-        var wy_dpr = window.devicePixelRatio || 1;
-        var wy_r = wy_probe.getBoundingClientRect();
-        wy_canvas.width = Math.round(wy_r.width * wy_dpr);
-        wy_canvas.height = Math.round(wy_r.height * wy_dpr);
-        wy_ctx.setTransform(wy_dpr, 0, 0, wy_dpr, 0, 0);
-        wy_drawPath();
+    function zjq_wy_fitCanvas() {
+        var zjq_wy_dpr = window.devicePixelRatio || 1;
+        var zjq_wy_r = zjq_wy_probe.getBoundingClientRect();
+        zjq_wy_canvas.width = Math.round(zjq_wy_r.width * zjq_wy_dpr);
+        zjq_wy_canvas.height = Math.round(zjq_wy_r.height * zjq_wy_dpr);
+        zjq_wy_ctx.setTransform(zjq_wy_dpr, 0, 0, zjq_wy_dpr, 0, 0);
+        zjq_wy_drawPath();
     }
 
-    function wy_drawPath() {
-        var wy_r = wy_probe.getBoundingClientRect();
-        wy_ctx.clearRect(0, 0, wy_r.width, wy_r.height);
-        if (wy_path.length < 2) return;
-        wy_ctx.beginPath();
-        wy_ctx.moveTo(wy_path[0].x, wy_path[0].y);
-        for (var wy_i = 1; wy_i < wy_path.length; wy_i++) {
-            wy_ctx.lineTo(wy_path[wy_i].x, wy_path[wy_i].y);
+    function zjq_wy_drawPath() {
+        var zjq_wy_r = zjq_wy_probe.getBoundingClientRect();
+        zjq_wy_ctx.clearRect(0, 0, zjq_wy_r.width, zjq_wy_r.height);
+        if (zjq_wy_path.length < 2) return;
+        zjq_wy_ctx.beginPath();
+        zjq_wy_ctx.moveTo(zjq_wy_path[0].x, zjq_wy_path[0].y);
+        for (var zjq_wy_i = 1; zjq_wy_i < zjq_wy_path.length; zjq_wy_i++) {
+            zjq_wy_ctx.lineTo(zjq_wy_path[zjq_wy_i].x, zjq_wy_path[zjq_wy_i].y);
         }
-        wy_ctx.strokeStyle = 'rgba(201,154,91,.85)';
-        wy_ctx.lineWidth = 2;
-        wy_ctx.lineJoin = 'round';
-        wy_ctx.stroke();
+        zjq_wy_ctx.strokeStyle = 'rgba(201,154,91,.85)';
+        zjq_wy_ctx.lineWidth = 2;
+        zjq_wy_ctx.lineJoin = 'round';
+        zjq_wy_ctx.stroke();
     }
 
     // ---------- 写日志 ----------
-    function wy_stamp() {
-        var wy_d = new Date();
-        return ('0' + wy_d.getMinutes()).slice(-2) + ':' +
-               ('0' + wy_d.getSeconds()).slice(-2) + '.' +
-               ('00' + wy_d.getMilliseconds()).slice(-3);
+    function zjq_wy_stamp() {
+        var zjq_wy_d = new Date();
+        return ('0' + zjq_wy_d.getMinutes()).slice(-2) + ':' +
+               ('0' + zjq_wy_d.getSeconds()).slice(-2) + '.' +
+               ('00' + zjq_wy_d.getMilliseconds()).slice(-3);
     }
 
-    function wy_logIt(wy_type, wy_text) {
-        var wy_empty = wy_log.querySelector('.empty');
-        if (wy_empty) wy_empty.remove();
+    function zjq_wy_logIt(zjq_wy_type, zjq_wy_text) {
+        var zjq_wy_empty = zjq_wy_log.querySelector('.zjq_empty');
+        if (zjq_wy_empty) zjq_wy_empty.remove();
 
-        var wy_li = document.createElement('li');
-        wy_li.setAttribute('data-e', wy_type);
-        wy_li.innerHTML = '<span class="t">' + wy_stamp() + '</span>' +
-                          '<span class="e">' + wy_type + '</span>' +
-                          '<span>' + wy_text + '</span>';
-        wy_log.insertBefore(wy_li, wy_log.firstChild);
+        var zjq_wy_li = document.createElement('li');
+        zjq_wy_li.setAttribute('data-e', zjq_wy_type);
+        zjq_wy_li.innerHTML = '<span class="zjq_t">' + zjq_wy_stamp() + '</span>' +
+                          '<span class="zjq_e">' + zjq_wy_type + '</span>' +
+                          '<span>' + zjq_wy_text + '</span>';
+        zjq_wy_log.insertBefore(zjq_wy_li, zjq_wy_log.firstChild);
 
         // 只留最近 80 条，避免手机上越滚越卡
-        while (wy_log.children.length > 80) {
-            wy_log.removeChild(wy_log.lastChild);
+        while (zjq_wy_log.children.length > 80) {
+            zjq_wy_log.removeChild(zjq_wy_log.lastChild);
         }
 
-        wy_lines.push(wy_stamp() + '  ' + wy_type + '  ' + wy_text);
-        var wy_box = document.getElementById('wy_export');
-        if (wy_box.classList.contains('on')) wy_box.value = wy_lines.join('\n');
+        zjq_wy_lines.push(zjq_wy_stamp() + '  ' + zjq_wy_type + '  ' + zjq_wy_text);
+        var zjq_wy_box = document.getElementById('zjq_wy_export');
+        if (zjq_wy_box.classList.contains('zjq_on')) zjq_wy_box.value = zjq_wy_lines.join('\n');
     }
 
-    function wy_refreshCounts() {
-        document.getElementById('wy_c_start').textContent = wy_count.touchstart;
-        document.getElementById('wy_c_move').textContent = wy_count.touchmove;
-        document.getElementById('wy_c_end').textContent = wy_count.touchend;
-        document.getElementById('wy_c_cancel').textContent = wy_count.touchcancel;
-        document.getElementById('wy_c_click').textContent = wy_count.click;
-        document.getElementById('wy_c_dist').innerHTML = Math.round(wy_totalDist) + '<small>px</small>';
+    function zjq_wy_refreshCounts() {
+        document.getElementById('zjq_wy_c_start').textContent = zjq_wy_count.touchstart;
+        document.getElementById('zjq_wy_c_move').textContent = zjq_wy_count.touchmove;
+        document.getElementById('zjq_wy_c_end').textContent = zjq_wy_count.touchend;
+        document.getElementById('zjq_wy_c_cancel').textContent = zjq_wy_count.touchcancel;
+        document.getElementById('zjq_wy_c_click').textContent = zjq_wy_count.click;
+        document.getElementById('zjq_wy_c_dist').innerHTML = Math.round(zjq_wy_totalDist) + '<small>px</small>';
     }
 
-    function wy_markOp(wy_op) {
-        if (wy_done[wy_op]) return;
-        wy_done[wy_op] = true;
-        var wy_node = document.querySelector('.op[data-op="' + wy_op + '"]');
-        if (wy_node) wy_node.classList.add('done');
+    function zjq_wy_markOp(zjq_wy_op) {
+        if (zjq_wy_done[zjq_wy_op]) return;
+        zjq_wy_done[zjq_wy_op] = true;
+        var zjq_wy_node = document.querySelector('.op[data-op="' + zjq_wy_op + '"]');
+        if (zjq_wy_node) zjq_wy_node.classList.add('zjq_done');
     }
 
     // ---------- 坐标信息 ----------
-    function wy_pt(wy_t) {
-        var wy_r = wy_probe.getBoundingClientRect();
+    function zjq_wy_pt(zjq_wy_t) {
+        var zjq_wy_r = zjq_wy_probe.getBoundingClientRect();
         return {
-            x: Math.round(wy_t.clientX - wy_r.left),
-            y: Math.round(wy_t.clientY - wy_r.top),
-            cx: Math.round(wy_t.clientX),
-            cy: Math.round(wy_t.clientY)
+            x: Math.round(zjq_wy_t.clientX - zjq_wy_r.left),
+            y: Math.round(zjq_wy_t.clientY - zjq_wy_r.top),
+            cx: Math.round(zjq_wy_t.clientX),
+            cy: Math.round(zjq_wy_t.clientY)
         };
     }
 
     // ---------- touchstart ----------
-    wy_probe.addEventListener('touchstart', function (wy_e) {
-        wy_count.touchstart++;
-        wy_probe.classList.add('touched');
+    zjq_wy_probe.addEventListener('touchstart', function (zjq_wy_e) {
+        zjq_wy_count.touchstart++;
+        zjq_wy_probe.classList.add('zjq_touched');
 
-        var wy_n = wy_e.touches.length;
-        wy_fingers.textContent = 'FINGERS ' + wy_n;
+        var zjq_wy_n = zjq_wy_e.touches.length;
+        zjq_wy_fingers.textContent = 'FINGERS ' + zjq_wy_n;
 
-        var wy_p = wy_pt(wy_e.touches[0]);
-        wy_startX = wy_p.x;
-        wy_startY = wy_p.y;
-        wy_lastX = wy_p.x;
-        wy_lastY = wy_p.y;
-        wy_totalDist = 0;
-        wy_moves = 0;
-        wy_startTime = Date.now();
-        wy_longFired = false;
-        wy_path = [wy_p];
-        wy_drawPath();
+        var zjq_wy_p = zjq_wy_pt(zjq_wy_e.touches[0]);
+        zjq_wy_startX = zjq_wy_p.x;
+        zjq_wy_startY = zjq_wy_p.y;
+        zjq_wy_lastX = zjq_wy_p.x;
+        zjq_wy_lastY = zjq_wy_p.y;
+        zjq_wy_totalDist = 0;
+        zjq_wy_moves = 0;
+        zjq_wy_startTime = Date.now();
+        zjq_wy_longFired = false;
+        zjq_wy_path = [zjq_wy_p];
+        zjq_wy_drawPath();
 
-        wy_logIt('touchstart', 'x=' + wy_p.cx + ' y=' + wy_p.cy + ' · ' + wy_n + ' 指');
+        zjq_wy_logIt('touchstart', 'x=' + zjq_wy_p.cx + ' y=' + zjq_wy_p.cy + ' · ' + zjq_wy_n + ' 指');
 
-        if (wy_n === 2) {
-            wy_markOp('pinch');
-            var wy_second = wy_pt(wy_e.touches[1]);
-            wy_logIt('touchstart', '第二指 x=' + wy_second.cx + ' y=' + wy_second.cy +
-                     ' · 两指距 ' + Math.round(Math.hypot(wy_second.x - wy_p.x, wy_second.y - wy_p.y)) + 'px');
+        if (zjq_wy_n === 2) {
+            zjq_wy_markOp('pinch');
+            var zjq_wy_second = zjq_wy_pt(zjq_wy_e.touches[1]);
+            zjq_wy_logIt('touchstart', '第二指 x=' + zjq_wy_second.cx + ' y=' + zjq_wy_second.cy +
+                     ' · 两指距 ' + Math.round(Math.hypot(zjq_wy_second.x - zjq_wy_p.x, zjq_wy_second.y - zjq_wy_p.y)) + 'px');
         }
 
         // 长按：浏览器没有长按事件，用定时器自己算
-        clearTimeout(wy_pressTimer);
-        wy_pressTimer = setTimeout(function () {
-            wy_longFired = true;
-            wy_markOp('long');
-            wy_logIt('longpress', '按住 600ms 未移动');
+        clearTimeout(zjq_wy_pressTimer);
+        zjq_wy_pressTimer = setTimeout(function () {
+            zjq_wy_longFired = true;
+            zjq_wy_markOp('long');
+            zjq_wy_logIt('longpress', '按住 600ms 未移动');
         }, 600);
 
-        wy_refreshCounts();
+        zjq_wy_refreshCounts();
     }, { passive: true });
 
     // ---------- touchmove ----------
-    wy_probe.addEventListener('touchmove', function (wy_e) {
-        wy_count.touchmove++;
-        var wy_p = wy_pt(wy_e.touches[0]);
-        var wy_step = Math.hypot(wy_p.x - wy_lastX, wy_p.y - wy_lastY);
-        wy_totalDist += wy_step;
-        wy_moves++;
+    zjq_wy_probe.addEventListener('touchmove', function (zjq_wy_e) {
+        zjq_wy_count.touchmove++;
+        var zjq_wy_p = zjq_wy_pt(zjq_wy_e.touches[0]);
+        var zjq_wy_step = Math.hypot(zjq_wy_p.x - zjq_wy_lastX, zjq_wy_p.y - zjq_wy_lastY);
+        zjq_wy_totalDist += zjq_wy_step;
+        zjq_wy_moves++;
 
-        if (wy_e.touches.length === 1) {
-            wy_path.push(wy_p);
-            wy_drawPath();
+        if (zjq_wy_e.touches.length === 1) {
+            zjq_wy_path.push(zjq_wy_p);
+            zjq_wy_drawPath();
         }
 
         // 位移超过 6px 就不算长按了
-        if (wy_step > 6 || Math.hypot(wy_p.x - wy_startX, wy_p.y - wy_startY) > 8) {
-            clearTimeout(wy_pressTimer);
+        if (zjq_wy_step > 6 || Math.hypot(zjq_wy_p.x - zjq_wy_startX, zjq_wy_p.y - zjq_wy_startY) > 8) {
+            clearTimeout(zjq_wy_pressTimer);
         }
 
-        wy_lastX = wy_p.x;
-        wy_lastY = wy_p.y;
+        zjq_wy_lastX = zjq_wy_p.x;
+        zjq_wy_lastY = zjq_wy_p.y;
 
         // move 太多，日志里只记每 5 次一条，避免刷屏
-        if (wy_moves % 5 === 1) {
-            wy_logIt('touchmove', 'x=' + wy_p.cx + ' y=' + wy_p.cy +
-                     ' · 第 ' + wy_moves + ' 次 · 步长 ' + Math.round(wy_step) + 'px');
+        if (zjq_wy_moves % 5 === 1) {
+            zjq_wy_logIt('touchmove', 'x=' + zjq_wy_p.cx + ' y=' + zjq_wy_p.cy +
+                     ' · 第 ' + zjq_wy_moves + ' 次 · 步长 ' + Math.round(zjq_wy_step) + 'px');
         }
 
-        wy_refreshCounts();
+        zjq_wy_refreshCounts();
     }, { passive: true });
 
     // ---------- 统一收尾：touchend 与 touchcancel 共用 ----------
-    function wy_finish(wy_type, wy_e) {
-        clearTimeout(wy_pressTimer);
-        wy_count[wy_type]++;
+    function zjq_wy_finish(zjq_wy_type, zjq_wy_e) {
+        clearTimeout(zjq_wy_pressTimer);
+        zjq_wy_count[zjq_wy_type]++;
 
         // 抬手必须用 changedTouches：这时手指已经从 touches 里消失了
-        var wy_t = wy_e.changedTouches[0];
-        var wy_p = wy_pt(wy_t);
-        var wy_dx = wy_p.x - wy_startX;
-        var wy_dy = wy_p.y - wy_startY;
-        var wy_ms = Date.now() - wy_startTime;
+        var zjq_wy_t = zjq_wy_e.changedTouches[0];
+        var zjq_wy_p = zjq_wy_pt(zjq_wy_t);
+        var zjq_wy_dx = zjq_wy_p.x - zjq_wy_startX;
+        var zjq_wy_dy = zjq_wy_p.y - zjq_wy_startY;
+        var zjq_wy_ms = Date.now() - zjq_wy_startTime;
 
-        wy_logIt(wy_type, 'x=' + wy_p.cx + ' y=' + wy_p.cy +
-                 ' · 位移 ' + Math.round(wy_dx) + '/' + Math.round(wy_dy) +
-                 ' · move ' + wy_moves + ' 次 · ' + wy_ms + 'ms' +
-                 (wy_type === 'touchcancel' ? ' · 系统接管，没有 touchend' : ''));
+        zjq_wy_logIt(zjq_wy_type, 'x=' + zjq_wy_p.cx + ' y=' + zjq_wy_p.cy +
+                 ' · 位移 ' + Math.round(zjq_wy_dx) + '/' + Math.round(zjq_wy_dy) +
+                 ' · move ' + zjq_wy_moves + ' 次 · ' + zjq_wy_ms + 'ms' +
+                 (zjq_wy_type === 'touchcancel' ? ' · 系统接管，没有 touchend' : ''));
 
         // 轻点：位移小于 8px 且时间短于 250ms
-        if (wy_type === 'touchend' && Math.abs(wy_dx) < 8 && Math.abs(wy_dy) < 8 && wy_ms < 250 && !wy_longFired) {
-            wy_markOp('tap');
+        if (zjq_wy_type === 'touchend' && Math.abs(zjq_wy_dx) < 8 && Math.abs(zjq_wy_dy) < 8 && zjq_wy_ms < 250 && !zjq_wy_longFired) {
+            zjq_wy_markOp('tap');
         }
 
         // 拖动 / 快滑：主方向是纵向算拖动，横向且时间短算快滑
-        if (wy_moves > 0) {
-            var wy_speed = wy_totalDist / Math.max(wy_ms, 1);   // px / ms
-            if (Math.abs(wy_dx) > Math.abs(wy_dy) && (Math.abs(wy_dx) > 40 || wy_speed > 0.6)) {
-                wy_markOp('swipe');
-            } else if (Math.abs(wy_dy) > 20) {
-                wy_markOp('drag');
+        if (zjq_wy_moves > 0) {
+            var zjq_wy_speed = zjq_wy_totalDist / Math.max(zjq_wy_ms, 1);   // px / ms
+            if (Math.abs(zjq_wy_dx) > Math.abs(zjq_wy_dy) && (Math.abs(zjq_wy_dx) > 40 || zjq_wy_speed > 0.6)) {
+                zjq_wy_markOp('swipe');
+            } else if (Math.abs(zjq_wy_dy) > 20) {
+                zjq_wy_markOp('drag');
             }
         }
 
-        wy_fingers.textContent = 'FINGERS ' + Math.max(wy_e.touches.length, 0);
-        wy_refreshCounts();
+        zjq_wy_fingers.textContent = 'FINGERS ' + Math.max(zjq_wy_e.touches.length, 0);
+        zjq_wy_refreshCounts();
 
         // 轨迹不主动清空：留到下一次 touchstart 再重画，
         // 这样抬手后还能对着那条线看路径、也方便截图
 
     }
 
-    wy_probe.addEventListener('touchend', function (wy_e) {
-        wy_finish('touchend', wy_e);
+    zjq_wy_probe.addEventListener('touchend', function (zjq_wy_e) {
+        zjq_wy_finish('touchend', zjq_wy_e);
     }, { passive: true });
 
-    wy_probe.addEventListener('touchcancel', function (wy_e) {
+    zjq_wy_probe.addEventListener('touchcancel', function (zjq_wy_e) {
         // 收尾与 touchend 共用；这里不重复写日志，wy_finish 里会记一条带坐标的
-        wy_finish('touchcancel', wy_e);
+        zjq_wy_finish('touchcancel', zjq_wy_e);
     }, { passive: true });
 
     // ---------- click：排在 touchend 之后 ----------
-    wy_probe.addEventListener('click', function () {
-        wy_count.click++;
-        wy_logIt('click', '注意：它在 touchend 之后');
-        wy_refreshCounts();
+    zjq_wy_probe.addEventListener('click', function () {
+        zjq_wy_count.click++;
+        zjq_wy_logIt('click', '注意：它在 touchend 之后');
+        zjq_wy_refreshCounts();
     });
 
     // ---------- 导出 / 清空 ----------
-    document.getElementById('wy_btn_export').addEventListener('click', function () {
-        var wy_box = document.getElementById('wy_export');
-        wy_box.classList.toggle('on');
-        wy_box.value = wy_lines.join('\n');
-        if (wy_box.classList.contains('on')) {
-            wy_box.focus();
-            wy_box.select();
+    document.getElementById('zjq_wy_btn_export').addEventListener('click', function () {
+        var zjq_wy_box = document.getElementById('zjq_wy_export');
+        zjq_wy_box.classList.toggle('zjq_on');
+        zjq_wy_box.value = zjq_wy_lines.join('\n');
+        if (zjq_wy_box.classList.contains('zjq_on')) {
+            zjq_wy_box.focus();
+            zjq_wy_box.select();
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(wy_box.value).catch(function () {});
+                navigator.clipboard.writeText(zjq_wy_box.value).catch(function () {});
             }
         }
     });
 
-    document.getElementById('wy_btn_clear').addEventListener('click', function () {
-        wy_log.innerHTML = '<li class="empty">等待触摸事件……</li>';
-        wy_lines = [];
-        wy_count = { touchstart: 0, touchmove: 0, touchend: 0, touchcancel: 0, click: 0 };
-        wy_totalDist = 0;
-        wy_moves = 0;
-        wy_path = [];
-        wy_drawPath();
-        wy_refreshCounts();
-        document.getElementById('wy_export').value = '';
+    document.getElementById('zjq_wy_btn_clear').addEventListener('click', function () {
+        zjq_wy_log.innerHTML = '<li class="zjq_empty">等待触摸事件……</li>';
+        zjq_wy_lines = [];
+        zjq_wy_count = { touchstart: 0, touchmove: 0, touchend: 0, touchcancel: 0, click: 0 };
+        zjq_wy_totalDist = 0;
+        zjq_wy_moves = 0;
+        zjq_wy_path = [];
+        zjq_wy_drawPath();
+        zjq_wy_refreshCounts();
+        document.getElementById('zjq_wy_export').value = '';
     });
 
     // ---------- 初始化 ----------
-    wy_fitCanvas();
-    window.addEventListener('resize', wy_fitCanvas);
+    zjq_wy_fitCanvas();
+    window.addEventListener('resize', zjq_wy_fitCanvas);
     window.addEventListener('orientationchange', function () {
-        setTimeout(wy_fitCanvas, 260);
+        setTimeout(zjq_wy_fitCanvas, 260);
     });
 })();
 </script>

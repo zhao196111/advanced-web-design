@@ -3,7 +3,7 @@
    12 个方块，每一格演示一个伪类 / 伪元素 / transform 效果。
    ========================================================== */
 
-.px-sheet .parent {
+.zjq_px-sheet .zjq_parent {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 14px;
@@ -12,7 +12,7 @@
 }
 
 /* 网格上方的说明标题（不放进 grid，避免占用 nth-child 的序号） */
-.px-sheet h2.grid-title {
+.zjq_px-sheet h2.zjq_grid-title {
     grid-column: auto;
     text-align: center;
     border: none;
@@ -24,7 +24,7 @@
 }
 
 /* 方块本体：等宽等高，用 aspect-ratio 保证正方形 */
-.box {
+.zjq_box {
     aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
@@ -55,87 +55,87 @@ box-shadow: none;
 }
 
 /* 依次延迟，做出"排队落下"的效果 */
-.box:nth-child(2) { animation-delay: .06s; }
-.box:nth-child(3) { animation-delay: .12s; }
-.box:nth-child(4) { animation-delay: .18s; }
-.box:nth-child(5) { animation-delay: .24s; }
-.box:nth-child(6) { animation-delay: .30s; }
-.box:nth-child(7) { animation-delay: .36s; }
-.box:nth-child(8) { animation-delay: .42s; }
-.box:nth-child(9) { animation-delay: .48s; }
-.box:nth-child(10) { animation-delay: .54s; }
-.box:nth-child(11) { animation-delay: .60s; }
-.box:nth-child(12) { animation-delay: .66s; }
+.zjq_box:nth-child(2) { animation-delay: .06s; }
+.zjq_box:nth-child(3) { animation-delay: .12s; }
+.zjq_box:nth-child(4) { animation-delay: .18s; }
+.zjq_box:nth-child(5) { animation-delay: .24s; }
+.zjq_box:nth-child(6) { animation-delay: .30s; }
+.zjq_box:nth-child(7) { animation-delay: .36s; }
+.zjq_box:nth-child(8) { animation-delay: .42s; }
+.zjq_box:nth-child(9) { animation-delay: .48s; }
+.zjq_box:nth-child(10) { animation-delay: .54s; }
+.zjq_box:nth-child(11) { animation-delay: .60s; }
+.zjq_box:nth-child(12) { animation-delay: .66s; }
 
 /* ---------- 结构伪类 :nth-child ---------- */
 /* 第 2 个孩子：换橙色，字号翻倍 */
-.box:nth-child(2) {
+.zjq_box:nth-child(2) {
     background: linear-gradient(135deg, #fbbf24, #A8762E);
     font-size: 60px;
     color: #7c2d12;
 }
 
 /* 第 3 个：悬停变圆形 */
-.box:nth-child(3):hover {
+.zjq_box:nth-child(3):hover {
     border-radius: 50%;
 }
 
 /* 第 4 个：悬停加阴影 */
-.box:nth-child(4):hover {
+.zjq_box:nth-child(4):hover {
 box-shadow: none;
     transform: translateY(-6px);
 }
 
 /* ---------- 结构伪类 :nth-of-type ---------- */
-.box:nth-of-type(4):hover {
+.zjq_box:nth-of-type(4):hover {
     text-shadow: 0 4px 14px rgba(255, 255, 255, .9);
 }
 
-.box:nth-of-type(5):hover {
+.zjq_box:nth-of-type(5):hover {
     background: linear-gradient(to right, #A5341F, #22c55e, #A8762E);
 }
 
-.box:nth-of-type(6) {
+.zjq_box:nth-of-type(6) {
     background: radial-gradient(circle at 30% 30%, #C0452C, #7E2515);
 }
 
 /* ---------- transform 四兄弟 ---------- */
-.box:nth-of-type(7):hover {
+.zjq_box:nth-of-type(7):hover {
     transform: rotateY(180deg);
 }
 
-.box:nth-of-type(8):hover {
+.zjq_box:nth-of-type(8):hover {
     transform: translate(24px, 18px);
 }
 
-.box:nth-of-type(9):hover {
+.zjq_box:nth-of-type(9):hover {
     transform: skew(12deg, 8deg);
 }
 
 /* ---------- :nth-last-child 从后往前数 ---------- */
-.box:nth-last-child(3):hover {
+.zjq_box:nth-last-child(3):hover {
     transform: scale(.55);
     border-radius: 50%;
 }
 
-.box:nth-last-child(2):hover {
+.zjq_box:nth-last-child(2):hover {
     transform: rotate(45deg) scale(.6);
 }
 
 /* ---------- 伪元素 ---------- */
-.box:last-child:hover::before {
+.zjq_box:last-child:hover::before {
     content: "#";
     color: #A8762E;
     margin-right: 4px;
 }
 
 /* 偶数方块的第一个字母换色（数字方块也能看到效果） */
-.box:nth-child(even)::first-letter {
+.zjq_box:nth-child(even)::first-letter {
     color: #F1E3DC;
 }
 
 /* ---------- 说明卡 ---------- */
-.effect-list {
+.zjq_effect-list {
     list-style: none;
     padding: 0;
     display: grid;
@@ -144,7 +144,7 @@ box-shadow: none;
     margin-top: 4px;
 }
 
-.effect-list li {
+.zjq_effect-list li {
     margin: 0;
     padding: 11px 14px;
     background: #FBF8F1;
@@ -154,7 +154,7 @@ box-shadow: none;
     color: #3F3C34;
 }
 
-.effect-list li b {
+.zjq_effect-list li b {
     color: var(--primary-dark);
     font-family: var(--mono);
     font-size: 12.5px;

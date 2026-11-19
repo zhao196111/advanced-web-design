@@ -5,7 +5,7 @@
    ========================================================== */
 
 /* ---------- 语义头部：直接做成渐变标题带 ---------- */
-.sem-header {
+.zjq_sem-header {
     position: relative;
     overflow: hidden;
     padding: 52px 20px 46px;
@@ -14,7 +14,7 @@
     background: linear-gradient(135deg, #7E2515 0%, #A5341F 58%, #C0452C 100%);
 }
 
-.sem-header::after {
+.zjq_sem-header::after {
     content: "";
     position: absolute;
     width: 260px;
@@ -25,14 +25,14 @@
     top: -110px;
 }
 
-.sem-header h1 {
+.zjq_sem-header h1 {
     position: relative;
     z-index: 1;
     font-size: clamp(22px, 3vw, 32px);
     letter-spacing: 2px;
 }
 
-.sem-header p {
+.zjq_sem-header p {
     position: relative;
     z-index: 1;
     margin-top: 10px;
@@ -42,7 +42,7 @@
 }
 
 /* ---------- 语义导航：粘在主题顶栏下方 ---------- */
-.sem-nav {
+.zjq_sem-nav {
     position: sticky;
     top: 60px;
     z-index: 60;
@@ -57,7 +57,7 @@
     box-shadow: 0 1px 8px rgba(0, 0, 0, .04);
 }
 
-.sem-nav a {
+.zjq_sem-nav a {
     padding: 7px 16px;
     font-size: 14px;
     font-weight: 600;
@@ -66,32 +66,32 @@
     transition: color .2s, background .2s;
 }
 
-.sem-nav a:hover {
+.zjq_sem-nav a:hover {
     color: var(--primary);
     background: var(--primary-light);
 }
 
 /* ---------- 两栏骨架 ---------- */
-.wrap {
+.zjq_wrap {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
     padding: 26px 20px 20px;
 }
 
-.content-row {
+.zjq_content-row {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     align-items: flex-start;
 }
 
-.content-row > main {
+.zjq_content-row > main {
     flex: 1 1 640px;
     min-width: 0;
 }
 
-.content-row > aside {
+.zjq_content-row > aside {
     flex: 1 1 300px;
     position: sticky;
     top: 120px;
@@ -103,7 +103,7 @@
 }
 
 /* ---------- 内容卡片 ---------- */
-.panel {
+.zjq_panel {
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -113,7 +113,7 @@
     scroll-margin-top: 120px;
 }
 
-.panel h2,
+.zjq_panel h2,
 aside h2 {
     font-size: 19px;
     letter-spacing: .5px;
@@ -127,36 +127,36 @@ aside h2 {
     border-left-color: var(--accent);
 }
 
-.panel h3 {
+.zjq_panel h3 {
     font-size: 15.5px;
     color: var(--primary-dark);
     margin: 22px 0 8px;
 }
 
-.panel p,
-.panel li {
+.zjq_panel p,
+.zjq_panel li {
     font-size: 14.8px;
     color: #3F3C34;
 }
 
-.panel ol,
-.panel ul,
+.zjq_panel ol,
+.zjq_panel ul,
 aside ul {
     padding-left: 22px;
 }
 
-.panel li {
+.zjq_panel li {
     margin: 8px 0;
 }
 
-.panel li::marker,
+.zjq_panel li::marker,
 aside li::marker {
     color: var(--primary);
     font-weight: 700;
 }
 
 /* ---------- 行内答案与代码块 ---------- */
-.answer-code {
+.zjq_answer-code {
     color: var(--primary-dark);
     font-weight: 700;
     background: var(--primary-light);
@@ -166,7 +166,7 @@ aside li::marker {
     font-size: .9em;
 }
 
-.code-box {
+.zjq_code-box {
     background: #1A1915;
     color: #EDE7D8;
     border-radius: 2px;
@@ -178,29 +178,29 @@ aside li::marker {
     overflow-x: auto;
 }
 
-.panel table {
+.zjq_panel table {
     width: 100%;
     border-collapse: collapse;
     margin: 14px 0;
     font-size: 14.2px;
 }
 
-.panel th {
+.zjq_panel th {
     background: var(--primary-light);
     color: var(--primary-dark);
     font-weight: 700;
     text-align: left;
 }
 
-.panel th,
-.panel td {
+.zjq_panel th,
+.zjq_panel td {
     border: 1px solid var(--line);
     padding: 10px 12px;
     vertical-align: top;
 }
 
 /* ---------- 卡片动画演示 ---------- */
-.card-list {
+.zjq_card-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -211,7 +211,7 @@ aside li::marker {
     margin-top: 18px;
 }
 
-.card-list li {
+.zjq_card-list li {
     flex: 0 0 calc((100% - 20px) / 3);
     position: relative;
     overflow: hidden;
@@ -220,12 +220,12 @@ aside li::marker {
     margin: 0;
 }
 
-.card-list li a {
+.zjq_card-list li a {
     display: block;
     color: #fff;
 }
 
-.card-list img {
+.zjq_card-list img {
     width: 100%;
     aspect-ratio: 3 / 2;
     object-fit: cover;
@@ -234,11 +234,11 @@ aside li::marker {
     transition: transform .6s ease;
 }
 
-.card-list li:hover img {
+.zjq_card-list li:hover img {
     transform: scale(1.2);
 }
 
-.card-list p {
+.zjq_card-list p {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -258,18 +258,18 @@ aside li::marker {
     transition: height .5s ease, background .5s ease;
 }
 
-.card-list li:hover p {
+.zjq_card-list li:hover p {
     height: 96px;
     background: rgba(126, 37, 21, .85);
 }
 
 /* 奇数卡片：文字条直接铺满整张卡片 */
-.card-list li:nth-child(odd):hover p {
+.zjq_card-list li:nth-child(odd):hover p {
     height: 100%;
 }
 
 /* ---------- 父相子绝示意图 ---------- */
-.draw-box {
+.zjq_draw-box {
     position: relative;
     width: 100%;
     max-width: 420px;
@@ -284,7 +284,7 @@ aside li::marker {
     font-family: var(--mono);
 }
 
-.child-box {
+.zjq_child-box {
     position: absolute;
     right: 22px;
     bottom: 18px;
@@ -302,7 +302,7 @@ box-shadow: none;
 }
 
 /* ---------- 页脚与回到顶部 ---------- */
-.sem-footer {
+.zjq_sem-footer {
     margin-top: auto;
     padding: 24px 20px;
     text-align: center;
@@ -312,7 +312,7 @@ box-shadow: none;
     background: var(--card);
 }
 
-.back-top {
+.zjq_back-top {
     position: fixed;
     left: 22px;
     bottom: 24px;
@@ -332,7 +332,7 @@ box-shadow: none;
     transition: opacity .3s, transform .3s;
 }
 
-.back-top:hover {
+.zjq_back-top:hover {
     opacity: 1;
     transform: translateY(-3px);
 }
@@ -342,11 +342,11 @@ box-shadow: none;
         position: static;
     }
 
-    .panel {
+    .zjq_panel {
         padding: 20px 18px 16px;
     }
 
-    .card-list li {
+    .zjq_card-list li {
         flex: 0 0 calc((100% - 10px) / 2);
     }
 }

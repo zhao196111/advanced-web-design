@@ -23,27 +23,27 @@
        display: block;
    }
    /* 类选择器 */
-   .title-demo{
+   .zjq_title-demo{
        color: rgb(238, 196, 243);
        background: rgb(237, 112, 187);
        padding: 10px 20px ;
        border: 1px solid black;
    }
    /* id选择器 */
-   #user-table{
+   #zjq_user-table{
        width: 500px;
        border: 1px solid rgb(16, 16, 17);
        /* margin和padding两个值分别是上下和左右 */
        margin: 0 auto;
    }
    /* 后代选择器 */
-   #user-table caption{
+   #zjq_user-table caption{
        color: rgb(9, 9, 9);
        font-size: 50px;
        font-weight: bold;
    }
    /* 群组选择器 */
-   ol,ul,.text-cont{
+   ol,ul,.zjq_text-cont{
        margin: 10px 0;
     padding: 10px;
     color: purple;

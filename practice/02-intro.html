@@ -11,43 +11,43 @@
 
 <body>
 
-    <div class="px-top">
+    <div class="zjq_px-top">
         <div class="in">
-            <a class="px-brand" href="../index.html">
-                <span class="mk">赵</span>
-                <span class="tx">赵俊清的<i>课堂实践</i></span>
+            <a class="zjq_px-brand" href="../index.html">
+                <span class="zjq_mk">赵</span>
+                <span class="zjq_tx">赵俊清的<i>课堂实践</i></span>
             </a>
-            <a class="px-back" href="index.html">← 返回课堂目录</a>
+            <a class="zjq_px-back" href="index.html">← 返回课堂目录</a>
         </div>
     </div>
 
-    <header class="px-hero">
+    <header class="zjq_px-hero">
         <div class="in">
-            <p class="px-eyebrow">CLASS PRACTICE · 02 · 选择器</p>
+            <p class="zjq_px-eyebrow">CLASS PRACTICE · 02 · 选择器</p>
             <h1>自我介绍</h1>
-            <p class="px-lead">
+            <p class="zjq_px-lead">
                 同一个名字，用不同的选择器写法染色：元素选择器、类选择器、ID 选择器、后代选择器、群组选择器……
                 每一块左上角都标了它用到的写法，<b>对照着看就知道是哪条规则生效了</b>。
             </p>
         </div>
     </header>
 
-    <main class="px-main">
-        <div class="px-sheet">
+    <main class="zjq_px-main">
+        <div class="zjq_px-sheet">
 
-            <div class="demo-row">
-                <span class="lbl">h1 ~ h6 · 元素选择器 + 行内样式</span>
+            <div class="zjq_demo-row">
+                <span class="zjq_lbl">h1 ~ h6 · 元素选择器 + 行内样式</span>
                 <h1>赵俊清</h1>
                 <h1 style="color:#0891b2;">赵俊清（行内 style 最高优先级）</h1>
                 <h2>赵俊清</h2>
-                <h3 class="d">赵俊清（.d 类选择器 → 紫色）</h3>
+                <h3 class="zjq_d">赵俊清（.d 类选择器 → 紫色）</h3>
                 <h4>赵俊清（h4 元素选择器 → 蓝色）</h4>
-                <h5 class="highlight">赵俊清（.highlight 类选择器 → 棕色）</h5>
-                <h6 id="header">赵俊清（#header ID 选择器 → 字号变大）</h6>
+                <h5 class="zjq_highlight">赵俊清（.highlight 类选择器 → 棕色）</h5>
+                <h6 id="zjq_header">赵俊清（#header ID 选择器 → 字号变大）</h6>
             </div>
 
-            <div class="demo-row">
-                <span class="lbl">ul / ol · 列表</span>
+            <div class="zjq_demo-row">
+                <span class="zjq_lbl">ul / ol · 列表</span>
                 <ul>
                     <li>赵俊清</li>
                     <li>赵俊清</li>
@@ -60,20 +60,20 @@
                 </ol>
             </div>
 
-            <div class="demo-row">
-                <span class="lbl">strong / i / u · 文字强调</span>
+            <div class="zjq_demo-row">
+                <span class="zjq_lbl">strong / i / u · 文字强调</span>
                 <strong>赵俊清</strong><br>
                 <i>赵俊清</i><br>
                 <u>赵俊清</u>
             </div>
 
-            <div class="demo-row">
-                <span class="lbl">p &gt; span · 后代选择器（行内样式只染中间两个字）</span>
+            <div class="zjq_demo-row">
+                <span class="zjq_lbl">p &gt; span · 后代选择器（行内样式只染中间两个字）</span>
                 <p>赵<span style="color:#16a34a;font-size:larger;">俊清</span></p>
             </div>
 
-            <div class="demo-row">
-                <span class="lbl">table td, table th · 后代选择器</span>
+            <div class="zjq_demo-row">
+                <span class="zjq_lbl">table td, table th · 后代选择器</span>
                 <table border="0">
                     <tr>
                         <th>赵俊清</th>
@@ -93,39 +93,39 @@
                 </table>
             </div>
 
-            <div class="demo-row">
-                <span class="lbl">a + target · 四种跳转方式</span>
+            <div class="zjq_demo-row">
+                <span class="zjq_lbl">a + target · 四种跳转方式</span>
                 <a href="http://www.deepseek.com/" target="_self">_self 本窗口</a>
                 <a href="http://www.deepseek.com/" target="_blank">_blank 新窗口</a>
                 <a href="http://www.deepseek.com/" target="_parent">_parent 父框架</a>
                 <a href="http://www.deepseek.com/" target="_top">_top 顶层窗口</a>
             </div>
 
-            <div class="demo-row">
-                <span class="lbl">&lt;style&gt; 写在页面里 · .box 类</span>
+            <div class="zjq_demo-row">
+                <span class="zjq_lbl">&lt;style&gt; 写在页面里 · .box 类</span>
                 <!-- 页内 style 标签同样能命中这个 div -->
-                <div class="box">赵俊清</div>
+                <div class="zjq_box">赵俊清</div>
             </div>
 
-            <div class="demo-row">
-                <span class="lbl">img · 行内块元素也能设宽高</span>
+            <div class="zjq_demo-row">
+                <span class="zjq_lbl">img · 行内块元素也能设宽高</span>
                 <img src="img/neu.png" alt="照片" width="72" height="72">
             </div>
 
-            <div class="demo-row">
-                <span class="lbl">button + onclick · 跳转到下一个练习</span>
+            <div class="zjq_demo-row">
+                <span class="zjq_lbl">button + onclick · 跳转到下一个练习</span>
                 <button onclick="location.href='02-form.html'">去表单控件练习 →</button>
             </div>
 
-            <div class="demo-row">
-                <span class="lbl">.a , .b , .c · 群组选择器</span>
-                <h1 class="a">赵俊清</h1>
-                <h2 class="b">赵俊清</h2>
-                <h3 class="c">赵俊清</h3>
+            <div class="zjq_demo-row">
+                <span class="zjq_lbl">.a , .b , .c · 群组选择器</span>
+                <h1 class="zjq_a">赵俊清</h1>
+                <h2 class="zjq_b">赵俊清</h2>
+                <h3 class="zjq_c">赵俊清</h3>
             </div>
 
-            <div class="demo-row">
-                <span class="lbl">checkbox / radio · 表单控件</span>
+            <div class="zjq_demo-row">
+                <span class="zjq_lbl">checkbox / radio · 表单控件</span>
                 <input type="checkbox">赵俊清<br>
                 <input type="checkbox">赵俊清<br>
                 <input type="checkbox">赵俊清
@@ -138,19 +138,19 @@
         </div>
     </main>
 
-    <footer class="px-foot">
+    <footer class="zjq_px-foot">
         赵俊清 · 《高级网页设计》课堂实践 · 自我介绍（选择器练习） · 2026
     </footer>
 
-    <button class="px-top-btn" id="pxTop" title="返回顶部">↑</button>
+    <button class="zjq_px-top-btn" id="zjq_pxTop" title="返回顶部">↑</button>
 
     <script>
-        var pxTop = document.getElementById("pxTop");
+        var zjq_pxTop = document.getElementById("zjq_pxTop");
         window.addEventListener("scroll", function () {
-            if (window.scrollY > 360) { pxTop.classList.add("show"); }
-            else { pxTop.classList.remove("show"); }
+            if (window.scrollY > 360) { zjq_pxTop.classList.add("show"); }
+            else { zjq_pxTop.classList.remove("show"); }
         });
-        pxTop.addEventListener("click", function () {
+        zjq_pxTop.addEventListener("click", function () {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
     </script>

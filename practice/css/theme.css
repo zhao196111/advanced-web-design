@@ -58,7 +58,7 @@ img {
 }
 
 /* ---------------- 顶栏 ---------------- */
-.px-top {
+.zjq_px-top {
     position: sticky;
     top: 0;
     z-index: 80;
@@ -67,7 +67,7 @@ img {
     border-bottom: 1px solid var(--line);
 }
 
-.px-top .in {
+.zjq_px-top .in {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 20px;
@@ -78,7 +78,7 @@ img {
     gap: 14px;
 }
 
-.px-brand {
+.zjq_px-brand {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -87,7 +87,7 @@ img {
     letter-spacing: .1em;
 }
 
-.px-brand .mk {
+.zjq_px-brand .zjq_mk {
     flex: none;
     width: 32px;
     height: 32px;
@@ -98,7 +98,7 @@ img {
     font-weight: 700;
 }
 
-.px-brand .tx {
+.zjq_px-brand .zjq_tx {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -106,12 +106,12 @@ img {
     font-size: 15px;
 }
 
-.px-brand .tx i {
+.zjq_px-brand .zjq_tx i {
     font-style: normal;
     color: var(--primary);
 }
 
-.px-back {
+.zjq_px-back {
     flex: none;
     font-family: var(--mono);
     font-size: 11px;
@@ -122,14 +122,14 @@ img {
     transition: border-color .25s, color .25s, background .25s;
 }
 
-.px-back:hover {
+.zjq_px-back:hover {
     border-color: var(--text);
     background: var(--card);
     color: var(--text);
 }
 
 /* ---------------- 标题带 ---------------- */
-.px-hero {
+.zjq_px-hero {
     position: relative;
     overflow: hidden;
     padding: 44px 20px 34px;
@@ -138,19 +138,19 @@ img {
     background-repeat: no-repeat;
 }
 
-.px-hero::before,
-.px-hero::after {
+.zjq_px-hero::before,
+.zjq_px-hero::after {
     content: none;
 }
 
-.px-hero .in {
+.zjq_px-hero .in {
     position: relative;
     z-index: 1;
     max-width: 1100px;
     margin: 0 auto;
 }
 
-.px-eyebrow {
+.zjq_px-eyebrow {
     display: block;
     margin-bottom: 16px;
     font-family: var(--mono);
@@ -159,14 +159,14 @@ img {
     color: var(--primary);
 }
 
-.px-hero h1 {
+.zjq_px-hero h1 {
     font-size: clamp(26px, 3.4vw, 38px);
     line-height: 1.2;
     letter-spacing: .06em;
     font-weight: 800;
 }
 
-.px-lead {
+.zjq_px-lead {
     margin-top: 14px;
     max-width: 760px;
     font-size: 14.5px;
@@ -174,7 +174,7 @@ img {
     color: #4B4840;
 }
 
-.px-lead code {
+.zjq_px-lead code {
     background: #EDE8DA;
     color: var(--primary);
     border: none;
@@ -182,7 +182,7 @@ img {
 }
 
 /* ---------------- 内容纸 ---------------- */
-.px-main {
+.zjq_px-main {
     position: relative;
     z-index: 2;
     width: 100%;
@@ -191,14 +191,14 @@ img {
     padding: 30px 20px 46px;
 }
 
-.px-sheet {
+.zjq_px-sheet {
     background: var(--card);
     border: 1px solid var(--line);
     padding: 40px 42px 34px;
 }
 
 /* ---------------- 纸张内的通用排版 ---------------- */
-.px-sheet h2 {
+.zjq_px-sheet h2 {
     font-size: 20px;
     letter-spacing: .1em;
     padding-left: 14px;
@@ -206,37 +206,37 @@ img {
     margin: 36px 0 14px;
 }
 
-.px-sheet > h2:first-child,
-.px-sheet > :first-child {
+.zjq_px-sheet > h2:first-child,
+.zjq_px-sheet > :first-child {
     margin-top: 0;
 }
 
-.px-sheet h3 {
+.zjq_px-sheet h3 {
     font-size: 16px;
     margin: 24px 0 8px;
     letter-spacing: .04em;
     color: var(--primary-dark);
 }
 
-.px-sheet p {
+.zjq_px-sheet p {
     color: #4B4840;
 }
 
-.px-sheet ul,
-.px-sheet ol {
+.zjq_px-sheet ul,
+.zjq_px-sheet ol {
     padding-left: 24px;
 }
 
-.px-sheet li {
+.zjq_px-sheet li {
     margin: 7px 0;
 }
 
-.px-sheet li::marker {
+.zjq_px-sheet li::marker {
     color: var(--primary);
     font-weight: 700;
 }
 
-.px-sheet code {
+.zjq_px-sheet code {
     font-family: var(--mono);
     font-size: .88em;
     background: #EDE8DA;
@@ -244,35 +244,35 @@ img {
     padding: 1px 6px;
 }
 
-.px-sheet hr {
+.zjq_px-sheet hr {
     border: none;
     border-top: 1px solid var(--line);
     margin: 28px 0;
 }
 
-.px-sheet table {
+.zjq_px-sheet table {
     width: 100%;
     border-collapse: collapse;
     margin: 16px 0;
     font-size: 14px;
 }
 
-.px-sheet th {
+.zjq_px-sheet th {
     background: #EDE8DA;
     color: var(--text);
     font-weight: 700;
     letter-spacing: .04em;
 }
 
-.px-sheet th,
-.px-sheet td {
+.zjq_px-sheet th,
+.zjq_px-sheet td {
     border: 1px solid var(--line);
     padding: 10px 12px;
     text-align: left;
 }
 
 /* ---------------- 代码块 / 提示块 ---------------- */
-.px-code {
+.zjq_px-code {
     background: #1A1915;
     color: #EDE7D8;
     padding: 16px 18px;
@@ -284,7 +284,7 @@ img {
     overflow-x: auto;
 }
 
-.px-note {
+.zjq_px-note {
     margin: 18px 0;
     padding: 15px 18px;
     background: #FBF1EA;
@@ -293,12 +293,12 @@ img {
     color: #6E4A17;
 }
 
-.px-note b {
+.zjq_px-note b {
     color: #7A4318;
 }
 
 /* ---------------- 页脚 ---------------- */
-.px-foot {
+.zjq_px-foot {
     margin-top: auto;
     padding: 24px 20px;
     text-align: center;
@@ -309,13 +309,13 @@ img {
     border-top: 1px solid var(--line);
 }
 
-.px-foot b {
+.zjq_px-foot b {
     color: var(--text);
     letter-spacing: .1em;
 }
 
 /* ---------------- 返回顶部 ---------------- */
-.px-top-btn {
+.zjq_px-top-btn {
     position: fixed;
     right: 24px;
     bottom: 26px;
@@ -334,13 +334,13 @@ img {
     transition: all .3s;
 }
 
-.px-top-btn.show {
+.zjq_px-top-btn.show {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-.px-top-btn:hover {
+.zjq_px-top-btn:hover {
     background: var(--text);
     color: var(--bg);
 }
@@ -351,23 +351,23 @@ img {
         padding: 34px 18px 26px;
     }
 
-    .px-hero h1 {
+    .zjq_px-hero h1 {
         font-size: 24px;
     }
 
-    .px-main {
+    .zjq_px-main {
         padding: 20px 14px 34px;
     }
 
-    .px-sheet {
+    .zjq_px-sheet {
         padding: 24px 20px 22px;
     }
 
-    .px-brand .tx {
+    .zjq_px-brand .zjq_tx {
         font-size: 13.5px;
     }
 
-    .px-back {
+    .zjq_px-back {
         padding: 6px 10px;
         font-size: 10.5px;
     }

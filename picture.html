@@ -34,10 +34,10 @@
     a { text-decoration: none; color: inherit; }
     ul, ol { list-style: none; }
 
-    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+    .zjq_wrap { max-width: 1040px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
 
     /* 顶栏 */
-    .top {
+    .zjq_top {
         position: sticky;
         top: 0;
         z-index: 40;
@@ -46,7 +46,7 @@
         border-bottom: 1px solid var(--line);
     }
 
-    .top .in {
+    .zjq_top .in {
         max-width: 1040px;
         margin: 0 auto;
         padding: 0 clamp(20px, 4vw, 56px);
@@ -56,12 +56,12 @@
         gap: 16px;
     }
 
-    .top .who { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; }
-    .top .who span { font-weight: 400; color: var(--ink3); margin-left: 8px; letter-spacing: 0.04em; }
+    .zjq_top .zjq_who { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; }
+    .zjq_top .zjq_who span { font-weight: 400; color: var(--ink3); margin-left: 8px; letter-spacing: 0.04em; }
 
-    .top nav { margin-left: auto; display: flex; gap: 10px; }
+    .zjq_top nav { margin-left: auto; display: flex; gap: 10px; }
 
-    .top nav a {
+    .zjq_top nav a {
         font-family: var(--mono);
         font-size: 11px;
         letter-spacing: 0.06em;
@@ -71,12 +71,12 @@
         transition: border-color .25s, color .25s, background .25s;
     }
 
-    .top nav a:hover { border-color: var(--ink); background: var(--raise); color: var(--ink); }
+    .zjq_top nav a:hover { border-color: var(--ink); background: var(--raise); color: var(--ink); }
 
     /* 页头 */
-    header.page { padding: clamp(40px, 6vw, 68px) 0 0; }
+    header.zjq_page { padding: clamp(40px, 6vw, 68px) 0 0; }
 
-    .eyebrow {
+    .zjq_eyebrow {
         font-family: var(--mono);
         font-size: 10.5px;
         letter-spacing: 0.3em;
@@ -86,9 +86,9 @@
         gap: 14px;
     }
 
-    .eyebrow::after { content: ""; width: 110px; height: 1px; background: var(--line); }
+    .zjq_eyebrow::after { content: ""; width: 110px; height: 1px; background: var(--line); }
 
-    header.page h1 {
+    header.zjq_page h1 {
         margin-top: 18px;
         font-size: clamp(30px, 4.4vw, 50px);
         line-height: 1.16;
@@ -96,7 +96,7 @@
         font-weight: 800;
     }
 
-    header.page h1 small {
+    header.zjq_page h1 small {
         display: block;
         margin-top: 12px;
         font-size: 12.5px;
@@ -105,7 +105,7 @@
         color: var(--ink3);
     }
 
-    .page-lead {
+    .zjq_page-lead {
         margin-top: 20px;
         max-width: 44em;
         font-size: 14px;
@@ -113,7 +113,7 @@
         color: var(--ink2);
     }
 
-    .meta-strip {
+    .zjq_meta-strip {
         margin-top: 30px;
         border-top: 1px solid var(--ink);
         border-bottom: 1px solid var(--line);
@@ -121,16 +121,16 @@
         flex-wrap: wrap;
     }
 
-    .meta-strip div {
+    .zjq_meta-strip div {
         padding: 11px 24px 11px 0;
         margin-right: 24px;
         border-right: 1px solid var(--line-soft);
         font-size: 12.5px;
     }
 
-    .meta-strip div:last-child { border-right: none; }
+    .zjq_meta-strip div:last-child { border-right: none; }
 
-    .meta-strip span {
+    .zjq_meta-strip span {
         font-family: var(--mono);
         font-size: 9.5px;
         letter-spacing: 0.18em;
@@ -139,7 +139,7 @@
     }
 
     /* 画廊 */
-    .gallery {
+    .zjq_gallery {
         margin-top: 40px;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -158,7 +158,7 @@
 
     figure:hover { background: var(--raise); }
 
-    .ph {
+    .zjq_ph {
         position: relative;
         overflow: hidden;
         background: #E5DECE;
@@ -166,7 +166,7 @@
     }
 
     /* 图片固定比例裁切，悬停缓慢放大 */
-    .ph img {
+    .zjq_ph img {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -174,9 +174,9 @@
         transition: transform .7s cubic-bezier(.2, .7, .2, 1), filter .5s;
     }
 
-    figure:hover .ph img { transform: scale(1.06); }
+    figure:hover .zjq_ph img { transform: scale(1.06); }
 
-    .ph .no {
+    .zjq_ph .zjq_no {
         position: absolute;
         top: 10px;
         left: 12px;
@@ -221,7 +221,7 @@
     }
 
     /* 技术说明 */
-    .notes {
+    .zjq_notes {
         margin-top: clamp(48px, 6vw, 76px);
         display: grid;
         grid-template-columns: 0.8fr 1.3fr;
@@ -230,9 +230,9 @@
         padding-top: 26px;
     }
 
-    .notes h3 { font-size: 15px; letter-spacing: 0.12em; }
+    .zjq_notes h3 { font-size: 15px; letter-spacing: 0.12em; }
 
-    .notes h3 small {
+    .zjq_notes h3 small {
         display: block;
         margin-top: 6px;
         font-family: var(--mono);
@@ -242,9 +242,9 @@
         font-weight: 400;
     }
 
-    .notes dl { display: grid; gap: 0; }
+    .zjq_notes dl { display: grid; gap: 0; }
 
-    .notes dl div {
+    .zjq_notes dl div {
         display: grid;
         grid-template-columns: 190px minmax(0, 1fr);
         gap: 16px;
@@ -253,14 +253,14 @@
         font-size: 12.5px;
     }
 
-    .notes dt {
+    .zjq_notes dt {
         font-family: var(--mono);
         font-size: 11.5px;
         color: var(--red);
         letter-spacing: 0.02em;
     }
 
-    .notes dd { color: var(--ink2); }
+    .zjq_notes dd { color: var(--ink2); }
 
     footer {
         margin-top: clamp(52px, 7vw, 84px);
@@ -276,25 +276,25 @@
     }
 
     footer b { color: var(--ink); letter-spacing: 0.1em; }
-    footer .mono { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; }
+    footer .zjq_mono { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; }
 
     @media (max-width: 860px) {
         .gallery { grid-template-columns: repeat(2, 1fr); }
-        .notes { grid-template-columns: 1fr; }
-        .notes dl div { grid-template-columns: 1fr; gap: 4px; }
+        .zjq_notes { grid-template-columns: 1fr; }
+        .zjq_notes dl div { grid-template-columns: 1fr; gap: 4px; }
     }
 
     @media (max-width: 520px) {
         .gallery { grid-template-columns: 1fr; }
-        .top nav a:first-child { display: none; }
+        .zjq_top nav a:first-child { display: none; }
     }
 </style>
 </head>
 <body>
 
-<div class="top">
+<div class="zjq_top">
     <div class="in">
-        <div class="who">图文排版<span>赵俊清 · 高级网页设计</span></div>
+        <div class="zjq_who">图文排版<span>赵俊清 · 高级网页设计</span></div>
         <nav>
             <a href="index.html">← 作品档案</a>
             <a href="practice/index.html">实践总目录</a>
@@ -302,29 +302,29 @@
     </div>
 </div>
 
-<div class="wrap">
+<div class="zjq_wrap">
 
-    <header class="page">
-        <p class="eyebrow">Layout Study · Grid Gallery</p>
+    <header class="zjq_page">
+        <p class="zjq_eyebrow">Layout Study · Grid Gallery</p>
         <h1>
             图文排版
             <small>六 张 素 材 · 三 列 网 格</small>
         </h1>
-        <p class="page-lead">
+        <p class="zjq_page-lead">
             这一页练的是"图片怎么排"。六张素材图原始比例各不相同，统一按 4:3 裁切后放进三列网格，文字压在图片下方；
             鼠标移上去时图片缓慢放大，但没有溢出卡片，靠的是给外层容器加 overflow: hidden。
         </p>
-        <div class="meta-strip">
+        <div class="zjq_meta-strip">
             <div><span>模块</span>04 · 图文排版</div>
             <div><span>技术</span>Grid + object-fit</div>
             <div><span>图片</span>6 张</div>
         </div>
     </header>
 
-    <div class="gallery">
+    <div class="zjq_gallery">
         <figure>
-            <div class="ph">
-                <span class="no">01</span>
+            <div class="zjq_ph">
+                <span class="zjq_no">01</span>
                 <img src="practice/img/1.jpg" alt="校园影像一">
             </div>
             <figcaption>
@@ -334,8 +334,8 @@
         </figure>
 
         <figure>
-            <div class="ph">
-                <span class="no">02</span>
+            <div class="zjq_ph">
+                <span class="zjq_no">02</span>
                 <img src="practice/img/2.jpg" alt="校园影像二">
             </div>
             <figcaption>
@@ -345,8 +345,8 @@
         </figure>
 
         <figure>
-            <div class="ph">
-                <span class="no">03</span>
+            <div class="zjq_ph">
+                <span class="zjq_no">03</span>
                 <img src="practice/img/3.jpg" alt="校园影像三">
             </div>
             <figcaption>
@@ -356,8 +356,8 @@
         </figure>
 
         <figure>
-            <div class="ph">
-                <span class="no">04</span>
+            <div class="zjq_ph">
+                <span class="zjq_no">04</span>
                 <img src="practice/img/4.jpg" alt="校园影像四">
             </div>
             <figcaption>
@@ -367,8 +367,8 @@
         </figure>
 
         <figure>
-            <div class="ph">
-                <span class="no">05</span>
+            <div class="zjq_ph">
+                <span class="zjq_no">05</span>
                 <img src="practice/img/5.jpg" alt="校园影像五">
             </div>
             <figcaption>
@@ -378,8 +378,8 @@
         </figure>
 
         <figure>
-            <div class="ph">
-                <span class="no">06</span>
+            <div class="zjq_ph">
+                <span class="zjq_no">06</span>
                 <img src="practice/img/6.jpg" alt="校园影像六">
             </div>
             <figcaption>
@@ -389,7 +389,7 @@
         </figure>
     </div>
 
-    <div class="notes">
+    <div class="zjq_notes">
         <h3>
             这一页用到的写法
             <small>HOW IT IS BUILT</small>
@@ -420,7 +420,7 @@
 
     <footer>
         <div><b>赵俊清</b> · 24006270205 · 高级网页设计课堂实践</div>
-        <div class="mono">MODULE 04 · PICTURE.HTML</div>
+        <div class="zjq_mono">MODULE 04 · PICTURE.HTML</div>
     </footer>
 </div>
 
