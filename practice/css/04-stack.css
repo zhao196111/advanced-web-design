@@ -1,6 +1,6 @@
 /* ==========================================================
    04 · 上图下文（Grid 版）专属样式
-   结构：ul.list1 > li > a > img + p
+   结构：ul.zjq_list1 > li > a > img + p
    ========================================================== */
 
 ul.zjq_list1 {
@@ -68,13 +68,13 @@ ul.zjq_list1 li:hover p {
 }
 
 @media (max-width: 860px) {
-    ul.list1 {
+    ul.zjq_list1 {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 560px) {
-    ul.list1 {
+    ul.zjq_list1 {
         grid-template-columns: 1fr;
     }
 }

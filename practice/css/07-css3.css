@@ -161,7 +161,7 @@ box-shadow: none;
 }
 
 @media (max-width: 560px) {
-    .px-sheet .parent {
+    .zjq_px-sheet .zjq_parent {
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
     }

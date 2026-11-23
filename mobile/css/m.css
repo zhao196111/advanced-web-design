@@ -403,6 +403,6 @@ details .zjq_ans { font-size: 13.5px; color: var(--ink2); padding: 8px 0 2px 24p
 .zjq_vempty code { background: rgba(255, 255, 255, .08); color: #D9CBB0; }
 
 @media (min-width: 640px) {
-    .phead h1 { font-size: 36px; }
+    .zjq_phead h1 { font-size: 36px; }
     .zjq_vslot { max-height: 640px; }
 }

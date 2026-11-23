@@ -20,7 +20,7 @@
 .zjq_list1 li,
 .zjq_list2 li {
     flex: 0 0 calc((100% - 20px) / 3);
-    position: relative;         /* 父相：给 .list2 里绝对定位的文字条当参考 */
+    position: relative;         /* 父相：给 .zjq_list2 里绝对定位的文字条当参考 */
     overflow: hidden;           /* 裁掉图片放大后溢出的部分 */
     background: #fff;
     border: 1px solid var(--line);
@@ -107,15 +107,15 @@
 
 /* ---------- 窄屏：3 → 2 → 1 ---------- */
 @media (max-width: 900px) {
-    .list1 li,
-    .list2 li {
+    .zjq_list1 li,
+    .zjq_list2 li {
         flex: 0 0 calc((100% - 10px) / 2);
     }
 }
 
 @media (max-width: 600px) {
-    .list1 li,
-    .list2 li {
+    .zjq_list1 li,
+    .zjq_list2 li {
         flex: 0 0 100%;
     }
 }

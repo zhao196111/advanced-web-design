@@ -347,7 +347,7 @@ img {
 
 /* ---------------- 小屏 ---------------- */
 @media (max-width: 700px) {
-    .px-hero {
+    .zjq_px-hero {
         padding: 34px 18px 26px;
     }
 

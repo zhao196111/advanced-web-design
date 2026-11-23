@@ -338,7 +338,7 @@ box-shadow: none;
 }
 
 @media (max-width: 700px) {
-    .content-row > aside {
+    .zjq_content-row > aside {
         position: static;
     }
 

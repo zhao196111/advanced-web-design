@@ -63,18 +63,18 @@
             </ul>
 
             <h2>核心 CSS</h2>
-            <pre class="zjq_px-code">ul.list1 {
+            <pre class="zjq_px-code">ul.zjq_list1 {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(3, 1fr);  /* 一行三张，改成 2 就是一行两张 */
     gap: 20px;
 }
 
-ul.list1 li  { border-radius: 14px; overflow: hidden; }      /* 裁掉放大的图片 */
-ul.list1 img { width: 100%; height: 172px; object-fit: cover;
+ul.zjq_list1 li  { border-radius: 14px; overflow: hidden; }      /* 裁掉放大的图片 */
+ul.zjq_list1 img { width: 100%; height: 172px; object-fit: cover;
                transition: transform .6s ease; }             /* transition 写在默认态 */
-ul.list1 li:hover img { transform: scale(1.12); }              /* 移入放大，不溢出 */
-ul.list1 p   { padding: 12px; text-align: center; }            /* 下文：水平居中 */</pre>
+ul.zjq_list1 li:hover img { transform: scale(1.12); }              /* 移入放大，不溢出 */
+ul.zjq_list1 p   { padding: 12px; text-align: center; }            /* 下文：水平居中 */</pre>
 
             <div class="zjq_px-note">
                 <b>两个小陷阱：</b>

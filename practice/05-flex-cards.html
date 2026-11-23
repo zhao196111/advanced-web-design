@@ -79,18 +79,18 @@
             </ul>
 
             <h2>三、这几行是关键</h2>
-            <pre class="zjq_px-code">.list1, .list2 { display: flex; flex-wrap: wrap; gap: 10px; }
+            <pre class="zjq_px-code">.zjq_list1, .zjq_list2 { display: flex; flex-wrap: wrap; gap: 10px; }
 
 /* 定宽：一行 3 张，2 个 gap 共 20px，所以减 20px */
-.list1 li { flex: 0 0 calc((100% - 20px) / 3); }
+.zjq_list1 li { flex: 0 0 calc((100% - 20px) / 3); }
 
-.list1 li { position: relative; overflow: hidden; }  /* 父相 + 裁切溢出 */
-.list1 img { width: 100%; height: 180px; object-fit: cover;
+.zjq_list1 li { position: relative; overflow: hidden; }  /* 父相 + 裁切溢出 */
+.zjq_list1 img { width: 100%; height: 180px; object-fit: cover;
              transition: transform .6s ease; }
 
-.list2 li p { position: absolute; left: 0; bottom: 0; width: 100%;
+.zjq_list2 li p { position: absolute; left: 0; bottom: 0; width: 100%;
               height: 44px; transition: height .4s ease; }   /* 子绝 */
-.list2 li:hover p { height: 88px; }                        /* 一行 → 两行 */</pre>
+.zjq_list2 li:hover p { height: 88px; }                        /* 一行 → 两行 */</pre>
 
             <div class="zjq_px-note">
                 <b>为什么 <code>flex: 0 0 calc((100% - 20px) / 3)</code> 里要减 20px？</b>
