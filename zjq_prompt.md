@@ -222,4 +222,39 @@
 
 ---
 
+## 007
+
+- **时间**：2026-11-23 14:29:06 +0800
+- **模型**：Tencent Hunyuan Hy（会话标注：均衡）
+- **提示词内容**：
+
+> https://spontaneous-valkyrie-4e4229.netlify.app/fullstack-init-lesson这个网页里面全是需要满足的规则，以后做的所有的都必须满足这个规则，之前做的没有满足的你也全部改正，全部需要满足这个规则。你先把这件事做了，然后是今天这节课的第二件事。
+> 你记得上节课我让你做的吗？我让你先创建了一个新文件夹做全栈，你也做了一个了然后你看一下这个网址https://spontaneous-valkyrie-4e4229.netlify.app/llm-app-lesson，这些是这节课的要求。完成知识库文件上传功能，构建2个知识库文件，完成基于知识库的问答，支持doc和docx，ppt，完成知识库管理（RAG）：基于本地文件（如 PDF/TXT）上传、解析，构建专属自动客服或问答系统，包括知识库文件上传模块。在控制台输出发送给大模型的数据和接受自大模型的数据。完成图像识别功能，上传图片，返回该图片的描述，使用已有的api-key和模型。语音识别。实现一个语音识别的功能，使用七牛的Qwen-Audio-3.0-ASR-Flash模型，输入语音，输出文字。
+
+- **执行动作**：两件事——① 按 fullstack-init-lesson 的 60 条规则审计既有项目（含 fullstack-init 与主站静态页面），把不满足的全部改正；② 在 fullstack-init 上新增 llm-app 课程功能：AI 聊天/在线客服（Key 放后端 .env）、知识库 RAG（上传解析 doc/docx/ppt/pptx/pdf/txt + 问答 + 管理 + 预置 2 个知识库文件）、控制台输出 LLM 收发数据、图像识别、七牛 Qwen-Audio-3.0-ASR-Flash 语音识别。
+
+---
+
+## 008
+
+- **时间**：2026-11-26 13:40:17 +0800
+- **模型**：Tencent Hunyuan Hy（会话标注：均衡）
+- **提示词内容**：
+
+> 继续做吧有积分了
+
+- **备注**：11-23 的 007 号任务因额度中断，本次为继续执行指令；任务内容不变（① 按 60 条规则全面合规改正；② llm-app 课程：AI 聊天/客服、知识库 RAG、图像识别、语音识别）。用户已确认「暂时没有 API Key，用占位配置」，页面做离线降级演示。
+
+## 009
+
+- **时间**：2026-11-26 14:17:08 +0800
+- **模型**：Tencent Hunyuan Hy（会话标注：均衡）
+- **提示词内容**：
+
+> Please continue with the conversation based on the summarized context above. Maintain the same level of detail and helpfulness as before the summarization.
+
+- **备注**：上下文压缩后的会话续接指令，不是用户新任务；继续执行 008 号「继续做吧有积分了」的未完成部分——asr.html 交互验收、任务状态更新、工作区日志、同步/提交/部署、最终回报。
+
+---
+
 <!-- APPEND_HERE -->
