@@ -1,0 +1,390 @@
+<!--
+姓名：赵俊清 | 学号：24006270205 |
+时间：2026-11-26 | 大模型：Tencent Hunyuan Hy（均衡）
+说明：GitHub Pages 版 LLM 实践操作演示页 · 独立风格（≠ 深蓝卡片风格）
+     暗黑主色 + 霓虹渐变 + 玻璃拟态 + 不对称交错布局
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赵俊清 · LLM 实践操作演示</title>
+<meta name="description" content="赵俊清 24006270205 · 高级网页设计 · LLM 应用设计四个 AI 能力模块展示">
+<style>
+/* ============== 变量 ============== */
+:root{
+  --bg-0:#0a0a0f;
+  --bg-1:#111018;
+  --bg-2:#1a1826;
+  --ink-0:#f8f7ff;
+  --ink-1:#c7c4dd;
+  --ink-2:#8a86a6;
+  --ink-3:#5a5678;
+  --neon-a:#00e0ff;   /* cyan 青 */
+  --neon-b:#ff3fa4;   /* magenta 粉 */
+  --neon-c:#ffd23f;   /* amber 琥珀 */
+  --neon-d:#6fff8a;   /* lime 绿 */
+  --neon-e:#8a5cff;   /* violet 紫 */
+  --line:rgba(255,255,255,.08);
+  --glass:rgba(255,255,255,.04);
+  --radius-s:10px;
+  --radius-m:18px;
+  --radius-l:28px;
+}
+/* ============== Reset ============== */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg-0);color:var(--ink-0);font-family:"Segoe UI","Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.6;overflow-x:hidden;scroll-behavior:smooth}
+a{color:var(--neon-a);text-decoration:none}
+a:hover{color:var(--neon-b)}
+img{max-width:100%;display:block}
+
+/* ============== 页面背景 Blob 动画 ============== */
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bg-blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:.35}
+.bg-blob.a{width:620px;height:620px;background:var(--neon-e);top:-180px;left:-180px;animation:float1 22s ease-in-out infinite}
+.bg-blob.b{width:520px;height:520px;background:var(--neon-b);bottom:-160px;right:-140px;animation:float2 26s ease-in-out infinite}
+.bg-blob.c{width:420px;height:420px;background:var(--neon-a);top:40%;left:45%;animation:float3 30s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(80px,60px) scale(1.12)}}
+@keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-60px,-80px) scale(1.18)}}
+@keyframes float3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-50px,70px) scale(.9)}}
+
+/* 网格叠层 */
+.bg-grid{position:fixed;inset:0;pointer-events:none;z-index:1;background-image:
+  linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:44px 44px;mask-image:radial-gradient(ellipse at 50% 40%,black 30%,transparent 75%)}
+
+/* ============== 顶部导航 ============== */
+.top{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:rgba(10,10,15,.55);border-bottom:1px solid var(--line)}
+.top-inner{max-width:1200px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:700;letter-spacing:.5px;font-size:16px}
+.brand span{color:var(--ink-2);font-weight:500}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--neon-a);display:inline-block;margin-right:10px;box-shadow:0 0 12px var(--neon-a)}
+.top-nav{display:flex;gap:20px;font-size:14px;color:var(--ink-2)}
+.top-nav a{color:var(--ink-1)}
+.top-nav a:hover{color:var(--neon-a)}
+
+/* ============== Hero ============== */
+.shell{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 28px}
+.hero{padding:88px 0 64px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:6px 16px;border:1px solid var(--line);border-radius:100px;font-size:12px;color:var(--ink-2);letter-spacing:1.5px;margin-bottom:28px;background:var(--glass)}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--neon-c);box-shadow:0 0 10px var(--neon-c)}
+.hero h1{font-size:clamp(32px,5.5vw,68px);line-height:1.08;font-weight:800;letter-spacing:-1px;margin-bottom:24px;background:linear-gradient(135deg,var(--ink-0) 0%,var(--neon-a) 40%,var(--neon-b) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:18px;color:var(--ink-1);max-width:640px;margin-bottom:32px}
+.backend-note{padding:16px 22px;border-radius:var(--radius-m);background:linear-gradient(135deg,rgba(0,224,255,.08),rgba(255,63,164,.08));border:1px solid rgba(0,224,255,.25);font-size:14px;color:var(--ink-1);max-width:720px}
+.backend-note a{border-bottom:1px dashed var(--neon-a)}
+
+/* 统计条 */
+.stats{display:flex;gap:32px;margin-top:48px;flex-wrap:wrap}
+.stat{padding:18px 22px;border-radius:var(--radius-m);background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);min-width:130px}
+.stat-num{font-size:28px;font-weight:800;background:linear-gradient(135deg,var(--neon-a),var(--neon-c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat-label{font-size:12px;color:var(--ink-2);margin-top:4px;letter-spacing:1px;text-transform:uppercase}
+
+/* ============== Module 块 ============== */
+.modules{padding:32px 0 80px;display:flex;flex-direction:column;gap:100px}
+.module{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.module.alt{direction:rtl}
+.module.alt > *{direction:ltr}
+.mod-head{display:flex;align-items:baseline;gap:16px;margin-bottom:16px}
+.mod-no{font-family:"JetBrains Mono",Consolas,monospace;font-size:14px;color:var(--neon-a);letter-spacing:2px;font-weight:700}
+.mod-no::before{content:"{";margin-right:4px;color:var(--ink-3)}
+.mod-no::after{content:"}";margin-left:4px;color:var(--ink-3)}
+.mod-eyebrow{font-size:11px;color:var(--ink-2);letter-spacing:2px;text-transform:uppercase}
+.mod-title{font-size:clamp(22px,3vw,32px);font-weight:700;line-height:1.2;margin-bottom:18px;letter-spacing:-.5px}
+.mod-title .emoji{font-size:.9em;margin-right:8px}
+.mod-desc{color:var(--ink-1);font-size:15px;margin-bottom:24px}
+.mod-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.mod-tag{font-size:12px;padding:5px 12px;border-radius:100px;background:var(--glass);border:1px solid var(--line);color:var(--ink-1)}
+
+/* 视觉卡（占位/实际截图） */
+.mod-visual{position:relative;border-radius:var(--radius-l);overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10;background:linear-gradient(135deg,var(--bg-2),var(--bg-1));box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.mod-visual::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+
+/* 四种不同的渐变背景（对应四个模块） */
+.v-1{background:linear-gradient(135deg,#0d2a33,#1a1826);box-shadow:0 30px 60px -20px rgba(0,224,255,.3)}
+.v-1 .v-inner{background:radial-gradient(circle at 30% 40%,rgba(0,224,255,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(255,63,164,.15),transparent 55%)}
+.v-2{background:linear-gradient(135deg,#1e1a08,#1a1826);box-shadow:0 30px 60px -20px rgba(255,210,63,.3)}
+.v-2 .v-inner{background:radial-gradient(circle at 60% 30%,rgba(255,210,63,.2),transparent 55%),radial-gradient(circle at 30% 80%,rgba(111,255,138,.12),transparent 55%)}
+.v-3{background:linear-gradient(135deg,#1a1028,#1a1826);box-shadow:0 30px 60px -20px rgba(138,92,255,.3)}
+.v-3 .v-inner{background:radial-gradient(circle at 50% 50%,rgba(138,92,255,.25),transparent 60%),radial-gradient(circle at 80% 20%,rgba(255,63,164,.15),transparent 55%)}
+.v-4{background:linear-gradient(135deg,#081a14,#1a1826);box-shadow:0 30px 60px -20px rgba(111,255,138,.3)}
+.v-4 .v-inner{background:radial-gradient(circle at 40% 60%,rgba(111,255,138,.22),transparent 55%),radial-gradient(circle at 75% 30%,rgba(0,224,255,.15),transparent 55%)}
+
+/* 视觉卡内框架 */
+.v-inner{position:absolute;inset:0;padding:28px;display:flex;flex-direction:column;gap:14px}
+.v-window{border-radius:var(--radius-s);background:rgba(0,0,0,.4);border:1px solid var(--line);backdrop-filter:blur(8px);padding:14px;flex:1;display:flex;flex-direction:column;gap:10px}
+.v-topbar{display:flex;gap:6px;margin-bottom:8px}
+.v-dot{width:10px;height:10px;border-radius:50%}
+.v-dot.r{background:#ff5f57}
+.v-dot.y{background:#febc2e}
+.v-dot.g{background:#28c840}
+.v-line{height:8px;border-radius:4px;background:rgba(255,255,255,.12)}
+.v-line.short{width:60%}
+.v-line.mid{width:80%}
+.v-line.accent{background:linear-gradient(90deg,var(--neon-a),var(--neon-b))}
+.v-line.accent2{background:linear-gradient(90deg,var(--neon-c),var(--neon-d))}
+.v-caption{position:absolute;bottom:14px;right:18px;font-size:11px;color:var(--ink-3);letter-spacing:1px}
+.v-label{font-family:"JetBrains Mono",Consolas,monospace;font-size:13px;color:var(--neon-a);position:absolute;top:18px;left:18px}
+
+/* 真实截图替换样式 */
+.mod-visual img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.mod-visual:hover img{transform:scale(1.02)}
+
+/* ============== 底部 ============== */
+.footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:var(--ink-3);font-size:13px}
+.footer .row{display:flex;justify-content:center;gap:20px;margin-bottom:8px;flex-wrap:wrap}
+.footer .row span{color:var(--ink-2)}
+.footer .sep{opacity:.4}
+
+/* ============== 响应式 ============== */
+@media(max-width:860px){
+  .module{grid-template-columns:1fr;gap:32px}
+  .module.alt{direction:ltr}
+  .hero{padding:56px 0 40px}
+  .stats{gap:16px}
+  .modules{gap:72px}
+  .top-inner{padding:12px 18px}
+}
+@media(max-width:520px){
+  .shell{padding:0 18px}
+  .backend-note{font-size:13px;padding:14px 16px}
+}
+
+/* ============== 灯箱（点击放大） ============== */
+.lightbox{position:fixed;inset:0;background:rgba(5,5,10,.92);backdrop-filter:blur(12px);z-index:100;display:none;align-items:center;justify-content:center;flex-direction:column;padding:24px;animation:fadein .2s ease}
+.lightbox.open{display:flex}
+.lightbox img{max-width:min(1200px,94vw);max-height:80vh;border-radius:var(--radius-m);box-shadow:0 40px 80px rgba(0,0,0,.6);border:1px solid var(--line)}
+.lightbox .close{position:absolute;top:20px;right:24px;color:var(--ink-2);cursor:pointer;font-size:14px;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.05);transition:all .2s}
+.lightbox .close:hover{color:var(--ink-0);background:rgba(255,255,255,.1)}
+.lightbox .caption{color:var(--ink-2);margin-top:14px;font-size:13px}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+
+/* ============== 滚动入场动画 ============== */
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.show{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- 背景层 -->
+<div class="bg" aria-hidden="true">
+  <div class="bg-blob a"></div>
+  <div class="bg-blob b"></div>
+  <div class="bg-blob c"></div>
+</div>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<!-- 顶部 -->
+<header class="top">
+  <div class="top-inner">
+    <div class="brand"><span class="dot"></span>赵俊清 <span>· LLM / 2026</span></div>
+    <nav class="top-nav">
+      <a href="index.html">← 课程目录</a>
+      <a href="#hero">顶部</a>
+      <a href="#m04">END ↓</a>
+    </nav>
+  </div>
+</header>
+
+<main class="shell">
+
+<!-- ============ HERO ============ -->
+<section class="hero fade-in" id="hero">
+  <p class="eyebrow">LLM · APP · PRACTICE / 2026-2027-1</p>
+  <h1>大模型应用<br>实践操作演示</h1>
+  <p class="lead">课程实践中的四个 AI 能力模块 · 在上节课全栈项目（Node.js + Express，端口 8205）基础上完成 · 点击截图可放大查看。</p>
+  <div class="backend-note">
+    💡 下方截图为运行实测。如需 <strong>在线交互</strong>（真实对话 / 上传 / 录音），请先在本机启动后端（双击全栈项目 <code>start.bat</code>）。
+    API Key 仅存于后端 <code>.env</code>（不进前端、不进 Git、对外截图打码 <code>sk-****</code>）。
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">04</div><div class="stat-label">MODULES</div></div>
+    <div class="stat"><div class="stat-num">15</div><div class="stat-label">/api/* 接口</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">PAGEs</div></div>
+    <div class="stat"><div class="stat-num">24006270205</div><div class="stat-label">STUDENT ID</div></div>
+  </div>
+</section>
+
+<div class="modules">
+
+<!-- ============ MODULE 01 · AI 客服 ============ -->
+<section class="module fade-in" id="m01">
+  <div>
+    <div class="mod-head">
+      <span class="mod-no">01</span>
+      <span class="mod-eyebrow">CHAT / SERVICE</span>
+    </div>
+    <h2 class="mod-title"><span class="emoji">🤖</span>AI 聊天 · 硅基流动 / 七牛 切换</h2>
+    <p class="mod-desc">前端通过下拉框切换 AI 服务商（硅基流动 / 七牛），后端从 <code>.env</code> 读取配置转发请求即可切换模型来源。多轮对话由前端维护完整 <code>messages</code> 数组实现——切换平台后历史上下文继续有效。客服人设只回答营业时间、招牌菜、配送范围三类问题，AI 回复下方标注了本次实际使用的平台与模型名。</p>
+    <div class="mod-tags">
+      <span class="mod-tag">POST /api/chat</span>
+      <span class="mod-tag">多轮 messages</span>
+      <span class="mod-tag">system prompt</span>
+      <span class="mod-tag">温度 0.3 / 0.7</span>
+      <span class="mod-tag">Key 只在后端 .env</span>
+    </div>
+  </div>
+  <div class="mod-visual v-1" onclick="openLight(this)">
+    <span class="v-label">▸ /api/chat</span>
+    <div class="v-inner">
+      <div class="v-window">
+        <div class="v-topbar"><span class="v-dot r"></span><span class="v-dot y"></span><span class="v-dot g"></span></div>
+        <div class="v-line short accent"></div>
+        <div class="v-line mid"></div>
+        <div class="v-line"></div>
+        <div class="v-line accent2 short"></div>
+        <div class="v-line mid"></div>
+        <div class="v-line short"></div>
+        <div class="v-line"></div>
+      </div>
+    </div>
+    <span class="v-caption">🔼 点击查看大图</span>
+  </div>
+</section>
+
+<!-- ============ MODULE 02 · 知识库 RAG ============ -->
+<section class="module alt fade-in" id="m02">
+  <div class="mod-visual v-2" onclick="openLight(this)">
+    <span class="v-label">▸ /api/kb/*</span>
+    <div class="v-inner">
+      <div class="v-window">
+        <div class="v-topbar"><span class="v-dot r"></span><span class="v-dot y"></span><span class="v-dot g"></span></div>
+        <div class="v-line accent short"></div>
+        <div class="v-line"></div>
+        <div class="v-line mid"></div>
+        <div class="v-line accent2"></div>
+        <div class="v-line short"></div>
+        <div class="v-line mid"></div>
+      </div>
+    </div>
+    <span class="v-caption">🔼 点击查看大图</span>
+  </div>
+  <div>
+    <div class="mod-head">
+      <span class="mod-no">02</span>
+      <span class="mod-eyebrow">RAG / KNOWLEDGE</span>
+    </div>
+    <h2 class="mod-title"><span class="emoji">📚</span>知识库 · 上传文件 + 功能验证</h2>
+    <p class="mod-desc">自行上传 <code>txt / md / csv / json / pdf / doc / docx / ppt / pptx</code> 文档，后端自动解析、去格式、按 <strong>320 字切片（重叠 60 字）</strong> 后存入本地 JSON 主存储。提问时先对全表做关键词 + 中文二元组检索取 Top-K，拼进 system 提示词要求"仅根据资料回答"，实现检索增强生成（RAG）。预置 2 个知识库文件，一键 seed 构建。</p>
+    <div class="mod-tags">
+      <span class="mod-tag">FILE UPLOAD</span>
+      <span class="mod-tag">PARSE + CHUNK</span>
+      <span class="mod-tag">TOP-K RETRIEVE</span>
+      <span class="mod-tag">SYSTEM PROMPT + HITS</span>
+      <span class="mod-tag">320 / 60 CHUNK</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODULE 03 · 图像识别 ============ -->
+<section class="module fade-in" id="m03">
+  <div>
+    <div class="mod-head">
+      <span class="mod-no">03</span>
+      <span class="mod-eyebrow">VISION / MULTIMODAL</span>
+    </div>
+    <h2 class="mod-title"><span class="emoji">🖼️</span>图像识别 · 上传图片 + Vision</h2>
+    <p class="mod-desc">上传本地图片转 base64 data URI，由后端携带 API Key 调用多模态视觉模型（<code>Qwen/Qwen2.5-VL-32B-Instruct</code>），图片以 <code>image_url</code> 形式放进 <code>chat/completions</code> 请求体，返回对物体 / 文字 / 场景的中文描述，支持自定义提问。</p>
+    <div class="mod-tags">
+      <span class="mod-tag">POST /api/vision</span>
+      <span class="mod-tag">image_url base64</span>
+      <span class="mod-tag">MULTIMODAL</span>
+      <span class="mod-tag">console.log sent/received</span>
+    </div>
+  </div>
+  <div class="mod-visual v-3" onclick="openLight(this)">
+    <span class="v-label">▸ /api/vision</span>
+    <div class="v-inner">
+      <div class="v-window">
+        <div class="v-topbar"><span class="v-dot r"></span><span class="v-dot y"></span><span class="v-dot g"></span></div>
+        <div class="v-line short accent"></div>
+        <div class="v-line mid"></div>
+        <div class="v-line accent2"></div>
+        <div class="v-line"></div>
+        <div class="v-line mid"></div>
+        <div class="v-line short"></div>
+      </div>
+    </div>
+    <span class="v-caption">🔼 点击查看大图</span>
+  </div>
+</section>
+
+<!-- ============ MODULE 04 · 语音识别 ============ -->
+<section class="module alt fade-in" id="m04">
+  <div class="mod-visual v-4" onclick="openLight(this)">
+    <span class="v-label">▸ /api/asr</span>
+    <div class="v-inner">
+      <div class="v-window">
+        <div class="v-topbar"><span class="v-dot r"></span><span class="v-dot y"></span><span class="v-dot g"></span></div>
+        <div class="v-line mid accent2"></div>
+        <div class="v-line short"></div>
+        <div class="v-line accent"></div>
+        <div class="v-line"></div>
+        <div class="v-line mid"></div>
+      </div>
+    </div>
+    <span class="v-caption">🔼 点击查看大图</span>
+  </div>
+  <div>
+    <div class="mod-head">
+      <span class="mod-no">04</span>
+      <span class="mod-eyebrow">ASR / SPEECH</span>
+    </div>
+    <h2 class="mod-title"><span class="emoji">🎤</span>语音识别 · 录音 + 测试功能</h2>
+    <p class="mod-desc">浏览器原生 <code>MediaRecorder</code> 录音，或直接上传音频文件（WAV / MP3 / M4A / AAC / OGG / WEBM / FLAC），后端内存接收后转发七牛云语音识别模型 <code>qwen/qwen-audio-3.0-asr-flash</code>，音频转 data URI 放进 <code>input_audio.data</code> 消息，开启 <code>enable_itn=true</code>（文本标准化），返回识别文字。页面提示在 Chrome / Edge 中允许麦克风权限。</p>
+    <div class="mod-tags">
+      <span class="mod-tag">POST /api/asr</span>
+      <span class="mod-tag">MediaRecorder</span>
+      <span class="mod-tag">input_audio.data</span>
+      <span class="mod-tag">Qwen ASR</span>
+      <span class="mod-tag">七牛云</span>
+    </div>
+  </div>
+</section>
+
+</div><!-- /modules -->
+</main>
+
+<footer class="footer">
+  <div class="row"><span>高级网页设计 · LLM 应用实践</span><span class="sep">·</span><span>赵俊清</span><span class="sep">·</span><span>24006270205</span><span class="sep">·</span><span>端口 8205</span></div>
+  <div class="row"><span>GitHub Pages：zhao196111.github.io</span><span class="sep">·</span><span>Netlify：junqing-webdesign-2026.netlify.app</span></div>
+</footer>
+
+<!-- ============ 灯箱 ============ -->
+<div class="lightbox" id="lightbox" onclick="closeLight(event)">
+  <button class="close" onclick="closeLight(event)">✕ 关闭 (ESC)</button>
+  <img id="lb-img" src="" alt="放大预览">
+  <div class="caption">截图占位 · 替换为你的实测截图：&lt;img src="img/LLM/ai_1.png"&gt;</div>
+</div>
+
+<script>
+/* 滚动入场 */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+},{threshold:.15});
+document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+
+/* 灯箱 */
+function openLight(el){
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lb-img');
+  const realImg = el.querySelector('img');
+  if(realImg && realImg.src){ img.src = realImg.src; }
+  else { /* 没有真实截图时显示占位图 */
+    img.remove();
+    lb.insertAdjacentHTML('beforeend','<div class="placeholder-note" style="color:var(--ink-2);font-size:16px;text-align:center;padding:40px;background:var(--glass);border-radius:var(--radius-m);border:1px solid var(--line);max-width:600px">📷 截图占位<br><br>把你本机运行 start.bat 后浏览器打开的截图<br>保存到 <code>img/LLM/</code> 目录即可自动替换</div>');
+  }
+  lb.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLight(e){
+  if(e && e.target.classList.contains('lightbox')){ /* 点背景也关闭 */ }
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+  const note = document.querySelector('.placeholder-note'); if(note) note.remove();
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLight(); });
+</script>
+</body>
+</html>
