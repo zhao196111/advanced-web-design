@@ -1,0 +1,9 @@
+{
+  "code": 0,
+  "msg": "ok（离线演示）",
+  "data": {
+    "text": "【离线演示】这是语音识别的模拟输出文字。真实部署时会调用七牛 Qwen-Audio-3.0-ASR-Flash。",
+    "offline": true,
+    "api": "/api/asr"
+  }
+}

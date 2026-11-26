@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "docx": "^9.16.0",
+    "mammoth": "^1.13.0"
+  },
+  "dependencies": {
+    "serverless-http": "^4.0.0"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "code": 0,
+  "msg": "ok（离线演示）",
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "title": "国产开源大模型发布 3.0 版本，长上下文推理成本下降四成",
+        "summary": "新版本把 128K 上下文的推理开销压低约 40%，并开放了完整权重与评测集。",
+        "content": "本次更新重构了注意力缓存机制。",
+        "source": "科技日报",
+        "publish_time": "2026-11-18 09:20",
+        "cover_img": "/images/03-mirror.jpg"
+      },
+      {
+        "id": 2,
+        "title": "可重复使用运载火箭完成第 20 次回收，发射间隔压缩至 72 小时",
+        "summary": "同一枚一级箭体第 20 次完成海上平台回收。",
+        "content": "复用周转周期缩短到三天。",
+        "source": "中国航天报",
+        "publish_time": "2026-11-17 14:05",
+        "cover_img": "/images/06-ship.jpg"
+      },
+      {
+        "id": 3,
+        "title": "固态电池中试线投产，能量密度达到 400Wh/kg",
+        "summary": "首条车规级固态电池中试线正式通线。",
+        "content": "样品通过针刺与高温循环测试。",
+        "source": "财新网",
+        "publish_time": "2026-11-16 10:30",
+        "cover_img": "/images/05-bluehour.jpg"
+      },
+      {
+        "id": 4,
+        "title": "6G 试验网在长三角完成通感一体外场验证",
+        "summary": "定位误差控制在 0.3 米以内。",
+        "content": "外场验证了通感一体波形稳定性。",
+        "source": "人民邮电报",
+        "publish_time": "2026-11-15 16:40",
+        "cover_img": "/images/01-dome.jpg"
+      },
+      {
+        "id": 5,
+        "title": "量子计算原型机实现 512 比特相干操控",
+        "summary": "双比特门保真度保持在 99.2%。",
+        "content": "规模化后保真度损失可控。",
+        "source": "Nature",
+        "publish_time": "2026-11-14 08:15",
+        "cover_img": "/images/02-shadow.jpg"
+      },
+      {
+        "id": 6,
+        "title": "自动驾驶干线物流获准开展跨省商业化试运营",
+        "summary": "两条跨省高速开放 L4 级卡车编队。",
+        "content": "全程配备云端安全员。",
+        "source": "新华社",
+        "publish_time": "2026-11-13 11:25",
+        "cover_img": "/images/04-forest.jpg"
+      },
+      {
+        "id": 7,
+        "title": "脑机接口临床试验帮助瘫痪患者完成汉字书写",
+        "summary": "识别准确率超过 90%。",
+        "content": "意念控制机械臂书写汉字。",
+        "source": "中国科学报",
+        "publish_time": "2026-11-12 15:50",
+        "cover_img": "/images/07-zoom.jpg"
+      },
+      {
+        "id": 8,
+        "title": "绿色数据中心液冷渗透率首次过半，平均 PUE 降至 1.08",
+        "summary": "新建数据中心液冷占比 52%。",
+        "content": "全年节电节水同步改善。",
+        "source": "第一财经",
+        "publish_time": "2026-11-11 09:00",
+        "cover_img": "/images/05-bluehour.jpg"
+      }
+    ],
+    "total": 8,
+    "api": "/api/news",
+    "table": "zjq_news",
+    "offline": true
+  }
+}

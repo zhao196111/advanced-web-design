@@ -1,0 +1,15 @@
+{
+  "code": 0,
+  "msg": "ok",
+  "data": {
+    "service": "zjq-static-deploy",
+    "port": 8205,
+    "node": "static-deploy",
+    "database": "offline",
+    "api": [
+      "/data/news.json",
+      "/data/gallery.json",
+      "/data/chat.json"
+    ]
+  }
+}

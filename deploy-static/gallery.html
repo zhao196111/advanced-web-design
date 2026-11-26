@@ -1,0 +1,67 @@
+<!--
+姓名：赵俊清 | 学号：24006270205 |
+时间：2026-11-19 | 大模型：Tencent Hunyuan Hy（均衡）
+文件名：frontend/gallery.html（任务 6：图文列表，数据来自 MySQL zjq_gallery 表）
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图文列表 · 赵俊清 24006270205</title>
+    <link rel="stylesheet" href="css/zjq_style.css">
+    <script src="js/zjq_bg.js" defer></script>
+    <script src="js/zjq_gallery.js" defer></script>
+</head>
+<body class="zjq_body">
+<canvas id="zjq_bgCanvas" aria-hidden="true"></canvas>
+
+<div class="zjq_wrap">
+    <a class="zjq_back" href="index.html">← 返回项目首页</a>
+
+    <header class="zjq_masthead">
+        <p class="zjq_kicker">Task 06 / Database → API → Grid</p>
+        <h1 class="zjq_title"><em>图文列表</em></h1>
+        <p class="zjq_subtitle">
+            第二次全链路，换一张表：后端读 <code>zjq_gallery</code>，
+            前端用网格做「上图下文」卡片。图片全部是本地文件，不走 CDN；
+            加载失败时自动换成渐变占位色块，不会出现破图图标。
+        </p>
+    </header>
+
+    <div class="zjq_apiBar">
+        <span class="zjq_apiLabel">GET 接口</span>
+        <span class="zjq_apiUrl" id="zjq_apiUrl">/api/gallery</span>
+        <a class="zjq_apiUrl" id="zjq_apiLink" href="/api/gallery" target="_blank" style="margin-left:auto;text-decoration:underline">打开接口 ↗</a>
+    </div>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">01</span>
+            <h2 class="zjq_secTitle">图文卡片</h2>
+            <span class="zjq_secEn">GALLERY</span>
+        </div>
+
+        <div class="zjq_btnRow" style="margin-bottom:16px">
+            <button class="zjq_btn zjq_btnGhost" id="zjq_btnReload" type="button">重新读取数据库</button>
+        </div>
+
+        <div class="zjq_grid" id="zjq_grid">
+            <div class="zjq_empty" id="zjq_empty">正在从数据库读取…</div>
+        </div>
+
+        <p class="zjq_status" id="zjq_status"></p>
+        <p class="zjq_note" style="margin-top:18px">
+            网格用 <code>grid-template-columns: repeat(auto-fill, minmax(240px, 1fr))</code>，
+            图片用 <code>object-fit: cover</code> 统一裁切；窄屏自动改成两列、再窄改一列。
+            图片失败由 <code>img.onerror</code> 换成渐变占位块，同时 <code>console.error</code> 输出原因。
+        </p>
+    </section>
+
+    <footer class="zjq_footer">
+        <span>赵俊清 · 24006270205 · 端口 8205</span>
+        <span>表 zjq_gallery · 本地 images/ 目录</span>
+    </footer>
+</div>
+</body>
+</html>

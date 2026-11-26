@@ -1,0 +1,11 @@
+{
+  "code": 0,
+  "msg": "ok（离线演示）",
+  "data": {
+    "answer": "【离线演示】你好！我是「中华美食街」在线客服演示助手。当前未配置 API Key，这是离线模拟回答。真实部署后重启 backend/.env 填入 Key 即可变成真实大模型回答。",
+    "scene": "chat",
+    "platform": "siliconflow",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "offline": true
+  }
+}

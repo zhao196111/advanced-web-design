@@ -1,0 +1,139 @@
+<!--
+姓名：赵俊清 | 学号：24006270205 |
+时间：2026-11-26 | 大模型：Tencent Hunyuan Hy（均衡）
+文件名：frontend/chat.html
+说明：AI 聊天 / 在线客服页面。原生 HTML+CSS+JS，接口 POST /api/chat；
+     Key 只在后端 .env；浏览器控制台输出完整收发数据；支持双平台热切换与多轮对话。
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 聊天与在线客服 · 赵俊清 24006270205</title>
+    <link rel="stylesheet" href="css/zjq_style.css">
+    <script src="js/zjq_bg.js" defer></script>
+    <script src="js/zjq_chat.js" defer></script>
+</head>
+<body class="zjq_body">
+<canvas id="zjq_bgCanvas" aria-hidden="true"></canvas>
+
+<div class="zjq_wrap">
+
+    <header class="zjq_masthead">
+        <p class="zjq_kicker">LLM · App / 2026-2027-1</p>
+        <h1 class="zjq_title"><em>AI 聊天</em> 与 <em>在线客服</em></h1>
+        <p class="zjq_subtitle">
+            网页 → 后端 <code>/api/chat</code> → 大模型接口 → 答案原路返回。
+            Key 藏在 <code>backend/.env</code>，前端一行都看不到；换平台只改配置，代码不动。
+        </p>
+        <div class="zjq_meta">
+            <div class="zjq_metaItem"><span>NAME</span><b>赵俊清</b></div>
+            <div class="zjq_metaItem"><span>学号</span><b>24006270205</b></div>
+            <div class="zjq_metaItem"><span>端口</span><b>8205</b></div>
+            <div class="zjq_metaItem"><span>接口</span><b>POST /api/chat</b></div>
+        </div>
+    </header>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">01</span>
+            <h2 class="zjq_secTitle">对话控制台</h2>
+            <span class="zjq_secEn">CHAT</span>
+        </div>
+        <p class="zjq_apiBar">
+            当前调用接口：<a class="zjq_apiLink" id="zjq_apiLink" href="/api/chat"><code id="zjq_apiUrl">/api/chat</code></a>
+            <span class="zjq_apiTag">统一 JSON：{ code, msg, data }</span>
+        </p>
+
+        <div class="zjq_toolRow">
+            <div class="zjq_field">
+                <label for="zjq_platform">大模型平台</label>
+                <select class="zjq_select" id="zjq_platform">
+                    <option value="siliconflow">硅基流动 · DeepSeek-V4-Flash</option>
+                    <option value="qiniu">七牛云 · conatus-free</option>
+                </select>
+            </div>
+            <div class="zjq_field">
+                <label for="zjq_scene">助手人设</label>
+                <select class="zjq_select" id="zjq_scene">
+                    <option value="chat">通用 AI 助手</option>
+                    <option value="service">中华美食街在线客服</option>
+                </select>
+            </div>
+            <button class="zjq_btn zjq_btnGhost" id="zjq_btnClear" type="button">清空对话</button>
+        </div>
+
+        <div class="zjq_statusLine" id="zjq_keyStatus">正在读取平台状态…</div>
+
+        <div class="zjq_chatBox" id="zjq_chatBox" aria-live="polite"></div>
+
+        <div class="zjq_toolRow" style="margin-bottom:8px">
+            <div class="zjq_field" style="flex:1 1 100%">
+                <label for="zjq_question">输入消息（回车发送，Shift+回车换行）</label>
+                <textarea class="zjq_textarea" id="zjq_question" placeholder="例如：你们几点开门？招牌菜推荐什么？"></textarea>
+            </div>
+        </div>
+        <div class="zjq_toolRow">
+            <button class="zjq_btn" id="zjq_btnSend" type="button">发送 →</button>
+            <button class="zjq_btn zjq_btnGhost zjq_btnSm" id="zjq_btnDemo1" type="button">示例：营业时间</button>
+            <button class="zjq_btn zjq_btnGhost zjq_btnSm" id="zjq_btnDemo2" type="button">示例：我刚才问了什么？</button>
+        </div>
+    </section>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">02</span>
+            <h2 class="zjq_secTitle">发送给 / 接收自大模型的数据</h2>
+            <span class="zjq_secEn">I / O</span>
+        </div>
+        <p class="zjq_note">
+            本节课要求：在控制台输出发送给大模型的数据和接收自大模型的数据。
+            下面两块与浏览器 <code>console.log</code> 完全同步；按 F12 打开控制台可见同样内容（含完整 messages）。
+        </p>
+        <div class="zjq_ioGrid">
+            <div class="zjq_ioCard">
+                <div class="zjq_ioHead"><span>SENT → 发送给大模型的数据</span><em id="zjq_sentTag">等待请求</em></div>
+                <pre class="zjq_ioBody" id="zjq_sent"><div class="zjq_ioEmpty">尚未发送请求。</div></pre>
+            </div>
+            <div class="zjq_ioCard">
+                <div class="zjq_ioHead"><span>RECEIVED ← 接收自大模型的数据</span><em id="zjq_recvTag">等待响应</em></div>
+                <pre class="zjq_ioBody" id="zjq_received"><div class="zjq_ioEmpty">尚未收到响应。</div></pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">03</span>
+            <h2 class="zjq_secTitle">答辩速记</h2>
+            <span class="zjq_secEn">Q&amp;A</span>
+        </div>
+        <div class="zjq_subGrid">
+            <div class="zjq_subCard">
+                <h3>为什么 Key 不能放前端？</h3>
+                <p>前端源码按 F12 全可见，放进去等于公开，会被盗刷额度。后端持 Key 转发，前端只和自己的 /api/ 通信。</p>
+            </div>
+            <div class="zjq_subCard">
+                <h3>多轮对话为什么传完整历史？</h3>
+                <p>模型不记事，每次请求独立。前端维护 messages 数组，把用户问题和模型回答都 push 进去整体发送。</p>
+            </div>
+            <div class="zjq_subCard">
+                <h3>换平台要改哪几个值？</h3>
+                <p>只改 .env 三行：BaseURL、Model ID、API Key。注意 baseURL 末尾的 /v1 不能多也不能少。</p>
+            </div>
+            <div class="zjq_subCard">
+                <h3>没有 Key 会白屏吗？</h3>
+                <p>不会。自动进入离线演示模式，请求体照常组装、控制台照常打印收发数据，页面给出明确提示。</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="zjq_footer">
+        <a href="index.html">← 返回项目首页</a>
+        <span>localhost:8205 · Node.js + Express · 原生前端</span>
+    </footer>
+
+</div>
+</body>
+</html>

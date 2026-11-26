@@ -1,0 +1,9 @@
+{
+  "code": 0,
+  "msg": "ok（离线演示）",
+  "data": {
+    "description": "【离线演示】这是一张示例图片。真实部署时会调用多模态大模型返回中文描述。",
+    "offline": true,
+    "api": "/api/vision"
+  }
+}

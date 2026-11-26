@@ -1,0 +1,151 @@
+<!--
+姓名：赵俊清 | 学号：24006270205 |
+时间：2026-11-19 | 大模型：Tencent Hunyuan Hy（均衡）
+文件名：frontend/index.html（首页）
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全栈项目初始化 · 赵俊清 24006270205</title>
+    <link rel="stylesheet" href="css/zjq_style.css">
+    <script src="js/zjq_bg.js" defer></script>
+</head>
+<body class="zjq_body">
+<canvas id="zjq_bgCanvas" aria-hidden="true"></canvas>
+
+<div class="zjq_wrap">
+
+    <header class="zjq_masthead">
+        <p class="zjq_kicker">Fullstack · Init / 2026-2027-1</p>
+        <h1 class="zjq_title">从 <em>AGENTS.md 规则</em> 到 <em>数据接口</em></h1>
+        <p class="zjq_subtitle">
+            一个全栈项目是怎么「长」出来的：先立规矩，再初始化仓库，跑起来、连上 MySQL，
+            最后做出两个真正读数据库的页面。规则先行 → 骨架落地 → 全链路打通。
+        </p>
+        <div class="zjq_meta">
+            <div class="zjq_metaItem"><span>NAME</span><b>赵俊清</b></div>
+            <div class="zjq_metaItem"><span>学号</span><b>24006270205</b></div>
+            <div class="zjq_metaItem"><span>端口</span><b>8205</b></div>
+            <div class="zjq_metaItem"><span>项目类别</span><b>模仿 + 自主改造</b></div>
+            <div class="zjq_metaItem"><span>大模型</span><b>Tencent Hunyuan Hy（均衡）</b></div>
+        </div>
+    </header>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">01</span>
+            <h2 class="zjq_secTitle">页面导航</h2>
+            <span class="zjq_secEn">PAGES</span>
+        </div>
+        <p class="zjq_note">
+            全部页面都已在 <code>frontend/index.html</code> 登记入口（文件名不含 detail，按 AGENTS.md 约定必须登记）。
+            前 4 个是全栈初始化课，后 4 个是 llm-app 课：AI 聊天、知识库 RAG、图像识别、语音识别。
+            接口自检地址另列在下方，用来确认后端确实跑在 8205。
+        </p>
+
+        <div class="zjq_navGrid">
+            <a class="zjq_navCard" href="index.html">
+                <span class="zjq_navArrow">→</span>
+                <span class="zjq_navNo">PAGE / 00</span>
+                <span class="zjq_navName">项目首页</span>
+                <span class="zjq_navDesc">姓名学号、项目信息、canvas 粒子背景，以及全部页面入口。</span>
+                <span class="zjq_navTag">HTML</span>
+            </a>
+            <a class="zjq_navCard" href="database.html">
+                <span class="zjq_navArrow">→</span>
+                <span class="zjq_navNo">TASK / 04</span>
+                <span class="zjq_navName">数据库连接测试</span>
+                <span class="zjq_navDesc">输入用户名与密码调用 /api/db-test，成功显示 MySQL 版本，失败显示红色错误。</span>
+                <span class="zjq_navTag">HTML · POST</span>
+            </a>
+            <a class="zjq_navCard" href="news.html">
+                <span class="zjq_navArrow">→</span>
+                <span class="zjq_navNo">TASK / 05</span>
+                <span class="zjq_navName">科技新闻列表</span>
+                <span class="zjq_navDesc">GET /api/news，读 zjq_news 表，按发布时间倒序列出标题、摘要、来源、时间。</span>
+                <span class="zjq_navTag">HTML · GET</span>
+            </a>
+            <a class="zjq_navCard" href="gallery.html">
+                <span class="zjq_navArrow">→</span>
+                <span class="zjq_navNo">TASK / 06</span>
+                <span class="zjq_navName">图文列表</span>
+                <span class="zjq_navDesc">GET /api/gallery，读 zjq_gallery 表，网格「上图下文」，图片失败显示占位色块。</span>
+                <span class="zjq_navTag">HTML · GET</span>
+            </a>
+            <a class="zjq_navCard" href="chat.html">
+                <span class="zjq_navArrow">→</span>
+                <span class="zjq_navNo">LLM / 01</span>
+                <span class="zjq_navName">AI 聊天与在线客服</span>
+                <span class="zjq_navDesc">POST /api/chat，Key 只在后端 .env；双平台热切换、多轮对话、控制台输出收发数据。</span>
+                <span class="zjq_navTag">HTML · POST</span>
+            </a>
+            <a class="zjq_navCard" href="kb.html">
+                <span class="zjq_navArrow">→</span>
+                <span class="zjq_navNo">LLM / 02</span>
+                <span class="zjq_navName">知识库问答（RAG）</span>
+                <span class="zjq_navDesc">上传 DOC/DOCX/PPT/PPTX/PDF/TXT → 解析分块 → 检索 → 大模型作答；含 2 个预置知识库文件与管理。</span>
+                <span class="zjq_navTag">HTML · RAG</span>
+            </a>
+            <a class="zjq_navCard" href="vision.html">
+                <span class="zjq_navArrow">→</span>
+                <span class="zjq_navNo">LLM / 03</span>
+                <span class="zjq_navName">图像识别</span>
+                <span class="zjq_navDesc">上传图片 → POST /api/vision → 多模态模型返回中文描述，控制台输出收发数据。</span>
+                <span class="zjq_navTag">HTML · 多模态</span>
+            </a>
+            <a class="zjq_navCard" href="asr.html">
+                <span class="zjq_navArrow">→</span>
+                <span class="zjq_navNo">LLM / 04</span>
+                <span class="zjq_navName">语音识别</span>
+                <span class="zjq_navDesc">录音或上传音频 → POST /api/asr → 七牛 Qwen-Audio-3.0-ASR-Flash 输出文字。</span>
+                <span class="zjq_navTag">HTML · 音频</span>
+            </a>
+        </div>
+
+        <p class="zjq_note" style="margin-top:16px">
+            接口自检：<a href="/api/health" target="_blank"><code>/api/health</code> ↗</a>
+            —— 返回 <code>{ code:0, msg:"ok", data:{...} }</code>，用来确认后端确实跑在 8205。
+        </p>
+    </section>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">02</span>
+            <h2 class="zjq_secTitle">这六步在做什么</h2>
+            <span class="zjq_secEn">FLOW</span>
+        </div>
+        <ul class="zjq_checkList">
+            <li><b>立规矩</b>：AGENTS.md 写死端口 8205、命名前缀 zjq_、记录文件追加规则、统一 JSON 格式。</li>
+            <li><b>搭骨架</b>：git init + .gitignore、frontend/ 与 backend/ 目录、npm 换国内镜像装 express / mysql2 / cors / dotenv。</li>
+            <li><b>跑起来</b>：start.bat 用 %~dp0 切到 backend 后 npm run dev，chcp 65001 防乱码，结尾 pause 防闪退。</li>
+            <li><b>连数据库</b>：database.html 把账号密码交给 /api/db-test，成功绿、失败红，控制台同步输出。</li>
+            <li><b>全链路</b>：/api/news 与 /api/gallery 直读 MySQL，页面顶部显示接口地址，fetch 后 console.log。</li>
+            <li><b>接大模型</b>：llm-app 课新增 /api/chat、/api/kb/*、/api/vision、/api/asr，Key 只在 backend/.env。</li>
+            <li><b>留证据</b>：zjq_prompt.md、zjq_interface.md、zjq_database.md 三个文件一律追加写入。</li>
+        </ul>
+    </section>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">03</span>
+            <h2 class="zjq_secTitle">答辩速记</h2>
+            <span class="zjq_secEn">Q&amp;A</span>
+        </div>
+        <ul class="zjq_checkList">
+            <li>端口 <b>8205</b>：学号 24006270205 末三位 205，避免全班都用 8000 端口冲突。</li>
+            <li>真实密码不写进 AGENTS.md：该文件会进 git，写进去等于公开；只放 backend/.env 且 .env 已忽略。</li>
+            <li><code>data.list</code> 与 <code>data</code>：本项目接口把数组放在 data.list，先 console.log 完整响应再按层级取。</li>
+            <li>接口 404 先查三处：端口是不是 8205、路径有没有 /api/ 前缀、服务是否真的启动。</li>
+        </ul>
+    </section>
+
+    <footer class="zjq_footer">
+        <span>高级网页设计 · 全栈项目初始化课堂案例 · 赵俊清 24006270205</span>
+        <span>localhost:8205 · Node.js + Express + MySQL</span>
+    </footer>
+
+</div>
+</body>
+</html>

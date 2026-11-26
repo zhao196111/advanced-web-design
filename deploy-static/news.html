@@ -1,0 +1,71 @@
+<!--
+姓名：赵俊清 | 学号：24006270205 |
+时间：2026-11-19 | 大模型：Tencent Hunyuan Hy（均衡）
+文件名：frontend/news.html（任务 5：科技新闻列表，数据来自 MySQL zjq_news 表）
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科技新闻列表 · 赵俊清 24006270205</title>
+    <link rel="stylesheet" href="css/zjq_style.css">
+    <script src="js/zjq_bg.js" defer></script>
+    <script src="js/zjq_news.js" defer></script>
+</head>
+<body class="zjq_body">
+<canvas id="zjq_bgCanvas" aria-hidden="true"></canvas>
+
+<div class="zjq_wrap">
+    <a class="zjq_back" href="index.html">← 返回项目首页</a>
+
+    <header class="zjq_masthead">
+        <p class="zjq_kicker">Task 05 / Database → API → Page</p>
+        <h1 class="zjq_title">科技<em>新闻列表</em></h1>
+        <p class="zjq_subtitle">
+            全链路第一站：页面用 <code>fetch</code> 调 <code>GET /api/news</code>，
+            后端读 MySQL 的 <code>zjq_news</code> 表，按发布时间倒序返回。
+            上方显示当前调用的接口地址，点开就能直接核对返回的 JSON。
+        </p>
+    </header>
+
+    <div class="zjq_apiBar">
+        <span class="zjq_apiLabel">GET 接口</span>
+        <span class="zjq_apiUrl" id="zjq_apiUrl">/api/news</span>
+        <a class="zjq_apiUrl" id="zjq_apiLink" href="/api/news" target="_blank" style="margin-left:auto;text-decoration:underline">打开接口 ↗</a>
+    </div>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">01</span>
+            <h2 class="zjq_secTitle">新闻列表</h2>
+            <span class="zjq_secEn">NEWS</span>
+        </div>
+
+        <div class="zjq_btnRow" style="margin-bottom:16px">
+            <button class="zjq_btn zjq_btnGhost" id="zjq_btnReload" type="button">重新读取数据库</button>
+        </div>
+
+        <div class="zjq_list" id="zjq_list">
+            <div class="zjq_empty" id="zjq_empty">正在从数据库读取…</div>
+        </div>
+
+        <p class="zjq_status" id="zjq_status"></p>
+        <p class="zjq_note" style="margin-top:18px">
+            答辩点：接口把数组放在 <code>data.list</code>，所以前端取的是
+            <code>zjq_json.data.list</code>；如果直接遍历 <code>data</code> 就取不到。
+            完整响应已经 <code>console.log</code> 到控制台，先打印再按层级取值是最稳的调试习惯。
+        </p>
+        <p class="zjq_note">
+            验收：在数据库里改一条新闻标题，回来点「重新读取数据库」，页面应当立刻跟着变——
+            这说明数据真的来自库，不是写死在前端。以下条目为课堂演示用测试数据。
+        </p>
+    </section>
+
+    <footer class="zjq_footer">
+        <span>赵俊清 · 24006270205 · 端口 8205</span>
+        <span>表 zjq_news · 统一响应 { code, msg, data }</span>
+    </footer>
+</div>
+</body>
+</html>

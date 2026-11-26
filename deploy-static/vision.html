@@ -1,0 +1,113 @@
+<!--
+姓名：赵俊清 | 学号：24006270205 |
+时间：2026-11-26 | 大模型：Tencent Hunyuan Hy（均衡）
+文件名：frontend/vision.html
+说明：图像识别页面。上传图片 → 后端转 base64 data URI → 多模态大模型 → 返回中文描述。
+     图片加载失败显示渐变占位色块，不出现破图图标；控制台输出收发数据。
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图像识别 · 赵俊清 24006270205</title>
+    <link rel="stylesheet" href="css/zjq_style.css">
+    <script src="js/zjq_bg.js" defer></script>
+    <script src="js/zjq_vision.js" defer></script>
+</head>
+<body class="zjq_body">
+<canvas id="zjq_bgCanvas" aria-hidden="true"></canvas>
+
+<div class="zjq_wrap">
+
+    <header class="zjq_masthead">
+        <p class="zjq_kicker">Vision · Multimodal / 2026-2027-1</p>
+        <h1 class="zjq_title">上传图片，<em>让模型描述它</em></h1>
+        <p class="zjq_subtitle">
+            图片不落盘：浏览器 → <code>POST /api/vision</code> → 后端 base64 编码 →
+            多模态视觉模型（image_url）→ 中文描述原路返回。Key 依旧只在 <code>backend/.env</code>。
+        </p>
+        <div class="zjq_meta">
+            <div class="zjq_metaItem"><span>NAME</span><b>赵俊清</b></div>
+            <div class="zjq_metaItem"><span>学号</span><b>24006270205</b></div>
+            <div class="zjq_metaItem"><span>端口</span><b>8205</b></div>
+            <div class="zjq_metaItem"><span>接口</span><b>POST /api/vision</b></div>
+        </div>
+    </header>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">01</span>
+            <h2 class="zjq_secTitle">图片上传与预览</h2>
+            <span class="zjq_secEn">UPLOAD</span>
+        </div>
+        <p class="zjq_apiBar">
+            当前调用接口：<a href="/api/vision"><code id="zjq_visionUrl">/api/vision</code></a>
+            <span class="zjq_apiTag">POST · multipart · 字段名 zjq_image</span>
+        </p>
+
+        <div class="zjq_drop" id="zjq_dropVision">
+            <div class="zjq_dropTitle">拖入或选择一张图片</div>
+            <div class="zjq_dropHint">支持 JPG / PNG / GIF / WEBP / BMP，单张 ≤ 8MB</div>
+            <input class="zjq_input" type="file" id="zjq_image" accept="image/*">
+        </div>
+
+        <div id="zjq_previewWrap"></div>
+
+        <div class="zjq_toolRow">
+            <div class="zjq_field">
+                <label for="zjq_platformVision">大模型平台</label>
+                <select class="zjq_select" id="zjq_platformVision">
+                    <option value="siliconflow">硅基流动 · Qwen2.5-VL</option>
+                    <option value="qiniu">七牛云 · Qwen2.5-VL</option>
+                </select>
+            </div>
+            <div class="zjq_field" style="flex:1 1 260px">
+                <label for="zjq_visionPrompt">识别提示词（可改）</label>
+                <input class="zjq_input" id="zjq_visionPrompt" value="请详细描述这张图片的内容、主体、场景、色彩与可能的用途。用中文回答。">
+            </div>
+            <button class="zjq_btn" id="zjq_btnVision" type="button">识别图片 →</button>
+        </div>
+        <div class="zjq_statusLine" id="zjq_visionStatus">请先选择一张图片。</div>
+    </section>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">02</span>
+            <h2 class="zjq_secTitle">模型返回的图片描述</h2>
+            <span class="zjq_secEn">RESULT</span>
+        </div>
+        <div class="zjq_answer" id="zjq_description">等待识别结果。</div>
+        <div class="zjq_statusLine" id="zjq_metaInfo">图片信息：—</div>
+    </section>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">03</span>
+            <h2 class="zjq_secTitle">发送给 / 接收自大模型的数据</h2>
+            <span class="zjq_secEn">I / O</span>
+        </div>
+        <p class="zjq_note">
+            本节课要求：在控制台输出发送给大模型的数据和接收自大模型的数据。
+            下面两块与浏览器 <code>console.log</code> 同步；base64 图片数据在请求体中（页面展示做了长度折叠，控制台是完整对象）。
+        </p>
+        <div class="zjq_ioGrid">
+            <div class="zjq_ioCard">
+                <div class="zjq_ioHead"><span>SENT → 发送给大模型的数据</span><em id="zjq_sentTagVision">等待请求</em></div>
+                <pre class="zjq_ioBody" id="zjq_sentVision"><div class="zjq_ioEmpty">尚未发送请求。</div></pre>
+            </div>
+            <div class="zjq_ioCard">
+                <div class="zjq_ioHead"><span>RECEIVED ← 接收自大模型的数据</span><em id="zjq_recvTagVision">等待响应</em></div>
+                <pre class="zjq_ioBody" id="zjq_recvVision"><div class="zjq_ioEmpty">尚未收到响应。</div></pre>
+            </div>
+        </div>
+    </section>
+
+    <footer class="zjq_footer">
+        <a href="index.html">← 返回项目首页</a>
+        <span>localhost:8205 · 原生前端 · 无第三方库</span>
+    </footer>
+
+</div>
+</body>
+</html>

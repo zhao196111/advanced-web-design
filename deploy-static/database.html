@@ -1,0 +1,97 @@
+<!--
+姓名：赵俊清 | 学号：24006270205 |
+时间：2026-11-19 | 大模型：Tencent Hunyuan Hy（均衡）
+文件名：frontend/database.html（任务 4：数据库连接测试）
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库连接测试 · 赵俊清 24006270205</title>
+    <link rel="stylesheet" href="css/zjq_style.css">
+    <script src="js/zjq_bg.js" defer></script>
+    <script src="js/zjq_database.js" defer></script>
+</head>
+<body class="zjq_body">
+<canvas id="zjq_bgCanvas" aria-hidden="true"></canvas>
+
+<div class="zjq_wrap">
+    <a class="zjq_back" href="index.html">← 返回项目首页</a>
+
+    <header class="zjq_masthead">
+        <p class="zjq_kicker">Task 04 / Database Connection</p>
+        <h1 class="zjq_title">数据库连接<em>测试</em></h1>
+        <p class="zjq_subtitle">
+            输入本机 MySQL 的用户名与密码，交给后端 <code>/api/db-test</code> 真实连一次。
+            成功显示 MySQL 版本（绿色），失败显示错误原因（红色），两种情况都会输出到浏览器控制台。
+        </p>
+    </header>
+
+    <div class="zjq_apiBar">
+        <span class="zjq_apiLabel">POST 接口</span>
+        <span class="zjq_apiUrl" id="zjq_apiUrl">/api/db-test</span>
+        <span class="zjq_apiLabel" style="margin-left:auto">统一响应 { code, msg, data }</span>
+    </div>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">01</span>
+            <h2 class="zjq_secTitle">连接参数</h2>
+            <span class="zjq_secEn">CREDENTIALS</span>
+        </div>
+
+        <div class="zjq_panel">
+            <div class="zjq_fieldRow">
+                <div class="zjq_field">
+                    <label class="zjq_label" for="zjq_user">用户名（默认 root）</label>
+                    <input class="zjq_input" id="zjq_user" type="text" value="root" autocomplete="username">
+                </div>
+                <div class="zjq_field">
+                    <label class="zjq_label" for="zjq_password">密码（本机 MySQL root 密码）</label>
+                    <input class="zjq_input" id="zjq_password" type="password" placeholder="在这里输入密码" autocomplete="current-password">
+                </div>
+            </div>
+
+            <div class="zjq_btnRow">
+                <button class="zjq_btn" id="zjq_btnTest" type="button">测试连接</button>
+                <button class="zjq_btn zjq_btnGhost" id="zjq_btnInit" type="button" disabled>初始化数据库与测试数据</button>
+            </div>
+
+            <div class="zjq_result" id="zjq_result" role="status">
+                <div class="zjq_resultTitle" id="zjq_resultTitle"></div>
+                <div class="zjq_resultText" id="zjq_resultText"></div>
+            </div>
+
+            <p class="zjq_status">
+                密码只在本次请求里传给本机后端，成功后回填 <code>backend/.env</code>；
+                <code>.env</code> 已在 <code>.gitignore</code> 中，不会进 git，也不会写死在代码里。
+            </p>
+        </div>
+
+        <p class="zjq_note">
+            验收：密码输对 → 绿色提示并显示 MySQL 版本；故意输错 → 红色
+            <code>Access denied for user 'root'</code>，页面不白屏、控制台有错误详情。
+            连接成功后「初始化数据库」按钮才会解锁：它会建库、建 zjq_news 与 zjq_gallery 两张表，插入 8+8 条数据。
+        </p>
+    </section>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">02</span>
+            <h2 class="zjq_secTitle">下一步</h2>
+            <span class="zjq_secEn">NEXT</span>
+        </div>
+        <p class="zjq_note">
+            初始化完成后打开 <a href="news.html">科技新闻列表</a> 或 <a href="gallery.html">图文列表</a>，
+            两页都会显示接口地址和真实数据库里的数据。改一条数据库记录再刷新页面，就能验证全链路确实读的是库。
+        </p>
+    </section>
+
+    <footer class="zjq_footer">
+        <span>赵俊清 · 24006270205 · 端口 8205</span>
+        <span>GET /api/news · GET /api/gallery</span>
+    </footer>
+</div>
+</body>
+</html>

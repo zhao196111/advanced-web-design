@@ -1,0 +1,76 @@
+{
+  "code": 0,
+  "msg": "ok（离线演示）",
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "title": "穹顶结构",
+        "description": "参数化设计的曲面网格。",
+        "img_url": "/images/01-dome.jpg",
+        "category": "建筑",
+        "create_time": "2026-11-18 10:00"
+      },
+      {
+        "id": 2,
+        "title": "午后长影",
+        "description": "低角度自然光在立面上拉出层次。",
+        "img_url": "/images/02-shadow.jpg",
+        "category": "摄影",
+        "create_time": "2026-11-17 10:00"
+      },
+      {
+        "id": 3,
+        "title": "镜面装置",
+        "description": "反射让空间被复制了一次。",
+        "img_url": "/images/03-mirror.jpg",
+        "category": "装置",
+        "create_time": "2026-11-16 10:00"
+      },
+      {
+        "id": 4,
+        "title": "林间光束",
+        "description": "散射光穿过枝叶形成可见光路。",
+        "img_url": "/images/04-forest.jpg",
+        "category": "自然",
+        "create_time": "2026-11-15 10:00"
+      },
+      {
+        "id": 5,
+        "title": "蓝调时刻",
+        "description": "日落后二十分钟的短暂平衡。",
+        "img_url": "/images/05-bluehour.jpg",
+        "category": "城市",
+        "create_time": "2026-11-14 10:00"
+      },
+      {
+        "id": 6,
+        "title": "国产大型邮轮",
+        "description": "工业摄影里最难压缩进一帧的部分。",
+        "img_url": "/images/06-ship.jpg",
+        "category": "工业",
+        "create_time": "2026-11-13 10:00"
+      },
+      {
+        "id": 7,
+        "title": "双指缩放",
+        "description": "移动端手势采样可视化。",
+        "img_url": "/images/07-zoom.jpg",
+        "category": "交互",
+        "create_time": "2026-11-12 10:00"
+      },
+      {
+        "id": 8,
+        "title": "穹顶再读",
+        "description": "验证图片缓存与加载失败占位。",
+        "img_url": "/images/01-dome.jpg",
+        "category": "建筑",
+        "create_time": "2026-11-11 10:00"
+      }
+    ],
+    "total": 8,
+    "api": "/api/gallery",
+    "table": "zjq_gallery",
+    "offline": true
+  }
+}

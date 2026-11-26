@@ -1,0 +1,23 @@
+{
+  "code": 0,
+  "msg": "ok",
+  "data": {
+    "list": [
+      {
+        "zjq_id": 1,
+        "zjq_name": "zjq_kb_service.txt",
+        "zjq_chunk_count": 8,
+        "zjq_source": "预置知识库"
+      },
+      {
+        "zjq_id": 2,
+        "zjq_name": "zjq_kb_faq.md",
+        "zjq_chunk_count": 9,
+        "zjq_source": "预置知识库"
+      }
+    ],
+    "total": 2,
+    "chunks": 17,
+    "api": "/api/kb/list"
+  }
+}

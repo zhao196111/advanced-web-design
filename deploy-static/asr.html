@@ -1,0 +1,118 @@
+<!--
+姓名：赵俊清 | 学号：24006270205 |
+时间：2026-11-26 | 大模型：Tencent Hunyuan Hy（均衡）
+文件名：frontend/asr.html
+说明：语音识别页面。浏览器 MediaRecorder 录音或上传本地音频 → POST /api/asr →
+     七牛 Qwen-Audio-3.0-ASR-Flash（qwen/qwen-audio-3.0-asr-flash）→ 输出文字。
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音识别 · 赵俊清 24006270205</title>
+    <link rel="stylesheet" href="css/zjq_style.css">
+    <script src="js/zjq_bg.js" defer></script>
+    <script src="js/zjq_asr.js" defer></script>
+</head>
+<body class="zjq_body">
+<canvas id="zjq_bgCanvas" aria-hidden="true"></canvas>
+
+<div class="zjq_wrap">
+
+    <header class="zjq_masthead">
+        <p class="zjq_kicker">ASR · Qwen-Audio / 2026-2027-1</p>
+        <h1 class="zjq_title">输入语音，<em>输出文字</em></h1>
+        <p class="zjq_subtitle">
+            使用七牛 <code>Qwen-Audio-3.0-ASR-Flash</code> 模型：录音或上传音频 →
+            <code>POST /api/asr</code> → base64 <code>input_audio</code> 消息 → 转写文字返回。
+        </p>
+        <div class="zjq_meta">
+            <div class="zjq_metaItem"><span>NAME</span><b>赵俊清</b></div>
+            <div class="zjq_metaItem"><span>学号</span><b>24006270205</b></div>
+            <div class="zjq_metaItem"><span>模型</span><b>qwen/qwen-audio-3.0-asr-flash</b></div>
+            <div class="zjq_metaItem"><span>BaseURL</span><b>api.qnaigc.com/v1</b></div>
+        </div>
+    </header>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">01</span>
+            <h2 class="zjq_secTitle">语音输入</h2>
+            <span class="zjq_secEn">INPUT</span>
+        </div>
+        <p class="zjq_apiBar">
+            当前调用接口：<a href="/api/asr"><code id="zjq_asrUrl">/api/asr</code></a>
+            <span class="zjq_apiTag">POST · multipart · 字段名 zjq_audio</span>
+        </p>
+
+        <div class="zjq_drop" id="zjq_dropAsr">
+            <div class="zjq_dropTitle">拖入音频文件，或点下面按钮现场录音</div>
+            <div class="zjq_dropHint">支持 WAV / MP3 / M4A / AAC / OGG / WEBM / FLAC，单个 ≤ 10MB；模型支持 5 分钟以内音频</div>
+            <input class="zjq_input" type="file" id="zjq_audioFile" accept="audio/*,.wav,.mp3,.m4a,.aac,.ogg,.webm,.flac">
+        </div>
+
+        <div class="zjq_toolRow">
+            <button class="zjq_btn zjq_btnRed" id="zjq_btnRecord" type="button">● 开始录音</button>
+            <button class="zjq_btn zjq_btnGhost" id="zjq_btnStop" type="button" disabled>■ 停止录音</button>
+            <button class="zjq_btn" id="zjq_btnAsr" type="button">语音转文字 →</button>
+        </div>
+        <div class="zjq_statusLine" id="zjq_recordStatus">未录音。也可以直接上传本地音频文件。</div>
+        <audio class="zjq_audio" id="zjq_audioPlayer" controls style="display:none"></audio>
+    </section>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">02</span>
+            <h2 class="zjq_secTitle">识别结果（文字）</h2>
+            <span class="zjq_secEn">OUTPUT</span>
+        </div>
+        <div class="zjq_statusLine" id="zjq_asrStatus">等待识别。</div>
+        <div class="zjq_answer" id="zjq_transcript">识别出的文字会显示在这里。</div>
+        <div class="zjq_statusLine" id="zjq_audioMeta">音频信息：—</div>
+    </section>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">03</span>
+            <h2 class="zjq_secTitle">发送给 / 接收自大模型的数据</h2>
+            <span class="zjq_secEn">I / O</span>
+        </div>
+        <p class="zjq_note">
+            本节课要求：在控制台输出发送给大模型的数据和接收自大模型的数据。
+            下面两块与浏览器 <code>console.log</code> 同步；base64 音频在页面展示做了折叠，控制台是完整对象。
+        </p>
+        <div class="zjq_ioGrid">
+            <div class="zjq_ioCard">
+                <div class="zjq_ioHead"><span>SENT → 发送给大模型的数据</span><em id="zjq_sentTagAsr">等待请求</em></div>
+                <pre class="zjq_ioBody" id="zjq_sentAsr"><div class="zjq_ioEmpty">尚未发送请求。</div></pre>
+            </div>
+            <div class="zjq_ioCard">
+                <div class="zjq_ioHead"><span>RECEIVED ← 接收自大模型的数据</span><em id="zjq_recvTagAsr">等待响应</em></div>
+                <pre class="zjq_ioBody" id="zjq_recvAsr"><div class="zjq_ioEmpty">尚未收到响应。</div></pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="zjq_sec">
+        <div class="zjq_secHead">
+            <span class="zjq_secNo">04</span>
+            <h2 class="zjq_secTitle">接口要点（答辩用）</h2>
+            <span class="zjq_secEn">NOTE</span>
+        </div>
+        <ul class="zjq_checkList">
+            <li>Model ID：<code>qwen/qwen-audio-3.0-asr-flash</code>，BaseURL <code>https://api.qnaigc.com/v1</code>。</li>
+            <li>音频以 <code>data:audio/xxx;base64,...</code> 放进 <code>input_audio.data</code>，走 OpenAI 兼容的 <code>/v1/chat/completions</code>。</li>
+            <li>Key 用 <code>Authorization: Bearer sk-xxx</code> 由后端携带；前端只与 <code>/api/asr</code> 通信。</li>
+            <li>无 Key 时进入离线演示：录音、编码、请求体组装全部照常，控制台照常打印收发数据，页面不白屏。</li>
+        </ul>
+    </section>
+
+    <footer class="zjq_footer">
+        <a href="index.html">← 返回项目首页</a>
+        <span>localhost:8205 · 原生前端 · 无第三方库</span>
+    </footer>
+
+</div>
+</body>
+</html>
